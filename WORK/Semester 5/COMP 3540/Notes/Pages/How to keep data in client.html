@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)http://cs.tru.ca/~mlee/comp3540/Winter2018/7.%20some_other_topics/1.%20webstorage.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>How to keep data in client</title>
+    <link type="text/css" rel="stylesheet" href="./How to keep data in client_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./How to keep data in client_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./How to keep data in client_files/table.css">
+    <script src="./How to keep data in client_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./How to keep data in client_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">7.1 How to keep data in client</h1>
+    </div>
+    <script>
+        var folded = true;
+        $('.pane_upper2').click(function() {
+            if (folded) {
+                $('x-summary').siblings().show();
+                folded = false;
+            } else {
+                $('x-summary').siblings().hide();
+                folded = true;
+            }
+            //$('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 7 section 1">
+        <li><x-summary>Motivations</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Sometimes we need to keep data in our cell phones (or desktop computers), not server.</li>
+            </ul>
+        </li>
+
+        <li><x-summary>WebStorage</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/html/html5_webstorage.asp">HTML5 Local Storage</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Can your web applications store data locally within the client's file system,
+                            so that other programs can use the data?</li>
+                        <li>Can the data stored in local storage be transferred to server-side scripts like cookies?</li>
+                        <li>Can the data stored in local storage be shared by all the programs from the same domain?</li>
+                        <li>localStorage.???() is used to set a data item,
+                            localStorage.???() is used to get a data item,
+                            and localStorage.???() is used to remove a data item.</li>
+                        <li>What kind of data can be stored?</li>
+                        <li>How do you think of localStorage.test = 'Wow!' and localStorage.setItem('test', 'Wow!')?</li>
+                        <li><x-summary>
+                            name and value are always stored as strings.
+                            Can you store an object in localStorage? If so, how?</x-summary>
+<pre style="display: block;">localStorage.setItem("john", JSON.stringify({name: "Smith", age: 20}));
+alert(JSON.parse(localStorage.getItem("john")).age);
+</pre>
+                        </li>
+                        <li>What is the life span of the data in localStorage?</li>
+                        <li>Do you remember how to delete a property of an object?</li>
+                        <li>How do you store data within the user's browser for only one session?</li>
+                        <li>How can you store server side data in client?</li>
+                        <li><x-summary><b>Trial 1</b>: Let's try to make a memo application using the local storage.
+                            In this exercise, 'db-demo' is used to keep string values.
+                            For testing, you store a memo, reload the page, and display the memo to see if you can.
+                            </x-summary>
+                            <div style="display: block;">
+                                <textarea id="try1-textarea" rows="35" cols="100">&lt;label for='tr1-title'&gt;Title: &lt;/label&gt;
+&lt;input id='tr1-title' placeholder='memo title'&gt;&lt;br&gt;
+&lt;label for='tr1-memo'&gt;Memo: &lt;/label&gt;
+&lt;textarea id='tr1-memo' cols='50' placeholder='memo content'&gt;&lt;/textarea&gt;&lt;br&gt;
+&lt;div id='tr1-memos'&gt;Memos = &lt;/div&gt;
+&lt;button id='tr1-keepit' type='button'&gt;Keep it!&lt;/button&gt;
+&lt;button id='tr1-display' type='button'&gt;Display all!&lt;/button&gt;
+&lt;button id='tr1-remove' type='button'&gt;Remove all!&lt;/button&gt;
+&lt;script&gt;
+    $('#tr1-keepit').click(function() {
+        // retrive the db
+        var db = localStorage.???('db-memo');  // retrieve the db
+        // convert the db value to an object
+        if (db == null) db = ???;  // empty linear array  
+        else db = JSON.???(db);
+        // construct an object for a new memo; { title: memo }
+        var obj = ???;  // empty object
+        obj[???] = $('#tr1-memo').???();  // the memo title and content
+        // push the object into db
+        db.???(obj);
+        // convert db to a string and save it into the local storage
+        db = ???.???(db);
+        ???.???('db-memo', db);
+    });
+    $('#tr1-display').click(function() {
+        // retrive the db from the local storage
+        var db = ???.???('db-memo');
+        // display the db
+        $('#tr1-memos').???(???);
+    });
+    $('#tr1-remove').click(function() {
+        // remove the db from the local storage
+        ???.???(???);
+    });
+&lt;/script&gt;
+                                </textarea>
+                                <button id="try1-button">Submit</button>
+                                <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try1-button').click(function() {
+                                        $('#try1-div').html($('#try1-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><x-summary>How can you store more complex data, i.e., objects?</x-summary>
+<pre style="display: block;">localStorage.setItem("john", JSON.stringify({name: "Smith", age: 20}));
+localStorage.course = "COMP3540";
+alert(JSON.parse(localStorage.getItem("john")).age + "; " + localStorage.course);
+</pre>
+                </li>
+
+                <li><x-summary>How to browse all the data in localStorage</x-summary>
+<pre style="display: block;">for (var p in localStorage)  // localStorage is an object.
+    alert(localStorage[p]);
+</pre>
+                </li>
+                <li>Can you implement a client-side key-value database? Using localStorage?</li>
+                <li>You may be interested in offline web applications. Visit <a target="_blank" href="https://www.html5rocks.com/en/mobile/workingoffthegrid/">HTML5 FEATURES
+OFFLINE</a>.</li>
+                <li>You may be interested in client-side databases, such as IndexedDB. 
+                    Visit <a target="_blank" href="https://www.html5rocks.com/en/tutorials/offline/storage/">Client-Side Storage</a>.</li>
+                
+                <li>Just a question. How can you store data in the server system?</li>
+            </ul>
+        </li>
+        
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Use WebStorage to keep data in the user's browser.</li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+
+</body></html>

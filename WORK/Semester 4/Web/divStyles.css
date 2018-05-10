@@ -1,0 +1,22 @@
+
+.dataDiv{
+	background:rgba(44, 200, 226, 0.66);
+	width:100%;
+	padding:15px;
+	border-bottom:15px solid grey;
+}
+#aboutMe{
+	background:rgba(255, 200, 226, 0.66);
+}
+#skills{
+	background:rgba(0, 190, 104, 0.66)
+}
+#education{
+	background:rgba(245, 182, 35, 0.54);
+}
+#experience{
+	background:rgba(60, 200, 60, 0.66);
+}
+#contactMe{
+	background:rgba(80, 80, 80, 0.2);
+}

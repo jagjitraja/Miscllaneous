@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Sign In - TruQA</title>
+    <style>
+        
+        #ddm {
+            position:fixed;
+            top:0px;
+            left:0px;
+			width:100%;
+        }
+        #ddm li, #ddm ul {
+            list-style: none;
+            padding: 0;
+            background-color: Gray;
+            cursor:pointer;
+        }
+		
+        #ddm ul {
+            border:1px solid black;
+        }
+        #ddm > li {
+            position: relative;
+        }
+        #ddm > li > ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+        #ddm > li > ul > li { padding: 5px; }
+		
+        #ddm li:hover {
+            background-color: #eee;
+        }
+        #ddm > li:hover > ul {
+            display: block;
+        }
+        
+        
+		body{
+			position:relative;
+			height:100%;
+			width:100%;
+		}
+        #blanket {
+            width:100vw;
+            height:100vw;
+            position:fixed;
+            top:0;
+            left:0;
+            opacity:0.6;  /* for the transparency */
+            background:Grey;
+            z-index:5;
+            display:none;
+        }
+		
+		h2.modal_heading{
+			text-align:center;
+		}
+
+        .modal-window {
+            width: 50%;
+            height: 50%;
+            position: fixed;
+            top: 25%;
+            left: 25%;  /* SHOULD be at the horizontal center of the viewport */
+            border: 1px solid black;
+            background-color:White;
+            z-index:10;
+            display: none;
+			padding:25px;
+        }
+        .modal-label {
+            display:inline-block;
+            width:80px;
+        }
+        .modal-window > form {
+            margin-left: 20px;
+        }
+        .modal-window > form > button[type=submit] {  /* submit button */
+            display: inline-block;
+            position: absolute;
+            left: 50px;
+        }
+        .modal-window > form > button[type=reset] {  /* reset type button */
+            display: inline-block;
+            position: absolute;
+            right: 120px;
+        }
+        .modal-window > form > button[type=button] {  /* just button type for cancel */
+            display: inline-block;
+            position: absolute;
+            right: 50px;
+        }
+		
+    </style>
+    
+    <script>
+        // Event listeners
+        
+        window.addEventListener('load', function() {
+			hide_all_modal_windows();
+			document.getElementById('menu-signin').addEventListener('click', show_signin_modal_window);
+            document.getElementById('menu-join').addEventListener('click', show_join_modal_window);
+            document.getElementById('blanket').addEventListener('click', hide_all_modal_windows);
+            document.getElementById('cancel-signin').addEventListener('click', hide_all_modal_windows);
+            document.getElementById('cancel-join').addEventListener('click', hide_all_modal_windows);
+        });
+        function show_signin_modal_window() {
+			hide_all_modal_windows();
+			document.getElementById('blanket').style.display = 'block';
+            document.getElementById('modal-signin').style.display = 'block';
+        }
+        function show_join_modal_window() {
+			hide_all_modal_windows();
+			document.getElementById('blanket').style.display = 'block';
+            document.getElementById('modal-join').style.display = 'block';
+        }
+        function hide_all_modal_windows() {
+            document.getElementById('blanket').style.display = 'none';
+            document.getElementById('modal-join').style.display = 'none';
+            document.getElementById('modal-signin').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    
+			<h1 style='text-align:center'>TRU Questions & Answers</h1>
+			<hr>
+    <ul id='ddm'>
+        <li id = "nav" style='width: 50px;'>
+		<img src='menu_icon.png' width='50px' height='50px'></img>
+            <ul style='width:120px'>
+                <li id='menu-signin'>Sign In</li>
+                <li id='menu-join'>Join</li>
+                <li id='menu-forgot-password'>Forgot Password</li>
+                <li id='menu-unsubscribe'>Unsubscribe</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div id='blanket'>
+    </div>
+
+    <div id='modal-signin' class='modal-window'>
+        <h2 class='modal_heading'>Sign In</h2>
+        <br>
+        <form method="get" action='//cs.tru.ca/~mlee/comp3540/Software/test_display_inputs.php'>
+            <input type='hidden' name='page' value='StartPage'></input>
+            <input type='hidden' name='command' value='SignIn'></input>
+            <label class='modal-label'>Username:</label> 
+            <input type='text' name='username' placeholder='Enter username' required></input>
+            <br>
+            <label class='modal-label'>Password:</label> 
+            <input type='password' name='password' placeholder='Enter password' ???></input>
+            <br>
+            <br>
+            <button type='submit' value='Submit'>Submit</button>
+            <button type='reset' value='Reset'>Reset</button>
+            <button id='cancel-signin' type='button' value='Cancel'>Cancel</button>
+        </form>
+    </div>
+
+    <div id='modal-join' class='modal-window'>
+        <h2 class='modal_heading'>Join</h2>
+        <br>
+        <form method="get" action='//cs.tru.ca/~mlee/comp3540/Software/test_display_inputs.php'>
+            <input type='hidden' name='page' value='StartPage'></input>
+            <input type='hidden' name='command' value='Join'></input>
+            
+            <label class='modal-label'>Username:</label> 
+            <input type='text' name='username' placeholder='Enter username' required></input>
+            <br>
+            <label class='modal-label'>Password:</label> 
+            <input type='password' name='password' placeholder='Enter password' required></input>
+            <br>
+            <label class='modal-label'>Email:</label> 
+            <input type='email' name='email' placeholder='Enter email address'required></input>
+            <br>
+            <br>
+            <button type='Submit' value='Submit'>Submit</button>
+            <button type='reset' value='Reset'>Reset</button>
+            <button id='cancel-join' type='button' value='Cancel'>Cancel</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- saved from url=(0093)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/8.%20pushing.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>6.8 How to push data to client</title>
+    <link type="text/css" rel="stylesheet" href="./6.8 How to push data to client_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./6.8 How to push data to client_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./6.8 How to push data to client_files/table.css">
+    <script src="./6.8 How to push data to client_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./6.8 How to push data to client_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">6.8 How to push data to client</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+        <!-- examples -->
+        <div id="div_example">The server time is "Tue, 30 Jan 2018 10:15:33 -0800".</div>
+        <script>
+            var sse;
+            window.addEventListener('load', function() {
+                document.getElementById('div_example').innerHTML = 'The server time is ';
+                var uri = 'test_sse_server.php';
+                sse = new EventSource(uri);
+                sse.onmessage = function(event) {
+                    document.getElementById('div_example').innerHTML = 
+                        'The server time is "' + event.data + '".';
+                }
+                //sse.onerror = function(e) { alert(e.data); };
+            });
+        </script>
+        <!-- end of examples -->
+    
+    <ol class="nested_subsection" style="counter-reset: chapter 6 section 8">
+        <li><x-summary>Motivations</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Look the above example of server time.
+                    The messages keep coming from the server script on cs.tru.ca, without any further requests.</li>
+                <li>In TRUQA, how to notify the users there is now a new question?</li>
+                <li>In TRUQA, how to display server time?</li>
+                <li>How about 'Live/Developing' in <a target="_blank" href="http://www.cbc.ca/news/">CBCnews</a>?</li>
+                <li>The whole current page should NOT be redisplayed.</li>
+            </ul>
+        </li>
+
+        <li><x-summary>How to push data to the client?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Do you have any ideas?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><b>Polling</b> - The client repeatedly requests information from the server.</li>
+                        <li><b>Long Polling</b> - A variation of polling technique. 
+                            If the server does not have any information available for the client 
+                            when the poll is received, instead of sending an empty response, 
+                            the server holds the request open and 
+                            waits for response information to become available.</li>
+                        <li>How can you implement polling for News or notification feeding?</li>
+                        <li>Can you use iframe or AJAX for polling?</li>
+                    </ul>
+                </li>
+                <li><x-summary>But the above ideas are still not perfect. Why?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>The server program has to wait till the client program sends a request. 
+                            There can be some delay.</li> 
+                        <li><x-summary>Any other ideas?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><b>WebSocket</b> that is a protocol providing stateful full-duplex communications channels over a single TCP connection.</li>
+                                <li>However many applications do not need stateful full-duplex communications. 
+                                    Just information from the server is good enough.</li>
+                                <li><x-summary>Another good solution is</x-summary> <span class="xemp" style="display: inline;"><b>Server-Sent Event (SSE)</b>.</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><x-summary>How to use <span class="xemp">Server-Sent Event(SSE)</span>?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>What is SSE?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Read 'Server-Sent Events - One Way Messaging' and 'Receive Server-Sent Event Notifications'
+                            in <a target="_blank" href="http://www.w3schools.com/html/html5_serversentevents.asp">HTML5 Server-Sent Events</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>When is SSE used?</li>
+                                <li>Give several examples of using SSE.</li>
+                                <li>Is SSE AJAX?</li>
+                                <li>What object is used to receive SSE notifications?</li>
+                                <li>What kind of events are used?</li>
+                                <li>How to check if your browser supports SSE?</li>
+                                <li><x-summary>In the example, addEventListener() can be used instead of onmessage?</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;&nbsp;Yes</span></li>
+                                <li><b>Advanced questions</b>: SSE objects are not HTML element objects.
+                                    How is it possible to trigger the 'message' event on the SSE objects?
+                                    What triggers the 'message' event?
+                                    Can you write the code that uses custom events?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>How to use SSE in the client?</x-summary>
+                    <ol is="ul-circle" style="display: block;">
+                        <li>Create an <b>EventSource</b> object with the URL of a server program that pushes information.</li>
+                        <li>Wait for the message events that include the messages sent from the server program. 
+                            The server program can send messages any time, e.g., by echoing string messages
+                            that include event names. 
+                            But the '<b>content-type</b>' in the HTML packet should be '<b>text/event-stream</b>'.</li>
+                    </ol>
+                </li>
+                <li><x-summary><b>SSE message format (Line by line ending with an empty line) sent from the server</b></x-summary>
+<pre style="display: block;">"retry: ...\n"          &lt;- Just once. <i><b>Do not use ' ... '</b></i>, because ' ... ' does not interpret \n as the real newline.
+"event: ...\n"          &lt;- This is optional. The default event name is 'message'.
+"id: ...\n"             &lt;- This is an user defined id and is optional.
+"<b>data:</b> ...any text based message, including JSON...<b>\n</b>"
+"<b>\n</b>"                    &lt;- End of the message.
+</pre>
+                </li>
+                <li><x-summary>Event types on EventSource:</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>open</li>
+                        <li>error</li>
+                        <li>message - default event for data; when an event is not defined in the SSE message.</li>
+                        <li><i>user-defined event</i> - when a different event name is defined in the SSE message.</li>
+                    </ul>
+                </li>
+                <li><x-summary>Event object on EventSource has ...</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>origin</li>
+                        <li>id</li>
+                        <li><b>data</b></li>
+                    </ul>
+                </li>
+                <li><x-summary>EventSource object has ...</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>readyState</li>
+                        <li>close()</li>
+                    </ul>
+                </li>
+                <li><x-summary>Here is an <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/test_sse_client.html">example</a> 
+                    to display date/time coming from the server.</x-summary>
+<pre style="display: block;">//---- CLIENT:
+
+window.addEventListener('load', function() { ... start_sse(); ... });
+
+function start_sse()
+{
+    if ('<b>EventSource</b>' in window)  // Only when this browser supports SSE
+    {
+        var source = new <b>EventSource</b>("server_time.php?subject=COMP&amp;no=3540");  // Can a URL include query?
+        // The browser usually reopens every 3 seconds. 
+        // This can be controlled by the server using "retry:".
+        source.<b>onopen</b> = function(event) { ... }
+        source.<b>onerror</b> = function(event) { ... }
+        source.<b>onmessage</b> = function(event) {
+            // if (e.<b>origin</b> != '...') return;  // for security concern
+            if (event.<b>id</b> == 'CLOSE')  // user-defined id
+                source.close();
+            else  // event.data
+                document.getElementById("server_time").innerHTML = 
+                        "The server time with 'message': " + event.<b>data</b>;
+        };
+        source.addEventListener('newevent',  // a new user-defined event
+                                             // Can you use source.onnewevent = ...?
+            function(event) {
+                if (event.id == 'CLOSE')
+                    source.close();
+                else  // event.data
+                    document.getElementById('server_time').innerHTML = 
+                        "The server time with 'newevent': " + event.<b>data</b>;
+            },);
+    }
+    else {
+        document.getElementById('message').innerHTML = 'No EventSource';
+    }
+}
+
+//---- SERVER: server_time.php
+
+&lt;?php
+    $subject = $_GET['subject'];
+    $number = $_GET['no'];
+        
+    header("<b>Content-Type: text/event-stream</b>");  // This functions sends a raw HTTP header to a client.
+    header('<b>Cache-Control: no-cache</b>');          // You may refer to http://www.w3schools.com/php/func_http_header.asp
+
+    echo "<b>retry</b>: 3000\n";  // 3 seconds
+                                  // Use double quotes. 
+                                  // If single quotes are used, \n will not be interpreted as the newline character, and 
+                                  // this will make a trouble.
+    $count = 0;
+    while ($count &lt; 3600) {  // just one hour
+        if ($count++ % 2 == 0)
+            echo "<b>event</b>: newevent\n";  // use the new user-defined event 'newevent'
+        else
+            ;  // use the default event 'message'
+        $time = date('r');
+        echo "<b>data</b>: $time\n";
+        echo "\n";  // <b>the end of a message</b>
+
+        ob_flush();  // flush the output buffer
+        flush();  // flush the system buffer
+            
+        sleep(1);  // sleep 1 second
+    }
+?&gt;
+</pre>
+                </li>
+                <li>Can you see in the above example how to make a PHP program run for a long time?
+                    Is it possible to send a form data to a PHP program that is currently running?</li>
+                <li>Here is another good reference - <a target="_blank" href="https://hpbn.co/server-sent-events-sse/">Server-Sent Events (SSE)</a>.</li>
+            </ul>
+        </li>
+        
+        <li>Is it possible to make a bidirectional communication channel using SSE for real time applications such as chatting?</li>
+
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to use SSE for pushing.</li>
+            </ul>
+        </li>
+    </ol>
+    <br>
+    </div>
+
+
+</body></html>

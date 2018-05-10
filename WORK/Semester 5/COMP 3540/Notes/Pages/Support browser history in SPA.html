@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/9.%20browser_history.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Support browser history in SPA</title>
+    <link type="text/css" rel="stylesheet" href="./Support browser history in SPA_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./Support browser history in SPA_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./Support browser history in SPA_files/table.css">
+    <script src="./Support browser history in SPA_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./Support browser history in SPA_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">6.9 How to support browser history in SPA</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div style="position:fixed; right:20px; top:100px; width:100px; height:50px; z-index:999">
+        <button id="button-test-page" style="background-color: DarkOrange">Logical page 0</button>
+        <button id="button-test-back">Click me to go back!</button>
+        <button id="button-test-forward">Click me to go forward!</button>
+        <button id="button-test-push">Click me to push a state! Try back and forward to see the messages.</button>
+    </div>
+    <script>
+        $('#button-test-back').click(function() {
+            window.history.back();
+        });
+        $('#button-test-forward').click(function() {
+            window.history.forward();
+        });
+        var page_no = 0;
+        $('#button-test-push').click(function() {
+            page_no++;
+            var obj = {page_no: page_no, page: 'MainPage', command:'SearchQuestions', 'search-terms': 'TRU'};
+            alert('Pushing ' + JSON.stringify(obj));
+            history.pushState(obj, "TEST");
+            $('#button-test-page').html('Logical page ' + obj.page_no);
+        });
+        $(window).on('popstate', function(e) {
+            if (e.originalEvent.state == null) {
+                alert('Initial page');
+                $('#button-test-page').html('Logical page ' + 0);
+            }
+            else {
+                alert("Location: " + document.location + ", state: " + JSON.stringify(e.originalEvent.state));
+                $('#button-test-page').html('Logical page ' + e.originalEvent.state.page_no);
+            }
+        });
+    </script>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 6 section 9">
+        <li><x-summary>Motivations</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>In SPA, data are exchanged between the client and the server, using AJAX.</li>
+                <li>The browser does not consider the AJAX data as a new page.
+                    Hence the back and forward buttons cannot be used, even though they are sometimes very convenient to use.
+                </li>
+                <li>Simply put, logical pages in a SPA.</li>
+                <li>Any good idea?</li>
+            </ul>
+        </li>
+
+        <li>Try this - <a target="_blank" href="http://html5.gingerhost.com/">A pushState Example</a>.</li> 
+        
+        <li><x-summary>How to support browser history - HTML5 history API</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Read all in <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/History_API">Manipulating the browser history</a>.
+                </li>
+                <li>Moving forward</li>
+                <li>Moving backword</li>
+                <li>Moving to a specific point in history</li>
+                <li><x-summary>Adding and modifying history entries</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><code>history.pushState()</code></li>
+                        <li><code>onpopstate</code></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+        <li><x-summary>Here is an example code that can be used for TRUQA.</x-summary>
+<pre style="display: block;">var logical_page_no = 0;
+$('#button-search-questions').click(function() {
+    logical_page_no++;
+    var stateObj = {logical_page_no:logical_page_no, page: 'MainPage', command:'SearchQuestions', 'search-terms': 'TRU'};
+    <b>history.pushState</b>(stateObj, "SearchQuestions");
+
+    // send ajax requrest
+    ...
+});
+$(<b>window</b>).on('<b>popstate</b>', function(e) {
+    if (e.<b>originalEvent</b>.state == null)
+        logical_page_no = 0;;  // The initial page
+    else {
+        logical_page_no = e.originalEvent.state.logical_page_no;
+
+        // send ajax request with the information stored in e.originalEvent.state
+        //                          e.originalEvent.state.page, e.originalEvent.state.command, e.originalEvent.state['serarch-terms']
+        ...
+    }
+});
+</pre>
+        </li>
+        
+        <br>
+        <li><x-summary>Some review questions and learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+            </ul>
+        </li>
+    </ol>
+    <br>
+    </div>
+
+
+</body></html>

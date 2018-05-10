@@ -1,0 +1,197 @@
+        body {
+            line-height: 150%;
+        }
+        
+        .xemp {
+            font-weight: bold;
+        }
+        .xemp:hover {
+            font-size: 150%;
+            color: OrangeRed;
+        }
+        
+        a:hover {
+            background-color: Gold;
+        }
+
+        .magic:hover {
+            color: Blue;
+        }
+        .magic * {
+            display: none;
+            background-color: #E0E0E0;
+        }
+        .magic:hover * {
+            display: block;
+        }
+        .magic:hover ul * {
+            display: list-item;  /* not block */
+        }
+        .magic:hover ol * {
+            display: list-item;  /* not block */
+        }
+
+        /*
+        ul, ol, li {
+            margin-left: -10px;
+        }
+		*/
+
+		details ul, details pre, details code {
+            background-color: #E0E0E0;
+		}
+        
+        /* for toggling */
+        details summary::-webkit-details-marker { display: none; }
+        details summary:hover { 
+            cursor: pointer; 
+            background-color: LightSkyBlue; 
+        }
+
+        /* x-summary: custom element to toggle all the siblings by using jQuery */
+        /* instead of details and summry */
+        x-summary:hover { 
+            cursor: pointer; 
+            background-color: LightSkyBlue; 
+        }
+		x-summary + * {
+            display: none;
+            background-color: #E8E8E8;
+		}
+        
+        /* instead of details and summry */
+        .toggle:hover { 
+            cursor: pointer; 
+            background-color: LightSkyBlue; 
+        }
+		.toggle > ul, .togle > ol, .toggle > p, .toggle > div {  /* why not '.toggle *' ? */
+            display: none;
+            background-color: #E8E8E8;
+		}
+        
+        /* when this is clicked, some parts will be loaded. */
+        .clickable:hover { 
+            cursor: pointer; 
+            background-color: LightSkyBlue; 
+        }
+        
+        /* click and close a section */
+        li.click_to_close:hover {
+            cursor: pointer; 
+            background-color: LightSkyBlue; 
+        }
+
+        pre {
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: #C0C0C0;
+        }
+        code {
+            background-color: #C0C0C0;
+        }
+        
+        /* nested ordered list */
+        OL.nested { counter-reset: item }
+        ol.nested > LI { display: block }
+        ol.nested > LI:before { content: counters(item, ".") " \0000a0\0000a0"; counter-increment: item }
+
+        /*
+        *   nested order list, e.g., 2.1, 2.2, 2.3, ...
+        */
+        
+        .nested_section { /* delete the list number */
+            margin-left: 0;
+            padding-right: 0;
+            list-style-type: none;
+
+            counter-reset: chapter 1;  /* This should be adjusted with the class declaration */
+        }
+        .nested_section > li { /* define the counter for the list items */
+            counter-increment: section;
+        }
+        .nested_section > li::before { /* put something before each list item */
+            display: inline-block; /* to control the before pseudo element */
+            width: 25px;
+            text-align: left;
+            position: relative;
+            margin-right: 10px;
+            margin-left: -20px;
+
+            content: counter(chapter) '.' counter(section); /* content of the before pseudo element */
+        }
+        .nested_subsection { /* delete the list number */
+            margin-left: 0;
+            padding-right: 0;
+            list-style-type: none;
+
+            counter-reset: chapter 1 section 1;  /* This should be adjusted with the class declaration */
+        }
+        .nested_subsection > li { /* define the counter for the list items */
+            counter-increment: subsection;
+        }
+        .nested_subsection > li::before { /* put something before each list item */
+            display: inline-block; /* to control the before pseudo element */
+            width: 35px;
+            text-align: left;
+            position: relative;
+            margin-right: 10px;
+            margin-left: -20px;
+
+            content: counter(chapter) '.' counter(section) '.' counter(subsection); /* content of the before pseudo element */
+        }
+
+        /*
+        *   upper and lower panes
+        */
+        
+        .pane_upper2 {
+            position: fixed;
+            width: calc(100% - 36px / 2);  /* Hmmm, even division is supported. */
+            height: 70px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius:15px; 
+            box-shadow: 10px 10px 5px Grey;
+        }
+        .pane_upper2:hover { 
+            cursor: pointer; 
+            background-color: LightSkyBlue; 
+        }
+        .pane_upper2:active {
+            background-color: LightSkyBlue;
+        }
+        .pane_upper2 > h1:active {
+            background-color: LightSkyBlue;
+        }
+        .pane_upper2 > h2:active {
+            background-color: LightSkyBlue;
+        }
+        
+        .pane_lower2 {
+            position: fixed;
+            width: calc(100% - 8px);
+            height: calc(100% - 80px - 50px);
+            top: 100px;
+            overflow-y: auto;
+        }
+        
+        /*
+        *   Layout
+        */
+        
+        nav {
+            position: fixed;
+            width: calc(100% - 8px);
+            height: calc(100% - 80px - 50px);
+            top: 100px;
+            overflow-y: auto;
+        }
+        
+        footer {
+            position: fixed;
+            bottom: 0px;
+            height: 40px;
+            width: 100%;
+        }

@@ -1,0 +1,222 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<!-- Shivani Patel T00064422 -->
+
+<head>
+
+<title> Assigment2 </title>
+
+<link rel = "stylesheet" type = "text/css" href = "styling.css">
+
+<script type = "text/javascript">
+
+
+
+var d=new Date();
+var monthname=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+//Ensure correct for language. English is "January 1, 2004"
+var TODAY = monthname[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+
+
+var x0, y0; 
+	var direction = "not determined yet"; 
+
+	window.addEventListener('load', function(e) { 
+		
+		x0 = window.innerWidth / 2; 
+		y0 = (window.innerHeight - 100) / 2 + 100; 
+		
+		displayDirectionToMouse();
+		
+		// for resize
+		window.addEventListener('resize', function(e) {
+		x0 = window.innerWidth / 2; 
+		y0 = (window.innerHeight - 100) / 2 + 100; 
+	});
+	
+		//for mousemove
+		document.body.addEventListener("mousemove", function(e) {  
+		 var x = e.clientX; 
+		 var y = e.clientY; 
+		 
+		 var angle; 
+
+		 // Upper and right 
+		 if (x >= x0 && y <= y0) { 
+			 angle = Math.atan((y0 - y) / (x - x0)); 
+			 if (angle >= (Math.PI / 2) * (5 / 6)) 
+				 direction = "12 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+				 direction = "1 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+			     direction = "2 o'clock"; 
+			 else 
+			 	direction = "3 o'clock"; 
+		  } 
+		  // Upper and left 
+		  else if (x < x0 && y <= y0) { 
+
+		     angle = Math.atan((y - y0) / (x - x0));
+			 
+			 if (angle >= (Math.PI / 2) * (5 / 6)) 
+				 direction = "12 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+				 direction = "11 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+			     direction = "10 o'clock"; 
+			 else 
+			 	direction = "9 o'clock"; 
+		  } 
+		  // Lower and left 
+		  else if (x < x0 && y > y0) { 
+		  	angle = Math.atan((y0 - y) / (x - x0));
+
+		  if (angle >= (Math.PI / 2) * (5 / 6)) 
+		  	direction = "6 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+		  	direction = "7 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+		  	direction = "8 o'clock"; 
+		  else direction = "9 o'clock";
+		  } // Lower and right 
+		  else { 
+		  	angle = Math.atan((y - y0) / (x - x0)); 
+		  if (angle >= (Math.PI / 2) * (5 / 6)) 
+		  	direction = "6 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+		  	direction = "5 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+		  	direction = "4 o'clock"; 
+		  else direction = "3 o'clock"; 
+		} 
+
+		displayDirectionToMouse(); 
+	});  
+
+	}); 
+
+
+	function displayDirectionToMouse() { 
+		document.getElementById("direction").innerHTML = "Direction to mouse Pointer is: " + direction;
+		
+	} 
+    
+window.addEventListener('load', function() {
+            	document.getElementById('click_signin').addEventListener('click', show_signin);
+            	document.getElementById('click_join').addEventListener('click', show_join);
+   		document.getElementById('click_forgot').addEventListener('click', show_forgot);
+		
+		<?php 	if($display_type == 'signin') {echo 'show_signin()';  }
+				else if ($display_type == 'join') { echo 'show_join()'; }
+		?>
+        });
+		
+	function hide_all() {
+            document.getElementById('box-signin').style.display = 'none';
+            document.getElementById('box-join').style.display = 'none';
+            document.getElementById('box-forgot').style.display = 'none';        
+	}
+		
+        function show_signin() {
+            hide_all();
+            document.getElementById('box-signin').style.display = 'block';
+        }
+		
+        function show_join() {
+            hide_all();
+            document.getElementById('box-join').style.display = 'block';
+        }
+		
+		function show_forgot() {
+            hide_all();
+            document.getElementById('box-forgot').style.display = 'block';
+        }
+
+</script>
+
+</head>
+
+<body style = "background-color: white;">
+    
+<div onclick="hide_all()" id="wrap"></div>
+
+<div class = "main">
+	<div class = "header">
+		TRU Forum
+	
+			<p class = "date"> <script language = "javascript" type = "text/javascript">document.write(TODAY);</script> </p>
+	
+</div>
+
+    
+    
+   
+    
+<div class = "navigation">
+	<ul>
+		<li style = "background-color:white;" ><img style = "margin-top:0px;height:35px; width:50px;" src="menu.jpg"/><a></a>
+			<ul>
+				<li class ="n1" id = "click_signin">Sign In</li>
+				<li class ="n2" id = "click_join">Join </li>
+                <li class ="n3" id = "click_forgot">Forgot Password</li>	
+
+	</ul>
+   </li>
+    </ul>
+</div>
+
+<div class="box" >
+		<div id="direction"><div id = "message"></div></div>
+	</div>
+
+<div class = "footer">
+	<h3><a href = "http://www.tru.ca/science/programs/compsci.html"> About Us </a></h3>
+</div>
+
+<div id ="box-signin">
+    <h3>Sign In</h3>
+    <form  method = 'post'  action = 'controller.php' >
+        <input type = 'hidden' name = 'page' value = 'start' >
+        <input type = 'hidden' name = 'command' value = 'signin' >
+        <p>Username: <input type = 'text' name = 'username' value = '<?php echo $username?>'	placeholder = 'Enter Username' id = "text" required></p>
+        <p>Password: <input type = 'password' name ='password' placeholder = 'Password' id = "text" required ></p>
+        <?php echo $error_message ?>
+		<p><button type ="submit" id = "submit">Sign In</button>
+        <input type ="button" value = "Cancel" id ="cancel" name ="cancel" onclick = "hide_all()"></input></p>    
+</form>
+ </div>
+
+<div id = "box-join">
+    <h3>Join</h3>
+    <form  method = 'post' action ='controller.php'>
+    <input type='hidden' name='page' value='start' required>
+    <input type='hidden' name='command' value='join' required>
+    <p>Username: <input type = 'text' name = 'username' placeholder = 'Enter Username' id='text' required></p>
+    <p>Password: <input type = 'password' name = 'password' placeholder = 'Paswword' id = 'text' required></p>
+    <p>E-mail: <input type = 'email' name = 'email' placeholder = 'Enter e-mail' id = 'text' required></p>
+	<?php echo $err_message ?>
+    <p><button type="submit" id="submit">Join</button>
+        <input type ="button" value = "Cancel" id ="cancel" name ="cancel" onclick = "hide_all()"></input></p>
+    </form>
+    </div>
+
+<div id = "box-forgot">
+    <h3>Forgot Password</h3>
+    <form  method = 'post'  action = 'controller.php' autocomplete = 'on'>
+    <input type='hidden' name='page' value='start' required>
+    <input type='hidden' name='command' value='forgotpassword' required>
+    <p>Username: <input type = 'text' name = 'username' placeholder = 'Enter Username' id='text' required></p>
+    <p><button type = "submit" id = "submit">Submit</button>
+        <input type ="button" value = "Cancel" id ="cancel" name ="cancel" onclick = "hide_all()"></input></p>   
+ </form>
+    </div>
+
+</div>
+    
+
+</body>
+</html>
+			
+

@@ -1,0 +1,203 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<!-- Shivani Patel T00064422 -->
+
+<head>
+
+<title> Assigment2 </title>
+
+<link rel = "stylesheet" type = "text/css" href = "styling.css">
+
+<script type = "text/javascript">
+
+
+
+var d=new Date();
+var monthname=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+//Ensure correct for language. English is "January 1, 2004"
+var TODAY = monthname[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+
+
+var x0, y0; 
+	var direction = "not determined yet"; 
+
+	window.addEventListener('load', function(e) { 
+		
+		x0 = window.innerWidth / 2; 
+		y0 = (window.innerHeight - 100) / 2 + 100; 
+		
+		displayDirectionToMouse();
+		
+		// for resize
+		window.addEventListener('resize', function(e) {
+		x0 = window.innerWidth / 2; 
+		y0 = (window.innerHeight - 100) / 2 + 100; 
+	});
+	
+		//for mousemove
+		document.body.addEventListener("mousemove", function(e) {  
+		 var x = e.clientX; 
+		 var y = e.clientY; 
+		 
+		 var angle; 
+
+		 // Upper and right 
+		 if (x >= x0 && y <= y0) { 
+			 angle = Math.atan((y0 - y) / (x - x0)); 
+			 if (angle >= (Math.PI / 2) * (5 / 6)) 
+				 direction = "12 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+				 direction = "1 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+			     direction = "2 o'clock"; 
+			 else 
+			 	direction = "3 o'clock"; 
+		  } 
+		  // Upper and left 
+		  else if (x < x0 && y <= y0) { 
+
+		     angle = Math.atan((y - y0) / (x - x0));
+			 
+			 if (angle >= (Math.PI / 2) * (5 / 6)) 
+				 direction = "12 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+				 direction = "11 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+			     direction = "10 o'clock"; 
+			 else 
+			 	direction = "9 o'clock"; 
+		  } 
+		  // Lower and left 
+		  else if (x < x0 && y > y0) { 
+		  	angle = Math.atan((y0 - y) / (x - x0));
+
+		  if (angle >= (Math.PI / 2) * (5 / 6)) 
+		  	direction = "6 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+		  	direction = "7 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+		  	direction = "8 o'clock"; 
+		  else direction = "9 o'clock";
+		  } // Lower and right 
+		  else { 
+		  	angle = Math.atan((y - y0) / (x - x0)); 
+		  if (angle >= (Math.PI / 2) * (5 / 6)) 
+		  	direction = "6 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+		  	direction = "5 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+		  	direction = "4 o'clock"; 
+		  else direction = "3 o'clock"; 
+		} 
+
+		displayDirectionToMouse(); 
+	});  
+
+	}); 
+
+
+	function displayDirectionToMouse() { 
+		document.getElementById("direction").innerHTML = "Direction to mouse Pointer is: " + direction;
+		
+	} 
+    
+function show(name){
+
+    document.getElementById(name).style.display = 'block';
+	document.getElementById('wrap').style.display = 'block';
+ }
+
+function hide(){
+
+    document.getElementById('SignIn').style.display = 'none';      
+	document.getElementById('Join').style.display = 'none';           
+	document.getElementById('ForgotPassword').style.display = 'none';
+    document.getElementById('wrap').style.display = 'none';
+}
+
+
+</script>
+
+</head>
+
+<body style = "background-color: white;">
+    
+<div onclick="hide();" id="wrap"></div>
+
+<div class = "main">
+	<div class = "header">
+		TRU Forum
+	
+			<p class = "date"> <script language = "javascript" type = "text/javascript">document.write(TODAY);</script> </p>
+	
+</div>
+ 
+<div class = "navigation">
+	<ul>
+		<li style = "background-color:white;" ><img style = "margin-top:0px;height:35px; width:50px;" src="menu.jpg"/><a></a>
+			<ul>
+				<li class ="n1" onclick = "show('SignIn')">Sign In</li>
+				<li class ="n2" onclick = "show('Join')">Join </li>
+                <li class ="n3" onclick = "show('ForgotPassword')">Forgot Password</li>	
+
+	</ul>
+   </li>
+    </ul>
+</div>
+
+<div class="box" >
+		<div id="direction"><div id = "message"></div></div>
+	</div>
+
+<div class = "footer">
+	<h3><a href = "http://www.tru.ca/science/programs/compsci.html"> About Us </a></h3>
+</div>
+
+<div id ="SignIn">
+    <h3>Sign In</h3>
+    <form  method = 'get'  action = 'controller.php'  autocomplete='on'>
+        <input type = 'hidden' name = 'page' value = 'startpage' required></input>
+        <input type = 'hidden' name = 'cmd' value = 'signin' required></input>
+        <p>Username: <input type = 'text' name = 'username' placeholder = 'Enter Username' id = "text" required></p>
+        <p>Password: <input type = 'password' name ='password' placeholder = 'Password' id = "text" required ></p>
+        <p><button type ="submit" id = "submit">Sign In</button>
+        <input type ="button" value = "Cancel" id ="cancel" name ="cancel" onclick = "hide()"></input></p>
+    </form>
+ </div>
+
+<div id = "Join">
+    <h3>Join</h3>
+    <form  method = 'get' action ='controller.php' autocomplete='on'>
+    <input type='hidden' name='page' value='startpage' required>
+    <input type='hidden' name='cmd' value='join' required>
+    <p>Username: <input type = 'text' name = 'username' placeholder = 'Enter Username' id='text' required></p>
+    <p>Password: <input type = 'password' name = 'password' placeholder = 'Paswword' id = 'text' required></p>
+    <p>E-mail: <input type = 'email' name = 'email' placeholder = 'Enter e-mail' id = 'text' required></p>
+    <p><button type="submit" id="submit">Join</button>
+        <button type="cancel" id="cancel" onclick ="hide()" >Cancel</button>
+        </p>
+			  
+    </form>
+    </div>
+
+<div id = "ForgotPassword">
+    <h3>Forgot Password</h3>
+    <form  method = 'get'  action = 'controller.php' autocomplete = 'on'>
+    <input type='hidden' name='page' value='startpage' required>
+    <input type='hidden' name='cmd' value='forgotpassword' required>
+    <p>Username: <input type = 'text' name = 'username' placeholder = 'Enter Username' id='text' required></p>
+    <p><button type = "submit" id = "submit">Submit</button>
+        <button type = "cancel" id = "cancel" onclick = "hide()">Cancel</button>
+        </p>
+    </form>
+    </div>
+
+</div>
+    
+
+</body>
+</html>
+			
+

@@ -1,0 +1,168 @@
+/* Comp 3540 Shivani Patel (T00064422) */
+
+/* line-height: specifies the line height 
+font-family/size: specifies the font size, style of the fonts.
+background-color: Specifies the background colour of the element.
+letter-spacing: specify the space between the characters in a text.
+*/
+
+body {
+	line-height: 30px; 
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;  
+	background-color:pink;  
+	Letter-spacing: 1px;
+	text-shadow: 2px 2px 3px #999999;
+     }
+
+/*Position -relative: Specifies the type of position method for an element. Relative means element is positioned relative to its normal position */	 
+h1{
+	position:relative;  
+	top: 150px;
+}
+/*Width: This property defines the width of the web page.
+  Text-align: The property is used to set the horizontal alignment of a text.
+  line-height: specify the space between lines:
+*/
+p {
+    position:relative;
+    top: 200px;
+    left: 250px;
+	width:1300px;
+	height:200px;
+    text-align:justify; 
+    line-height :250%;
+}
+
+/* list-style  : The type of property is set to none to remove the list item marker*/
+ol, ul{
+        list-style: none;   
+       }
+/*
+margin:set the size of the white space
+*/
+#wrapper{
+	width:650px;
+	margin:0 auto;
+	margin-top:20px;
+}
+
+#drop {
+	position:relative;
+	width:800px;
+	margin:0 auto;
+	display: inline-block;
+}
+/*
+padding: set the size of the white space between the element content and the element border.
+list-style-type:specifies the type of list item marker.
+display:specifies if/how an element is displayed.
+*/
+ul#navigation {
+	position:relative;
+	display:inline-block;
+	list-style-type: none;
+	margin:auto;
+	padding:0;
+	text-align: centre;
+}
+
+/*
+float:specifies whether or not a box (an element) should float.
+font-weight :sets how thick or thin characters in text should be displayed.
+
+*/
+ul#navigation li {
+	display:inline;
+	font-size:13px;
+	font-weight:bold;
+    float:left;
+	margin:0;
+	padding:0;
+	position:relative;
+
+}
+/*
+text-decoration: used to set or remove decorations from text.
+border-left:Sets all the left border properties in one declaration
+-webkit-transition: Specify the CSS property you want to add an effect to and the duration of the effect
+-Transition: This allows elements to occur values over a specified duration and animating the properties. 
+
+*/
+ul#navigation li a {
+	padding:10px 40px;
+	color:#616161;
+	text-align:centre;
+	text-shadow:1px 1px 0px #edd4f0;
+	text-decoration:none;
+	display:inline-block;
+	border-right:2px solid #edd4f0;
+	border-left:2px solid #C2C2C2;
+	border-top:2px solid #edd4f0;
+	background: #F8F8F8;
+	
+	-webkit-transition:color 0.3s linear, background 0.3s linear;/* Safari */	
+	-moz-transition:color    0.3s linear, background 0.3s linear;/* Mozilla */
+	-o-transition:color      0.3s linear, background 0.3s linear;/* Opera */	
+	transition:color         0.3s linear, background 0.3s linear;	
+}
+/*Note : There are different declarations  for different Browsers*/
+
+/* Drop down menu */
+ul#navigation li a:hover {
+	background:#C2C2C2;
+	color:#282828;
+}
+
+ul#navigation li:hover > a {
+	background:#edd4f0;
+}
+/*
+Visibility: specifies whether or not an element is visible.
+ Opacity: specify transparency is opacity.
+*/
+ul#navigation li:hover > ul
+{
+	visibility:visible;
+	opacity:2;
+}
+
+ul#navigation ul {
+    top: 53px;
+    left: 1px;
+}
+
+ul#navigation ul, ul#navigation ul li ul {
+	list-style: none;
+    margin: 0;	
+    padding: 0;
+    visibility:hidden;    
+    position: absolute;
+    z-index: 1;
+	width:180px;
+	background:#f8f8f8;
+	-webkit-transition:opacity  0.2s linear, visibility 0.2s linear; 
+	transition:opacity          0.2s linear, visibility 0.2s linear; 	
+}
+ul#navigation ul li a {
+	background:none;
+	padding:5px 15px; 
+	color:#616161;
+	text-shadow:1px 1px 0px #fff; 
+	text-decoration:none;
+	display:inline-block;
+	border:0 none;
+	float:left;
+	clear:both;
+	width:150px;
+}
+
+
+
+ul#navigation ul li {   
+	border-bottom:1px solid #c9c9c9;
+}
+
+
+
+

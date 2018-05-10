@@ -1,0 +1,21 @@
+Script started on Thu 18 Jan 2018 12:15:39 PM PST
+]0;comp341010@cs2:~/lab1[?1034h[comp341010@cs2 lab1]$ f[Kgcc output.txt [K[K[K[K[K[K[K[K[K[K[Ksmallprogram.c -o smallprogram.out
+/tmp/ccObzxwP.o: In function `main':
+smallprogram.c:(.text+0x29): warning: the `gets' function is dangerous and should not be used.
+]0;comp341010@cs2:~/lab1[comp341010@cs2 lab1]$ ./out[K[K[Ksmallprogram.out 
+What is your name?Jagjit
+How many times to print it?10
+Jagjit
+Jagjit
+Jagjit
+Jagjit
+Jagjit
+Jagjit
+Jagjit
+Jagjit
+Jagjit
+Jagjit
+]0;comp341010@cs2:~/lab1[comp341010@cs2 lab1]$ exit
+exit
+
+Script done on Thu 18 Jan 2018 12:16:09 PM PST

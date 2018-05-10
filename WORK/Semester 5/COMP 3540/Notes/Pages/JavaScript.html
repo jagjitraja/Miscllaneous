@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/3.%20javascript.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>JavaScript</title>
+    <link type="text/css" rel="stylesheet" href="./JavaScript_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./JavaScript_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./JavaScript_files/table.css">
+    <link rel="stylesheet" href="./JavaScript_files/bootstrap.min.css">
+    <script src="./JavaScript_files/jquery.min.js.download"></script>
+    <script src="./JavaScript_files/bootstrap.min.js.download"></script>
+    <script src="./JavaScript_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">5.3 JavaScript</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 5 section 3">
+        <li><x-summary>Motivations</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>You have used JS for handling events.</li>
+                <li>It is about the time to learn more topics in JS.</li>
+                <li>For example, objects and associative arrays.</li>
+            </ul>
+        </li>
+
+        <li><x-summary>JavaScript Tutorial</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_functions.asp">JavaScript Functions</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>For what do you use functions?</li>
+                        <li><b>Function used as a variable value</b> - How are 'toCelsius()' and 'toCelsius' different in the 4th example?</li>
+                        <li><b>Function object</b> in the 4th example? This is very interesting.</li>
+                        <li>Can you assign a function to a variable? If so, how to use the function variable?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_objects.asp">JavaScript Objects</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>What do real life objects contain?</li>
+                        <li>What do JavaScript objects contain?</li>
+                        <li>How to define an object?</li>
+                        <li>What are object properties?</li>
+                        <li>What is a method?</li>
+                        <li><b>Give two different styles to access object properties.</b></li>
+                        <li><b>Give two different styles to access object methods.</b></li>
+                        <li>How to add methods into an object?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_scope.asp">JavaScript Scope</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>What is the function of the var keyword and when to use it (or omit it)?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>In the global scope, there's no difference.</li>
+                                <li>In a local scope, 'var' will create a local variable, and 
+                                    no 'var' will look up the scope chain until it finds the variable or hits the global scope (at which point it will create it).</li>
+                                <li>Here is an example.
+<pre>// These are both globals.
+var foo = 1;
+bar = 2;
+
+function test() {
+    var foo = 1; // Local
+    bar = 1;     // Global
+
+    // Execute an anonymous function. Isn't it interesting?
+    (function() {
+        var wibble = 1; // Local
+        foo = 3; // Inherits from scope above (creating a closure)
+        moo = 3; // Global
+    })();
+    
+    alert(foo);
+    alert(bar);
+    alert(moo);
+    alert(wibble);
+}
+
+test();
+</pre>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>Study closely the code of the last example, <code>window.carName</code>, in the above link.</li>
+                        <li>What object is used for the global scope?
+                            What if a property of the object is overwritten?</li>
+                        <li><x-summary><b>Trial 1</b>: Let's try the above example.
+                            Can you see four alert windows? If not, why not?
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try1-textarea" rows="24" cols="100">&lt;???&gt;
+var foo = 1;
+bar = 1;
+
+function test() {
+    var foo = 2; // Local
+    bar = 2;     // Global
+
+    // &lt;b&gt;Execute&lt;/b&gt; an anonymous function. Isn't it interesting?
+    (???() {
+        var wibble = 1; // Local
+        foo = 3;
+        moo = 3;
+    })???;
+    
+    alert('foo = ' + foo);  // ???
+    alert('window.foo = ' + window.foo);  // ???
+    alert('bar = ' + bar);  // ???
+    alert('moo = ' + moo);  // ???
+    alert('wibble = ' + wibble);  // ???
+}
+
+test();
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try1-button">Submit</button>
+                                <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try1-button').click(function() {
+                                        $('#try1-div').html($('#try1-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_arrays.asp">JavaScript Arrays</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>How to create an array?</li>
+                        <li>List the two different styles of array creation.</li>
+                        <li>Can you put different objects to one array?</li>
+                        <li>How are arrays different from objects?</li>
+                        <li>List some built-in array properties and methods.</li>
+                        <li>How to add a new element to an array?</li>
+                        <li>Are arrays with named indexes, i.e., associative arrays, supported?</li>
+                        <li>Here is one thing that you really need to be careful. 
+                            If you use a named index, when accessing an array, 
+                            JavaScript will redefine the array to a standard object, and 
+                            all array methods and properties will produce undefined or incorrect results.
+                            Study closely the 11th example.
+                        </li>
+                        <li><b>But try the 11th example after you add <code>person[2] = 'Dave';</code>.</b>
+                            What do you see?
+                        </li>
+                        <li>What is the difference between arrays and objects?</li>
+                        <li>The reason not to use 'new Array(...)'.
+                            Study closely the 13<sup>th</sup> example.</li>
+                        <li>How do you know if a variable is an array or object?</li>
+                            <li><b><u>For...in</u> loop structure for linear arrays and associative arrays?</b></li>
+                    </ul>
+                </li>
+                <li>Here are some very useful methods. <a target="_blank" href="http://www.w3schools.com/js/js_array_methods.asp">JavaScript Array Methods</a> (linear arrays).
+            </li></ul>
+        </li>
+                
+        <li><x-summary>JavaScript Objects</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary><b>Trial 2</b>:
+                    Let's try to list the properties and their values in an object.
+                    </x-summary>
+                    <div style="display: block;">
+                        <code><textarea id="try2-textarea" rows="12" cols="100">&lt;p ???='tr2-msg'&gt;Message here!&lt;/p&gt;
+&lt;button type='button' onclick="tr2_list???"&gt;Click to list&lt;/button&gt;
+&lt;???&gt;
+var person = {fname:"John", lname:"Doe", age:25}; 
+function tr2_list() {
+    ??? str = '&lt;ul&gt;';
+    ??? (p ??? person)
+        str ???= '&lt;li&gt;' + ??? + ' -&gt; ' + ??? + ???;  // fname -&gt; John ...
+    str += '&lt;???ul&gt;';
+    document.???('???').??? = ???;
+}
+&lt;/script&gt;
+                        </textarea></code>
+                        <button id="try2-button">Submit</button>
+                        <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                        <script>
+                            $('#try2-button').click(function() {
+                                $('#try2-div').html($('#try2-textarea').val());
+                            });
+                        </script>
+                    </div>
+                </li>
+
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_object_definition.asp">JavaScript Objects</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Almost everything is an ???</li>
+                        <li>All values, except primitive values, are ???</li>
+                        <li>List 6 primitive values.</li>
+                        <li>Is an object method an object property? If so, what is contained?</li>
+                        <li>What are the three different ways to create new objects?</li>
+                        <li>How to put a new property to an object?</li>
+                        <li>What keyword is used to define <b>an object constructor (or also called prototype) function</b>?</li>
+                        <li>What is the benefit to use an object constructor function?</li>
+                        <li>What is the value of <b>'this'</b>?</li>
+                        <li>How to <b>create a new function object</b>?</li>
+                        <li>What does 'JavaScript objects are <b>mutable</b>.' mean? 
+                            Study closely the last example.</li>
+                        <li><x-summary><b>Trial 3</b>:
+                            Let's try to list the properties and their values in an object.
+                            The object is created using an object constructor.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try3-textarea" rows="22" cols="100">&lt;p ???='tr3-msg'&gt;Message here!&lt;/p&gt;
+&lt;button type='button' onclick="tr3_list???"&gt;Click to list&lt;/button&gt;
+
+&lt;???&gt;
+// Object constructor (or also called prototype)
+??? Person(fname, lname, age) {
+    this.firstName = fname;
+    ???.lastName = lname;
+    ???.??? = age;
+    ???.getFullName = ???() { return ???.firstName + ' ' + ???.???; }
+}
+// Creation of an abject from the above object constructor, Person
+var person = ??? ???("John", "Doe", 25);
+ 
+function tr3_list() {
+    ??? str = '&lt;ul&gt;';
+    ??? (p ??? person)
+        str ???= '&lt;li&gt;' + ??? + ' -&gt; ' + ??? + ???;  // fname -&gt; John ...
+    str += '&lt;???ul&gt;';
+    document.???('???').??? = ???;
+}
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try3-button">Submit</button>
+                                <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try3-button').click(function() {
+                                        $('#try3-div').html($('#try3-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_properties.asp">JavaScript Object Properties</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>List the two types of accessing object properties.</li>
+                        <li>What kind of loop is used for objects?</li>
+                        <li>What operator is used to check the existence of a property in an object?</li>
+                        <li>Can you add a new property to an object?</li>
+                        <li>Can you delete an object property?</li>
+                        <li>List the 5 property attributes.</li>
+                        <li><x-summary>Here is an example how to define and read property attributes. 
+                            This is from <a target="_blank" href="http://xahlee.info/js/javascript_property_attributes.html">JavaScript: Property Attributes: Writable, Enumerable, Configurable</a>.</x-summary>
+<pre style="">var x = {};
+Object.defineProperty(x, "p", { value : 3, writable: true, enumerable: false, configurable: true});
+Object.defineProperty(x, "p", { writable: false} );
+alert(Object.getOwnPropertyDescriptor(x, "p").writable);  // .getOwnPropertyDescriptor() returns {vale:..., writable:..., enumerable:..., configurable:...}. 
+</pre>
+                        </li>
+                        <li>Can you add a read-only property?</li>
+                        <li>What is the <b>prototype</b> property? We will discuss about it again.</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_object_methods.asp">JavaScript Object Methods</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Is a method a property?</li>
+                        <li>Study the last example carefully.</li>
+                        <li>How to add a new method into an object?
+                            How to add a new method into an object <b>constructor</b> (, or <b>prototype</b>)?
+                            You can find all the answers from the next topic.
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_object_prototypes.asp">JavaScript Objects <b style="color:Red">Prototypes</b></a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>All objects inherit the properties and methods from their ???.</li>
+                        <li>Object.<b>prototype</b></li>
+                        <li>All objects inherit the Object.???.</li>
+                        <li>How can you create an object <b>prototype</b>?</li>
+                        <li>How to create new objects from the same prototype?</li>
+                        <li>How to add a new property/method to an existing object?</li>
+                        <li>How to add a new property/method to an object prototype?</li>
+                        <li>Can you use <b>prototype property</b> to add a new property/method to an object prototype?</li>
+                        <li>What if you put a return statement in an object constructor function?</li>
+                        <li>What does <code>person.nationality = "English";</code> mean in the 4<sup>th</sup> example?</li>
+                        <li><x-summary><b>Trial 4</b>:
+                            Let's try to list the properties and their values in an object.
+                            The object is created using an object constructor.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try4-textarea" rows="32" cols="100">&lt;p ???='tr4-msg'&gt;Message here!&lt;/p&gt;
+&lt;button type='button' onclick="tr4_list???"&gt;Click to list&lt;/button&gt;
+
+&lt;???&gt;
+// Object constructor (or also called prototype)
+??? Person(fname, lname, age) {
+    this.firstName = fname;
+    ???.lastName = lname;
+    ???.??? = age;
+    ???.getFullName = ???() { return ???.firstName + ' ' + ???.???; }
+}
+// Creation of an abject from the above object constructor, Person
+var person = ??? ???("John", "Doe", 25);
+ 
+function tr4_list() {
+    ??? str = '&lt;ul&gt;';
+    ??? (p ??? person)
+        str ???= '&lt;li&gt;' + ??? + ' -&gt; ' + ??? + ???;  // fname -&gt; John ...
+    str += '&lt;???ul&gt;';
+    document.???('???').??? = ???;
+}
+
+// Add a new property in the prototype and see what happens in person
+Person.???.nationality = 'Canada';
+alert(person.nationality);
+
+// Another interesting stuff
+Person.planet = 'Earth';
+alert(person.planet); // ???
+alert(Person.planet); // ???
+alert(Person.age); // ???
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try4-button">Submit</button>
+                                <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try4-button').click(function() {
+                                        $('#try4-div').html($('#try4-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li><x-summary>Here is another interesting example.</x-summary>
+<pre style="">function person(age, name) {
+    this.name = name;
+    this.age = age;
+}
+var dave = new person(25, 'Dave');
+dave.major = 'CS';
+var tom = new person(25, 'Tom');
+var str = 'Dave: ';
+for (var p in dave)
+    str += p + ' ';
+alert(str);  // ???
+str = 'Tom: ';
+for (var p in tom)
+    str += p + ' ';
+alert(str);  // ???
+<b>person.prototype</b>.born = 'BC';  // not dave.prototype or tom.prototype
+str = 'Dave: ';
+for (var p in dave)
+    str += p + ' ';
+alert(str);  // ???
+str = 'Tom: ';
+for (var p in tom)
+    str += p + ' ';
+alert(str);  // ???
+</pre>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+        <li><x-summary>Intermediate summary</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Global and local variables
+<pre>var x = 10;
+(function()
+{
+    var y = 30;
+    x = 20;
+    z = 40;
+})();
+alert(x + ', ' + y + ', ' + z);  // 20, undefined, 40
+alert(window.x + ', ' + window.y + ', ' + window.z);
+</pre>
+                </li>
+                <li>Arrays and objects
+                    <table class=".table-hover">
+                        <tbody><tr><th>Linear arrays</th><th>Objects (associative arrays)</th></tr>
+                        <tr><td><code>var x = [];</code></td><td><code>var o = {};</code></td></tr>
+                        <tr><td><code>x[2] = 'Wow!';</code></td><td><code>o.today = 'Friday'; o['today'] = 'Saturday';</code></td></tr>
+                        <tr><td><code>delete x[1];</code></td><td><code>delete o.another;</code></td></tr>
+                        <tr><td><code>for(var i = 0; i &lt; x.length; i++) alert(x[i]);</code></td><td><code>for (var p in o) alert(o[p]);</code></td></tr>
+                        
+                    </tbody></table>
+                </li>
+                <li>How to create objects
+<pre>var car = {maker: 'VW', model: 'Golf', year: 2010};
+//
+var car = {};
+car['maker'] = 'VW';
+car.model = 'Golf';
+car.year = 2010;
+//
+function Car(maker, model, yr) {
+    this.maker = maker;
+    this.model = model;
+    this.year = yr;
+}
+var car = new Car('VW', 'GOLF', 2010);
+</pre>
+                </li>
+                <li>How to add a new property
+<pre>car.color = 'Red';  // just this object
+//
+function Car(maker, model, yr) {
+    this.maker = maker;
+    this.model = model;
+    this.year = yr;
+}
+Car.prototype.color = 'Red';  // all the objects of Car
+</pre>
+                </li>
+            </ul>
+        </li>
+                
+        <li><x-summary>JavaScript Functions</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_function_definition.asp">JavaScript Function Definitions</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>What is an <b>anonymous function</b>?</li>
+                        <li>What is '<b>function hosting</b>'? Variables too?</li>
+                        <li>What is '<b>self-invoking functions</b>'? Study closely the syntax in self-invoking.</li>
+                        <li>Functions are objects.
+                            Hence they have both properties and methods.
+                            <ul is="ul-square" style="list-style-type: square;">
+                                <li>Study the second last example.</li>
+                                <li>arguments.length - Doesn't '<b>arguments</b>' look like an array?</li>
+                                <li>.toString()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_function_parameters.asp">JavaScript Function Parameters</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>What value is stored in missing arguments?</li>
+                        <li>Does a function definition have to include all the parameters?</li>
+                        <li>Can you pass different number of arguments to the same function? 
+                            If so, how can you handle all the arguments?</li>
+                        <li>Are objects passed to a function <b>by value</b> or <b>by reference</b>? How are they different?</li>
+                        <li><x-summary><b>Trial 5</b>: Let's try add all the numbers passed to a function.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try5-textarea" rows="9" cols="100">&lt;script&gt;
+    function add() {
+        var sum = 0;
+        for (var i = 0; i &lt; ???.???; i++)
+            sum += ???[i];
+        return sum;
+    }
+    alert(add(10, 20, 30, 40, 50, 60));
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try5-button">Submit</button>
+                                <div id="try5-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try5-button').click(function() {
+                                        $('#try5-div').html($('#try5-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_function_invocation.asp">JavaScript Function Invocation</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>What value of '<b>this</b>' is?</li>
+                        <li>When a function is called without a specific owner object, to which object do functions belong?
+                            Study closely the 2nd example.</li>
+                        <li><x-summary>Here is an example that you should be careful.</x-summary>
+<pre style="">var myObject = {
+    firstName:"John",
+    lastName: "Doe",
+    fullName: function () {
+        return this.firstName + " " + this.lastName;
+    }
+}
+myObject.fullName();         // Will return "John Doe"
+// Similar, but different
+var firstName = 'Tom';
+var lastName = 'Riddle';
+var myObject = {
+    firstName:"John",
+    lastName: "Doe",
+    fullName: function () {
+        return firstName + " " + lastName;  // There is no 'this' in this statement.
+    }
+}
+alert(myObject.fullName());         // Will return "John Doe" or "Tom Riddle"?
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 6</b>: Let's try the above example to see what will be printed.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try6-textarea" rows="4" cols="100">&lt;script&gt;
+var myObject = {
+    firstName:"John",
+    lastName: "Doe",
+    fullName: function () {
+        return this.firstName + " " + this.lastName;
+    }
+}
+myObject.fullName();         // Will return "John Doe"
+// Similar, but different
+var firstName = 'Tom';
+var lastName = 'Riddle';
+var myObject = {
+    firstName:"John",
+    lastName: "Doe",
+    fullName: function () {
+        return firstName + " " + lastName;  // There is no 'this' in this statement.
+    }
+}
+alert(myObject.fullName());         // Will return "John Doe" or "Tom Riddle"?
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try6-button">Submit</button>
+                                <div id="try6-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try6-button').click(function() {
+                                        $('#try6-div').html($('#try6-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li>Functions can be
+                            <ul is="ul-square" style="list-style-type: square;">
+                                <li>Functions/methods like in other most programming languages</li>
+                                <li><b>Prototypes</b> (or also called <b>object constructors</b>).
+                                    In this case, we'd better say the function is invoked, not called.</li>
+                                <li>Objects - List the two predefined methods.</li>
+                            </ul>
+                        </li>
+                        <li>How can you know which function is a regular function, method, prototype, or object?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_function_closures.asp">JavaScript <b>Closures</b></a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>All the properties defined in a prototype are public.</li>
+                        <li>How can you define private variables? We need them especially when we develop libraries.</li>
+                        <li>How can you define static variables in a function?</li>
+                        <li>Study very closely the last example.</li>
+                        <li><x-summary>What is a closure?</x-summary> 
+                            <span style="display: inline;">A closure is a function having access to the parent scope, even after the parent function has closed, or
+                            a <b>closure</b> is defined as the set of local variables in a function that are kept alive after the function has returned.</span></li>
+                        <li><b>How does a closure create private variables and static variables?</b></li>
+                        <li><x-summary><b>Trial 7</b>: Let's try to create a closure that will keep a private static variable.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try7-textarea" rows="29" cols="100">&lt;script&gt;
+    function tr7_closure_test_1() {
+        var first = true;
+        if (first) {
+            first = false;
+            return 'First calling';
+        }
+        else
+            return 'Not first calling';
+    }
+    alert(tr7_closure_test_1());
+    alert(tr7_closure_test_1());  // result?
+
+    var tr7_closure_test_2 = (function(){
+        var first = true;
+        return ???() {  // return a function
+            if (first) {
+                first = false;
+                return 'First calling';
+            }
+            else
+                return 'Not first calling';
+        };
+    })???;  // self invokation
+    alert(???);  // try to display tr7_closure_test_2 to see what value is in the variable
+    alert(tr7_closure_test_2());  // result?
+    alert(tr7_closure_test_2());  // result?
+    alert(first);  // result?
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try7-button">Submit</button>
+                                <div id="try7-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try7-button').click(function() {
+                                        $('#try7-div').html($('#try7-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+                
+        <li><x-summary>Something more</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>3 ways to create a JavaScript object</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Using a function(, i.e., object prototype)</x-summary>
+<pre style="">function Apple (type) {  // This is similar to the definition of a class in Java.
+                         // The keyword is function, not class.
+                         // A function is a prototype that is instantiated later.
+    this.type = type;  // this.type: global; type: local
+    this.color = "red";
+    this.getInfo = function() {
+        return this.color + ' ' + this.type + ' apple';
+    };
+};
+var apple = new Apple('macintosh');  // keyword 'new' to create an object
+apple.color = "reddish";
+alert(apple.getInfo());
+//-----------------------------------------------------------
+function Car (type, color) {
+    this.type = type;
+    this.color = color;
+};
+var passat = new Car('passenger', 'black');
+Car.<b>prototype</b>.size = 'small';
+Car.<b>prototype</b>.getInfo = function() {  // Car.prototype
+    return this.color + ' ' + this.type + ' car';
+};
+var golf = new Car('passenger', 'silver');
+alert(golf.getInfo());
+alert(passat.getInfo());  // ???
+</pre>
+                        </li>
+                        <li><x-summary>Using object literals</x-summary>
+<pre style="">var o = {};  // or
+var o = new Object();
+// for arrays
+var a = [];  // or
+var a = new Array();
+//-----------------------------------------------------------
+var apple = {  // In this case you cannot create another instance of the class later.
+    type: "macintosh",
+    color: "red",
+    getInfo: function () {
+        return this.color + ' ' + this.type + ' apple';
+    }
+}
+apple.color = "reddish";
+alert(apple.getInfo());
+//-----------------------------------------------------------
+var apple = {};
+apple.type = 'Gala';  // Not apple.prototype.type. Why?
+apple.color = 'Red';
+apple.getInfo = function () {
+    return this.color + ' ' + this.type + ' apple';
+};
+alert(apple.getInfo());
+</pre>
+                        </li>
+                        <li><x-summary>Singleton using a function (Actually using anonymous prototype)</x-summary>
+<pre style="">var apple = new function() {
+    this.type = "macintosh";
+    this.getInfo = function () {
+        return this.color + ' ' + this.type + ' apple';
+    };
+}
+apple.color = "reddish";
+alert(apple.getInfo());
+</pre>
+                        </li>
+                        <li>Here is a good reference. <a target="_blank" href="http://www.phpied.com/3-ways-to-define-a-javascript-class/">3 ways to define a JavaScript class</a></li>
+                    </ul>
+                <br style="">
+                </li>
+                
+                <li><x-summary>An example of a function being used as a function and an object - jQuery</x-summary>
+<pre style="">var jQ = function(s) {
+    ...
+    return(...);
+};
+jQ.version = '1.2.4';
+jQ.load = function(dom_obj, action) {
+    ...
+    dom_obj.innerHTML = ...;
+};
+</pre>
+                </li>
+
+                <li><x-summary>Closures and <b>module patterns</b></x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Do you understand scope rules?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><x-summary>Read 'Global variables', 'Variable Life', 'A Couter Dilema' in
+                                    <a target="_blank" href="http://www.w3schools.com/js/js_function_closures.asp">JavaScript Closures</a></x-summary>
+                                    <ul style="list-style-type: disc; display: block;">
+                                        <li>How can you keep static variables in a function?</li>
+                                        <li>What is JavaScript closure?</li>
+                                        <li>Can a function return a function?</li>
+                                        <li>How can you use <u>private</u> variables?</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><x-summary>When an object is created with 'new' keyword, 
+                            are all the local variables accessible through the object variable?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Yes.</li>
+                                <li>Review the examples in the above section.</li>
+                            </ul>
+                        </li>
+                        <li><x-summary>How to provide an object with private/public variables and functions?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><x-summary>Read 'JavaScript Closures' in
+                                    <a target="_blank" href="http://www.w3schools.com/js/js_function_closures.asp">JavaScript Closures</a></x-summary>
+                                    <ul style="list-style-type: disc; display: block;">
+                                        <li>What is a closure?</li>
+                                        <li>In the closure example code in the above link, what value does add have?</li>
+                                    </ul>
+                                </li>
+                                <li><b>Module pattern</b>
+<pre>var person = (function(n, a) {  // What value does person have? function() { ... or the returned function?
+                                // What is (function() { ... })()? Function invocation?
+    var name = n;
+    var age = a;
+    return {  // What kind of data is returned?
+        first_name: name,
+        get_name: function() { return name; }, 
+        set_name: function(new_name) { name = new_name; },
+        get_age: function() { return age; },
+        set_age: function(new_age) { age = new_age; }
+    };
+})('Tim', 22);
+alert(person.age);  // undefined; why???
+person.name = 'Gildong';  // This name is not the private variable name. Why???
+alert(person.first_name);  // 'Tim'
+person.first_name = 'Gildong';  // This first_name is the public variable first_name.
+alert(person.first_name);  // 'Gildong'; It does not change the private variable.
+alert(person.get_name());  // 'Tim'
+alert(person.get_age());
+person.set_age(24);
+alert(person.get_age());
+</pre>
+                                </li>
+                                <li>Here is a very good reference about Module Patterm - <a target="_blank" href="http://toddmotto.com/mastering-the-module-pattern/">Mastering the Module Pattern</a>.</li>
+                                <li>You may read <a target="_blank" href="http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html">JavaScript Module Pattern: In-Depth</a> as well.</li>
+                                <li>Better not use public variables with module pattern.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><x-summary>Some review questions and learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to check if a variable or an argument in a function is undefined</li>
+                <li>How is the use of variables without 'var' different from the variables with 'var'?</li>
+                <li><x-summary>Two different ways to access properties in an associative array or an object</x-summary>
+<pre style="">var obj = {name: 'John', age:25, major:'COMP'};
+alert(obj.name);
+alert(obj['age']);
+var v = 'major';
+alert(obj[v]);
+</pre>
+                </li>
+                <li>How to add a new element/property in an array/object</li>
+                <li>Arrays with push(), pop(), shift(), unshift(), ...</li>
+                <li><x-summary>How to access global variables/objects that belong to window</x-summary>
+<pre style="">var data = 'Interesting';
+alert(window.data);
+</pre>
+                </li>
+                <li><x-summary>How to display all the property names in an object?</x-summary>
+<pre style="">var books = [
+        {"Category": "children", "Title": "Harry Potter", "Author": "J. K. Rowling", "Year": "2005", "Price": 29.99},
+        {"Category": "web", "Title": "Learning XML", "Author": "Erik T. Ray", "Year": "2003", "Price": 39.95}
+    ];
+    
+// Let's obtain all the property <u>names</u>
+var count = 0;
+var s = '';
+for (var p ??? books[0]) {
+    s += ??? + ' ';
+    count++;
+}
+alert(count + 'properties: ' + s);
+
+// Let's obtain all the property <u>values</u>
+s = '';
+for (var p ??? books[0])
+    s += ??? + ' ';  // Should be books[0].p? NOOOOOOOOOOOO.
+alert(s);
+</pre>                        
+                </li>
+                <li><x-summary>How to count the number of properties in an object?</x-summary> 
+                    <span style="display: inline;">&nbsp;&nbsp;&nbsp;Check the above example.</span>
+                </li>
+                <li><x-summary>How to create objects</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Using an associative array</li>
+                        <li>Using a function</li>
+                    </ul>
+                </li>
+                <li><x-summary>How to add a new property in an object</x-summary>
+<pre style="">var person = {name: 'John', age:25, major:'COMP'};
+person.print = function() {
+    var s = 'Name: ' + <b>this</b>.name;
+    s += ', Age: ' + this.age;
+    s += ', Major: ' + this.major;
+    return s;
+}
+alert(person.print());
+</pre>
+                </li>
+                <li>How to execute an anonymouse function</li>
+                <li>How to dynamically update objects and arrays in JavaScript.</li>
+                <li>How to use closures in JavaScript.</li>
+                <li>How to use a function as a function and an object</li>
+            </ul>
+        </li>
+        <br>
+    </ol>
+    </div>
+
+
+
+</body></html>

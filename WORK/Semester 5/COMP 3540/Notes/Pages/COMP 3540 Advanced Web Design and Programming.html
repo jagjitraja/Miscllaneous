@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://cs.tru.ca/~mlee/comp3540/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>COMP 3540 Advanced Web Design and Programming</title>
+   	<link type="text/css" rel="stylesheet" href="./COMP 3540 Advanced Web Design and Programming_files/tab.css">
+   	<link type="text/css" rel="stylesheet" href="./COMP 3540 Advanced Web Design and Programming_files/class.css">
+	<link rel="stylesheet" type="text/css" href="./COMP 3540 Advanced Web Design and Programming_files/table.css">
+    <script src="./COMP 3540 Advanced Web Design and Programming_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./COMP 3540 Advanced Web Design and Programming_files/class.js.download"> </script>
+    
+    <script>
+    /*
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-74658101-1', 'auto');
+      ga('send', 'pageview');
+    */
+    </script>
+</head>
+
+<body>
+    <p id="warning" style="position: relative; left: 20px; display: none;">
+        (Note: Please use Google Chrome web browser. 
+        Other browsers may not support the clicking/expanding/folding feature of this website.
+        If you are using FireFox, 
+        you can enable 'Custom HTML Elements'. 
+        Open 'about:config' and enable the 'dom.webcomponents.enabled' flag.)
+        <br>
+    </p>
+
+    <header class="pane_upper2">
+        <h1 style="text-align: center">COMP 3540 Advanced Web Design and Programming</h1>
+    </header>
+    
+    <nav>
+    </nav>
+    
+    <section class="pane_lower2">
+        <div style="border:1px solid black">
+            <h2 style="color:red">Announcement:</h2>
+            <ul style="margin-left:20px">
+                <li>Welcome Back Pizza Night
+                    <ul>
+                        <li>5:30PM, Friday, February 2, 2018</li>
+                        <li>IB 1020</li>
+                    </ul>
+                </li>
+                <li>The 4th Annual TRU Privacy and Information Security Conference</li>
+                <li>The current standing is posted.</li>
+            </ul>
+        </div>
+        
+        <p>Students review client-side web technologies used for static web documents 
+                and interactive web applications on clients. 
+                Students examine advanced topics in Hyper Text Markup Language, 
+                Cascade Style Sheet and JavaScript for interactive web applications 
+                that use rich user interfaces. 
+                Students then continue with server-side web technologies for dynamic web applications, 
+                such as server-side scripting programming, 
+                database access for three-tier data-driven applications, and 
+                asynchronous communication between client and 
+                server for fast partial update of client windows.
+        </p>
+            
+        <div style="border: 1px black solid; padding-right:1em; display:inline-block; background-color: AliceBlue">
+                <p style="text-align:center"><b>Contents</b> [<u><span id="span_hide_show">Hide</span></u>] 
+                    <br> 
+                    (The schedule can be changed.)
+                </p>
+                <script>
+                    $(document).ready(function(){
+                        $('#span_hide_show').click(function(){
+                            if ($(this).html() == 'Show') {
+                                $(this).html('Hide');
+                                $('#ol_hide_show > li > ul').show();
+                                $('#ol_hide_show > li > ol').show();
+                            }
+                            else {
+                                $(this).html('Show');
+                                $('#ol_hide_show > li > ul').hide();
+                                $('#ol_hide_show > li > ol').hide();
+                            }
+                        });
+                        $('#ol_hide_show > li').click(function(event){
+                            $(this).children('ul').toggle();
+                            $(this).children('ol').toggle();
+                        });
+                    });
+                </script>
+                <ol id="ol_hide_show">
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/1.%20introduction_to_the_course.html">Introduction to the course</a>: <b>Week 1</b>
+                        <!--
+                        <ul>
+                            <li>Introduction</li>
+                            <li>Learning objectives</li>
+                            <li>Expectations</li>
+                            <li>Instructor</li>
+                            <li>How to study well - Is motivation good enough?</li>
+                        </ul>
+                        -->
+                    </li>
+
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/2.%20web_app_environment.html">Introduction to the Web application environment</a>: <b>0.5 weeks</b>
+                        <!--
+                        <ol class='nested_section' style='counter-reset: chapter 2'>
+                            <li><a href='Fall2016/2. web_environment/1. overview.html'><span class='xemp'>Overview</span></a></li>
+                            <li><a href='Fall2016/2. web_environment/2. frontend_web_technologies.html'><span class='xemp'>Frontend web technologies</span></a></li>
+                            <li><a href='Fall2016/2. web_environment/3. backend_web_technologies.html'><span class='xemp'>Backend web technologies</span></a></li>
+                            <li><a href='Fall2016/2. web_environment/4. xampp.html'>How to implement/run Apache web server and MySQL server</a></li>
+                            <li><a href='Fall2016/2. web_environment/5. mvc_appl_arch.html'><span class='xemp'>Web application architectures</span></a></li>
+                            <li><a href='Fall2016/2. web_environment/6. communication.html'>Communication between client and server</a></li>
+                            <li><a href='Fall2016/2. web_environment/7. service_models.html'>Web service models</a></li>
+                        </ol>
+                        -->
+                    </li>
+
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript.html">Frontend web technologies - Review of HTML5, CSS3 and JavaScript</a>: <b>1-2 weeks</b>
+                        <!--
+                        <ol class='nested_section' style='counter-reset: chapter 3'>
+                            <li><a href='Fall2016/3. html_css_javascript/1. fundamental.html'><span class='xemp'>Fundamental concepts for HTML</span></a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/2. howto_group_type.html'><span class='xemp'>How to group, hide/show, change type?</span></a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/3. howto_change_color.html'>How to change color?</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/4. howto_transit.html'>How to transit to another web page/application?</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/5. howto_capture_event.html'><span class='xemp'>How to capture an event?</span></a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/6. howto_position.html'><span class='xemp'>How to position an element?</span> How to move an element?</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/7. howto_popup_element.html'>How to pop up an element?</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/8. howto_dim_area.html'>How to dim a certain area?</</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/9. howto_disable_event.html'>How to disable events over a certain area?</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/10. howto_close_popup.html'>How to close a popup box?</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/11. howto_read_user_inputs.html'><span class='xemp'>How to read user inputs?</span> How to automatically fill in an input field? How to hide user typing?</a></li>
+                            <li><a href='Fall2016/3. html_css_javascript/12. howto_send_data_to_server.html'><span class='xemp'>How to send data to the server?</span></a></li>
+                        </ol>
+                        -->
+                    </li>
+
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/4.%20dynamic_web_applications.html">Dynamic web applications, and MVC</a>: <b>2 weeks</b>
+                        <!--
+                        <ol class='nested_section' style='counter-reset: chapter 4'>
+                            <li><a href='Fall2016/4. dynamic_web_applications/1. intro_php.html'>Introduction to server-side scripting language, <span class='xemp'>PHP</span></a></li>
+                            <li><a href='Fall2016/4. dynamic_web_applications/2. mvc_appl_arch.html'><span class='xemp'>MVC</span> application architecture</a></li>
+                            <li><a href='Fall2016/4. dynamic_web_applications/3. intro_mysql.html'>Introduction to a relational database system, <span class='xemp'>MySQL</span></a></li>
+                            <li><a href='Fall2016/4. dynamic_web_applications/4. cookie_session.html'>How to maintain a <span class='xemp'>session</span></a></li>
+                        </ol>
+                        -->
+                    </li>
+
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks.html">Frontend web technologies - Frameworks, and SPA</a>: <b>3 weeks</b>
+                        <!--
+                        <ol class='nested_section' style='counter-reset: chapter 5'>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/1. bootstrap.html'><span class='xemp'>Bootstrap</span> - HTML/CSS framework:</a></li>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/2. jquery.html'><span class='xemp'>jQuery</span> - JavaScript framework</a></li>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/3. javascript.html'><span class='xemp'>JavaScript</span></a></li>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/4. spa.html'><span class='xemp'>Single Page Applications (SPA) with Ajax</span></a></li>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/5. iframe.html' class='xemp'>&lt;a>, &lt;form>, target, and iframe</a></li>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/6. ajax.html' class='xemp'>AJAX</a></li>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/7. json.html' class='xemp'>JSON and XML</a></li>
+                            <li><a href='Fall2016/5. frontend_frameworks_and_spa/8. pushing.html' class='xemp'>Pushing - Server-Sent Events (SSE)</a></li>
+                            <li><a href='' class='xemp'>How to support browser history</a></li>
+                        </ol>
+                        -->
+                    </li>
+
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/6.%20security_concerns.html">Security concerns</a>: <b>0.5 weeks</b>
+                        <ol class="nested_section" style="counter-reset: chapter 6">
+                        </ol>
+                    </li>
+
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/7.%20some_other_topics.html">Some other topics</a>: <b>1 week</b>
+                        <ol class="nested_section" style="counter-reset: chapter 7">
+                            <!--
+                            <li>Web storage</li>
+                            <li>Drag and drop</li>
+                            <li>How to upload/download files</li>
+                            -->
+                        <!--
+                            <li>How to check string patterns</li>
+                            <li>Where/how to store data</li>
+                            <li>How to support session</li>
+                            <li>How to secure data</li>
+                            <li>How to write a framework</li>
+                            <li>Drag and drop</li>
+                            <li><a href='Winter2016/6. advanced_web_programming/1. form_handling_regular_expressions.html'>Form handling and regular expressions</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/2. PHP_other_topics.html'>PHP some useful topics</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/3. secure_comm_encryption.php'>Secure communications and encryption</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/4. run_app_iframe.html'>Running a web application in a window frame</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/5. mysql_search_inner_join.html'>Searching, and dealing with two tables</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/6. cookie_session.html'>Cookies, and session management</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/7. timeout.html'>How to timeout an application</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/8. pushing.html'>How to push data to client</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/9. json_ajax.html'>How to partially update</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/10. library.html'><b>How to build a library</b></a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/11. webstorage.html'>How to keep data in client</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/12. upload.html'>How to upload files, and drag-and-drop</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/14. AngularJS.html'><span class='xemp'>Angular JS</span> - data binding</a></li>
+                            <li><a target='_blank' href='http://www.w3schools.com/html/html5_geolocation.asp'><span class='xemp'>Geolocation</span></a> and <a target='_blank' href='http://www.w3schools.com/googleapi/default.asp'><span class='xemp'>Google Maps</span></a></li>
+                            <li><a target='_blank' href='http://www.w3schools.com/html/html_media.asp'>Multimedia</a> - video, audio, YouTube</li>
+                        -->
+                        </ol>
+                    </li>
+                    
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/8.%20project.html">Project</a>: <b>3-4 weeks</b>
+                        <ol class="nested_section" style="counter-reset: chapter 8">
+                        </ol>
+                    </li>
+                    
+                    <br>
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/8.%20seminars_labs_project.html">Seminars, and labs</a></li>
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/9.%20exams.html">Exams</a></li>
+                    <li><a href="http://cs.tru.ca/~mlee/comp3540/Winter2018/10.%20current_standing.php">Current standing - 'comp3710' and your student ID - posted at Jan. 29, 2018</a></li>
+                    
+                <!--
+                    <li><a href='Winter2016/1. introduction_to_the_course.html'>Introduction to the course</a>
+                        <ul>
+                            <li>Introduction</li>
+                            <li>Learning objectives</li>
+                            <li>Expectations</li>
+                            <li>Instructor</li>
+                            <li>How to study well - Is motivation good enough?</li>
+                        </ul>
+                    </li>
+                    <li><a href='Winter2016/2. web_app_environment.html'>Web application environment</a>
+                        <ol class='nested_section' style='counter-reset: chapter 2'>
+                            <li><a href='Winter2016/2. web_environment/1. overview.html'>Overview</a></li>
+                            <li><a href='Winter2016/2. web_environment/2. frontend_web_technologies.html'>Frontend web technologies</a></li>
+                            <li><a href='Winter2016/2. web_environment/3. backend_web_technologies.html'>Backend web technologies</a></li>
+                            <li><a href='Winter2016/2. web_environment/4. xampp.html'>How to implement/run Apache web server and MySQL server</a></li>
+                            <li><a href='Winter2016/2. web_environment/5. mvc_appl_arch.html'>Web application architectures</a></li>
+                            <li><a href='Winter2016/2. web_environment/6. communication.html'>Communication between client and server</a></li>
+                            <li><a href='Winter2016/2. web_environment/7. service_models.html'>Web service models</a></li>
+                        </ol>
+                    </li>
+                    <li></li>
+                    <li><a href='Winter2016/4. html_css_javascript.html'>Frontend web technologies</a>
+                        <ol class='nested_section' style='counter-reset: chapter 4'>
+                            <li><a href='Winter2016/4. html_css_javascript/1. fundamental.html'>Fundamental concepts for HTML</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/2. howto_group_type.html'>How to group, hide/show, change type?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/3. howto_change_color.html'>How to change color?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/4. howto_transit.html'>How to transit to another web page/application?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/5. howto_capture_event.html'>How to capture an event?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/6. howto_position.html'>How to position an element? How to move an element?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/7. howto_popup_element.html'>How to pop up an element?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/8. howto_dim_area.html'>How to dim a certain area?</</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/9. howto_disable_event.html'>How to disable events over a certain area?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/10. howto_close_popup.html'>How to close a popup box?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/11. howto_read_user_inputs.html'>How to read user inputs? How to automatically fill in an input field? How to hide user typing?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/12. howto_send_data_to_server.html'>How to send data to the server?</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/13. bootstrap.html' class='xemp'>HTML/CSS framework - Bootstrap</a></li>
+                            <li><a href='Winter2016/4. html_css_javascript/14. jquery.html' class='xemp'>JavaScript framework - jQuery</a></li>
+                        </ol>
+                    </li>
+                    <li><a href='Winter2016/5. dynamic_web_applications.html'>Backend web technologies</a>
+                        <ol class='nested_section' style='counter-reset: chapter 5'>
+                            <li><a href='Winter2016/5. dynamic_web_applications/1. intro_php.html'>Introduction to server-side scripting language, PHP</a></li>
+                            <li><a href='Winter2016/5. dynamic_web_applications/2. mvc_appl_arch.html'>MVC application architecture</a></li>
+                            <li><a href='Winter2016/5. dynamic_web_applications/3. intro_mysql.html'>Introduction to database system, MySQL</a></li>
+                        </ol>
+                    </li>
+                    <li><a href='Winter2016/6. advanced_web_programming.html'>Advanced web programming</a>
+                        <ol class='nested_section' style='counter-reset: chapter 6'>
+                            <li><a href='Winter2016/6. advanced_web_programming/1. form_handling_regular_expressions.html'>Form handling and regular expressions</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/2. PHP_other_topics.html'>PHP some useful topics</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/3. secure_comm_encryption.php'>Secure communications and encryption</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/4. run_app_iframe.html'>Running a web application in a window frame</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/5. mysql_search_inner_join.html'>Searching, and dealing with two tables</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/6. cookie_session.html'>Cookies, and session management</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/7. timeout.html'>How to timeout an application</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/8. pushing.html'>How to push data to client</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/9. json_ajax.html'>How to partially update</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/10. library.html'><b>How to build a library</b></a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/11. webstorage.html'>How to keep data in client</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/12. upload.html'>How to upload files, and drag-and-drop</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/13. jquery.html'><span class='xemp'>jQuery</span> - a JavaScript library</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/14. AngularJS.html'><span class='xemp'>Angular JS</span> - data binding</a></li>
+                            <li><a href='Winter2016/6. advanced_web_programming/15. bootstrap.html'><span class='xemp'>Bootstrap</span> - responsive web design</a></li>
+                            <li><a target='_blank' href='http://www.w3schools.com/html/html5_geolocation.asp'><span class='xemp'>Geolocation</span></a> and <a target='_blank' href='http://www.w3schools.com/googleapi/default.asp'><span class='xemp'>Google Maps</span></a></li>
+                            <li><a target='_blank' href='http://www.w3schools.com/html/html_media.asp'>Multimedia</a> - video, audio, YouTube</li>
+                        </ol>
+                    </li>
+                    <li><a href='Winter2016/7. what_else.html'>What else?</a></li>
+                    <br>
+                    <li><a href='Winter2016/8. seminars_labs_project.html'>Seminars, labs, and project</a></li>
+                    <li><a href='Winter2016/9. exams.html'>Exams</a></li>
+                    <li><a href='Winter2016/10. current_standing.php'>Current standing</a></li>
+                    <li><a href='Winter2016/11. course_evaluation.html'>Course evaluation - March 29, 2016</a></li>
+                -->
+                </ol>
+        </div>
+    </section>
+    
+    <aside>
+    </aside>
+    
+    <footer>
+        <p style="text-align:center">Copyright © <a href="http://cs.tru.ca/">cs.tru.ca</a></p>
+    </footer>
+
+
+</body></html>

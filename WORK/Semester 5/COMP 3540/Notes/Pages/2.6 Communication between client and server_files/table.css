@@ -1,0 +1,54 @@
+.horizontal_center {
+	display: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table a {
+	text-decoration: none;
+	color: inherit;
+}
+
+table a:hover {
+	color: Blue;
+	text-decoration: underline;
+}
+
+.div_heading {
+	display: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	text-align: center;
+}
+
+table {
+	display: relative;
+	border-collapse: collapse;
+}
+
+table.center {
+	display: relative;
+	margin-left: auto;
+	margin-right: auto;
+	border-collapse: collapse;
+}
+
+table, th, td, tc {
+	border:1px solid black;
+}
+
+th {
+	background-color: Gray;
+	color: White;
+	font-size: 1.25em;
+	height: 1.5em;
+}
+
+tr:nth-child(even), tr:nth-child(even) ul {
+	background-color: Lavender;
+}
+
+tr:hover, tr:hover ul {
+	background-color: DarkSeaGreen;
+}

@@ -1,0 +1,243 @@
+
+*{
+	background:transparent ;
+	background-color: transparent;
+}
+.navbar-header{
+	width:100%;
+	display: block;
+	float: none !important;
+	text-align: center;
+	height: 30% !important;
+	min-height: 125px;
+	background: #00ca8a;
+	color: grey;
+}
+.navbar-brand{
+	width: 101%;
+    line-height: 100px !important;
+	margin: auto !important;
+	text-align: center;
+	height: 100% !important;
+	font-weight: bold;
+	letter-spacing: 8px;
+	display: block; 
+	color:grey !important;
+	font-size: xx-large !important;
+	background: linear-gradient(to right, #65F1FF 50%,white 50%); 
+	transition: all 3s;
+	background-size: 200% 100%;
+	background-position: 100% 100%
+}
+
+.navbar-brand:hover{
+	color:#00ca8a !important;
+	background-position: 0% 100%;
+	transition: all 3s;
+
+}
+
+#sideNav{
+	height:100%;
+	margin: 0;
+	padding: 0;
+}
+#navigation{
+	border-radius: 0;
+	height: 100%;
+	background: #1CB2A6 !important;
+	border:0 !important;
+}
+.link{
+	display: block !important;
+	width: 100% !important;
+	margin-top:10px;
+
+}
+.link>a{
+	padding:25px !important;
+	text-align: center;
+	transition: all 0.5s;
+	color:#f2dede;
+}
+
+.link>a:hover{
+	border-bottom:10px solid black;
+	background-color:#0382a9 !important;
+	color:#f2dede;
+	font-size: larger;
+	padding-bottom: -10px;
+	margin-bottom: -10px;
+	transition: all 0.5s;
+}
+
+#sideNav .container-fluid, #myNavBar,#navLinks{
+	padding:0 !important;
+}
+
+body,html{
+	width:100%;
+	height: 100%;
+	margin:0;
+}
+#start{
+	width: 100%;
+	height: 100%;
+	background-image: url("./img/back.jpg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	text-align: center;
+	background-position: 0% 0%;
+	background-attachment: fixed;
+}
+#content{
+	width: 100%;
+	display: block;
+	background-image: url("./img/scrollBack.jpg");
+	background-size: 100% 100%;
+	background-position: 100% 100%;
+	background-attachment: fixed;
+}
+
+.row{
+	margin: 0 !important;
+}
+.staticNav{
+	position: fixed !important;
+	top: 0;
+	left: 0;
+}
+.scrollCont{
+	float: right !important;
+}
+#data{
+	padding: 0;
+}
+/*
+#content{
+	transition:all 1s;
+	width:100%;
+	overflow:hidden;
+	height:100%;
+}
+
+#contentCol{
+	width:80%;
+	height:100%;
+	display:inline-block;
+	float:right;
+}
+
+#navCol{
+	float:left;
+	position:fixed;
+	width:20%;
+	min-width:150px;
+	display:inline-block;
+	max-width:20%;
+	height:100%;
+	background:#cc7777;
+	top:0;
+	text-align:center;
+	left:0;
+	box-shadow: 0px 0px 10px silver;
+	}
+#name{
+    width: 100%;
+	padding-bottom:20px;
+    padding-top: 20px;
+	text-align:center;
+}
+#name a{
+	text-align: center;
+    font-family: Tahoma;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-size: xx-large;
+}
+
+#navList{
+	padding:10px;
+	list-style-type:none;
+	text-align:center;
+}
+#navList li{
+	height:20%;
+	line-height:100%;
+	font-family:cursive;
+	font-weight:bold;
+	opacity:1;
+	background:rgba(0, 0, 0, 0);
+	color:white;
+	transition:all 1s;
+	margin-top:20px;
+}
+#navList li a{
+	text-decoration:none;
+	height:100%;
+	border-bottom:2px solid white;
+	width:100%;
+	transition:all 1s;
+	color: #af3a00;
+	display:block;
+	line-height:60px;
+}
+
+#navList li a:hover{
+	background:rgba(0, 255, 255, 0.2);
+	color:white;
+	cursor:pointer;
+	transition: all 1s;
+	border-bottom:3px solid rgba(0, 255, 0, 0.2);
+}
+#navList li i{
+	font-size:xx-large;    
+	color: #af3a00;
+    float: left;
+	padding:10px;
+}
+
+
+
+
+
+
+
+
+
+#spinner{
+	width:25%;
+	border-radius:50%;
+	border:20px solid white;
+	margin:auto;
+	border-top:10px solid #af6d8a;
+	border-bottom:30px solid #af6d8a;
+	animation:spin 3s 2;
+	transition: opacity 1s;
+	position:absolute;
+	top:10%;
+	left:40%;
+	z-index:9;
+	text-align:center;
+	font-weight:bold;
+	color:white;
+	text-shadow:0px 0px 10px beige;
+	font-size:50px;
+}
+
+@keyframes spin
+{
+	0% {transform:rotate(0deg);}
+	100% {transform:rotate(360deg);}
+
+}
+
+
+
+.active{
+	color:white !important;
+	background:rgba(255, 255, 255, 0.5) !important;
+	transition: all 1s;
+}*/

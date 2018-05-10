@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript/7.%20howto_popup_element.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>3.7 How to pop up an element?</title>
+    <link type="text/css" rel="stylesheet" href="./3.7 How to pop up an element__files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./3.7 How to pop up an element__files/class.css">
+    <script src="./3.7 How to pop up an element__files/jquery-1.11.1.min.js.download"></script>
+    <script src="./3.7 How to pop up an element__files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">3.7 How to pop up an element?</h1>
+    </div>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 3 section 7">
+        <!-- test -->
+        <script>
+            function click1st() { 
+                document.getElementById('1st').style.zIndex = '2';
+                document.getElementById('2nd').style.zIndex = '1';
+            }
+            function click2nd() {
+                document.getElementById('1st').style.zIndex = '1';
+                document.getElementById('2nd').style.zIndex = '2';
+            }
+        </script>
+        <p id="1st" onclick="click1st()" style="border:1px solid black; width: 25%; position: relative; background-color: yellow; z-index: 2">
+            Test for overlapping<br> Click me!</p>
+        <p id="2nd" onclick="click2nd()" style="border:1px solid black; width: 25%; position: relative; top: -40px; left: 10px; background-color: Green; color: white; z-index:1">
+            <br>Test for overlapping. Click me!
+        </p>
+        
+        <div>Another example: menu for TruQA
+            <style>
+                #ddm li, #ddm ul {
+                    list-style: none;
+                    padding: 0;
+                    background-color: DimGray;
+                    cursor:pointer;
+                }
+                #ddm ul {
+                    border:1px solid black;
+                }
+                #ddm > li {
+                    position: relative;
+                }
+                #ddm > li > ul {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                }
+                #ddm li:hover {
+                    background-color: #eee;
+                }
+                #ddm > li:hover > ul {
+                    display: block;
+                }
+            </style>
+            <ul id="ddm">
+                <li style="width: 50px;"><img src="./3.7 How to pop up an element__files/menu_icon.png" width="50px" height="50px">
+                    <ul style="width:120px">
+                        <li id="signin">Sign In</li>
+                        <li>Join</li>
+                        <li>Forgot Password</li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="blanket" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background-color:Grey; opacity:0.5; z-index:3; display:none"></div>
+            <div id="signin-mordal" style="position:fixed; top:100px; left:calc(50vw - 201px); width:400px; height:200px; background-color:White; border:1px solid blue; z-index:4; display:none">
+                <h2 style="text-align:center">Welcome!</h2><h2>
+                </h2><h3 style="text-align:center">Sign In</h3>
+                <p style="margin-left:20px">Username: <input></p>
+                <button id="signin-button" style="margin-left:20px">Cancel</button>
+            </div>
+            <script>
+                $('#signin').click(function() {
+                    $('#blanket').show();
+                    $('#signin-mordal').show();
+                });
+                $('#blanket').click(function() {
+                    $('#blanket').hide();
+                    $('#signin-mordal').hide();
+                });
+                $('#signin-button').click(function() {
+                    $('#blanket').hide();
+                    $('#signin-mordal').hide();
+                });
+            </script>
+        </div>
+        Try 'Sign In' in the above menu.
+        You will write the code for modal windows, such as 'Sign In window' in the above exampe, later.
+        <br>
+        <br>
+        <!-- end of test -->
+    
+        <li><x-summary>How to overlap elements?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>You need to use the 'position' CSS property with 'top', 'bottom', 'left', and 'right'.
+                    You may revisit 3.1 and 3.6.</li>
+                <li><x-summary>But how can you display which elements over which elements?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/cssref/pr_pos_z-index.asp">CSS z-index Property</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Do you remember the first note in the above link? It is very important.</li>
+                                <li>How to change z-index using JavaScript?</li>
+                                <li><x-summary><b>Trial 1</b>: Let's try to change z-index valuses in the above example of two boxes.</x-summary>
+                                    <div style="display: block;">
+                                        <textarea id="try1-textarea" rows="12" cols="100">&lt;button id='tr1-0-button'&gt;Click for the yellow box!&lt;/button&gt;
+&lt;button id='tr1-1-button'&gt;Click for the green box!&lt;/button&gt;
+&lt;???&gt;
+    document.getElementById('tr1-0-button').???('???', function() {
+        document.getElementById('1st').style.zIndex = '2';
+        document.getElementById('2nd').???.??? = '1';
+    });
+    document.getElementById('tr1-1-button').???('???', function() {
+        document.getElementById('1st').???.??? = '1';
+        document.getElementById('2nd').???.??? = '2';
+    });
+&lt;/script&gt;
+                                        </textarea>
+                                        <button id="try1-button">Submit</button>
+                                        <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                        <script>
+                                            $('#try1-button').click(function() {
+                                                $('#try1-div').html($('#try1-textarea').val());
+                                            });
+                                        </script>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Can you use z-index for non-positioned elements?</x-summary>
+                    <span style="display: inline;">&nbsp;&nbsp;&nbsp;No</span>
+                </li>
+            </ul>
+        </li>
+        <li><x-summary>How to display a popup box? Any good idea to hide and show an element?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Example of a modal window - <img src="./3.7 How to pop up an element__files/modal.png"></li>
+                <li>Hide and show: initially 'display: none', and at the time to show an element 'display: block'.</li>
+                <li><x-summary>How to display the popup box on the top of all the other elements?</x-summary>
+                    <span style="display: inline;">&nbsp;&nbsp;&nbsp;The 'z-index' CSS property.</span></li>
+                <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">... CSS
+    #signin-box {
+        ???: ???;  /* initially hidden */
+        width: 400px; height: 100px; border: 1px solid black; background-color: white; 
+        <b>position</b>: ???; top: 100px; left: calc(50% - 200px); 
+        <b>z-index</b>: 9999;
+    }
+    
+... JavaScript
+    document.???('menu-signin').add???(???, show_signin_box);  // For mouse click
+    ??? show_signin_box() {
+        document.???('signin-box').style.??? = ???;  // need to show
+    }
+    ??? hide_signin_box() {
+        ???  // need to hide
+    }
+    
+... HTML
+    &lt;div style='width:100%; height:100%'&gt;
+        &lt;div id='signin-box'&gt;
+            ...
+        &lt;/div&gt;
+    
+        ...&lt;button id='menu-signin'&gt;Sign In&lt;/button&gt;...
+    &lt;/div&gt;
+</pre>
+                </li>
+                <li><b>Trial 2</b>: Let's try to complete the above code.
+                    <div>
+                        <textarea id="try2-textarea" rows="4" cols="100"></textarea>
+                        <button id="try2-button">Submit</button>
+                        <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                        <script>
+                            $('#try2-button').click(function() {
+                                $('#try2-div').html($('#try2-textarea').val());
+                            });
+                        </script>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to overlap elements.</li>
+                <li>How to hide and show elements.</li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+</body></html>

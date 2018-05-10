@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!-- saved from url=(0099)http://cs.tru.ca/~mlee/comp3540/Winter2018/2.%20web_environment/2.%20frontend_web_technologies.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>2.2 Frontend Web Technologies - Review</title>
+    <link type="text/css" rel="stylesheet" href="./2.2 Frontend Web Technologies - Review_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./2.2 Frontend Web Technologies - Review_files/class.css">
+    <script src="./2.2 Frontend Web Technologies - Review_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./2.2 Frontend Web Technologies - Review_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">2.2 Frontend Web Technologies - Overview</h1>
+    </div>
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 2 section 2">
+            <li><x-summary>How to describe <span class="xemp"><u>content</u></span> and <span class="xemp"><u>structure</u></span> of documents - HTML</x-summary>
+                <ul class="ul_initial" style="display: block;">
+                    <li>What does HTML stand for?</li>
+                    <li><x-summary>What is the main purpose of HTML?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Read 'What is HTML?' in <a target="_blank" href="http://www.w3.org/standards/webdesign/htmlcss">
+                                HTML &amp; CSS</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.answers.com/Q/What_is_the_purpose_of_HTML">
+                                What is the purpose of HTML?</a>.</li>
+                        </ul>
+                    </li>
+                    <li><x-summary>What is HTML5?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/html/html5_intro.asp">
+                                HTML5 Introduction</a>.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li><x-summary>How to describe <span class="xemp"><u>presentation</u></span> of documents - CSS</x-summary>
+                <ul class="ul_initial" style="display: block;">
+                    <li>What does CSS stand for?</li>
+                    <li><x-summary>What is the main purpose of CSS?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Read the first two paragraphs in <a target="_blank" href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">
+                                Cascading Style Sheets</a>.</li>
+                            <li>Read the first two paragraphs in <a target="_blank" href="http://www.sagehill.net/docbookxsl/UsingCSS.html">
+                                Using CSS to style HTML</a>.</li>
+                        </ul>
+                    </li>
+                    <li><x-summary>Three types of imposing styles?</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;inline, internal, external</span>
+                    </li><li><x-summary>Inline styling?</x-summary>
+<pre style="display: block;">&lt;div <b>style</b>='color:NavyBlue'&gt;
+    &lt;p&gt;Hmmmm&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+                    </li>
+                    <li><x-summary>What are <span class="xemp">CSS selectors</span>?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li><x-summary>Basically there are four types of selectors, and pseudo selectors.
+                                What are they?</x-summary>
+                                <ul is="ul-square" style="list-style-type: square; display: block;">
+                                    <li><u>Class</u> of elements</li>
+                                    <li><u>Id</u> of an element</li>
+                                    <li><u>Type</u> of elements, such as p, a, div, ul, ...</li>
+                                    <li>Attributes</li>
+                                    <li>For pseudo selectors, read the first paragraph in <a target="_blank" href="http://www.w3schools.com/css/css_pseudo_classes.asp">
+                                        CSS Pseudo-classes</a>.
+                                        What does it say?</li>
+                                </ul>
+                            </li>
+                            <li>Combination of the above selectors using <u>combinators</u>. <u>Combinators</u>?</li>
+                            <li>Read 'CSS Selectors' in <a target="_blank" href="http://www.w3schools.com/cssref/css_selectors.asp">
+                                CSS Selector Reference</a>.</li>
+                            <li>Here is a great suggestion - <a target="_blank" href="http://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048">
+                                The 30 CSS Selectors you Must Memorize</a>.</li>
+                        </ul>
+                    </li>
+                    <li>What is CSS3?</li>
+                    <li><x-summary>Are all the CSS properties inherited to descendants?</x-summary>
+                        <span style="display: inline;">
+                        <br>
+                        You can test the next code using <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/runcode.php">http://cs.tru.ca/~mlee/comp3540/Software/runcode.php</a>.
+<pre>&lt;div <b>style</b>='color:Blue; position:absolute; left:50px'&gt;
+    Test
+    &lt;p&gt;Hmmmm&lt;/p&gt; &lt;!-- What color? Position? --&gt;
+&lt;/div&gt;
+</pre>
+                        </span>
+                    </li>
+                </ul>
+            </li>
+
+            <li><x-summary>How to allow programs <span class="xemp">to dynamically access/update the content, structure and style of documents</span> - DOM</x-summary>
+                <ul class="ul_initial" style="display: block;">
+                    <li>What does DOM stand for?</li>
+                    <li><x-summary>What is the main purpose of DOM?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Read 'What is the Document Object Model?' and 'Why the Document Object Model?' in <a target="_blank" href="http://www.w3.org/DOM/">
+                                Document Object Model (DOM)</a>.</li>
+                        </ul>
+                    </li>
+                    <li><x-summary>Give an example of JavaScript code to select an HTML element and to change an attribute value or a CSS(, i.e., style) value.</x-summary>
+<pre style="display: block;">document.getElementById('test-paragraph').style.color = 'Blue';
+</pre>
+                    </li>
+                </ul>
+            </li>
+
+            <li><x-summary>How <span class="xemp">to dynamically access/update the content, structure and style of documents</span> - JavaScript, jQuery, and jQuery UI</x-summary>
+                <ul class="ul_initial" style="display: block;">
+                    <li><x-summary>What is the purpose of JavaScript?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Read 'The purpose of JavaScript is to solve this problem' in 
+                                <a target="_blank" href="http://javascript.about.com/od/reference/a/javascriptpurpose.htm">
+                                What is JavaScript Used For?</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.dummies.com/how-to/content/javascript-and-html.html">JavaScript and HTML</a>
+                                to find how they work together!</li>
+                            <li><x-summary>How to connect HTML objects to JavaScript? How to access HTML objects from JavaScript?</x-summary>
+                                <ul is="ul-square" style="list-style-type: square; display: block;">
+                                    <li><x-summary>Basically JavaScript code reacts to <b>events</b> such as mouse, keyboard, timer, communication, and system.
+                                        Here are some example events.</x-summary>
+                                        <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                                            <li><a target="_blank" href="http://www.w3schools.com/tags/ref_eventattributes.asp">HTML Event Attributes</a></li>
+                                            <li><a target="_blank" href="http://www.w3schools.com/js/js_events_examples.asp">JavaScript HTML DOM Events Examples</a></li>
+                                       </ul>
+                                    </li>
+                                    <li>From an element to JavaScript function, e.g, <code>&lt;button type='button' onclick='show();'&gt;Show&lt;/button&gt;</code>, or</li>
+                                    <li>From JavaScript using the id of an element, e.g., <code>document.getElementById(<i>id</i>).addEventListener(<i>event</i>, <i>handler</i>);</code></li>
+                                    <li>The above two event handler registration methods are called <u>inline</u> and <u>W3C</u> models respectively. What is the <u>traditional</u> model?</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><x-summary>The relations among JavaScript, jQuery, and jQuery UI are ...</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>jQuery is a JavaScript library.</li>
+                            <li>Read 'What is jQuery' in <a target="_blank" href="http://jquery.com/">jQuery - write less, do more</a>.</li>
+                            <li>jQuery UI is a jQuery library for ...</li>
+                            <li>Read the first paragraph in <a target="_blank" href="http://jqueryui.com/">jQuery User Interface</a>.</li>
+                            <li>There some other very useful frameworks, such as T3PO, AngularJS, and Backbone.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <br>
+            <li><x-summary>Learning outcomes</x-summary>
+                <ul class="ul_initial" style="display: block;">
+                    <li>Explain the roles of HTML.</li>
+                    <li>Explain the roles of CSS.</li>
+                    <li>Explain how CSS can be used to control HTML objects.</li>
+                    <li>Explain what DOM is.</li>
+                    <li>Explain how JavaScript can be used to control HTML objects.</li>
+                    <li>Explain the relations among JavaScript, jQuery, and jQuery UI.</li>
+                    <li>Explain the purposes of JavaScript, jQuery, and jQuery UI.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+
+</body></html>

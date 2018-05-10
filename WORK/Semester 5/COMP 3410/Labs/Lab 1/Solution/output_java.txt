@@ -1,0 +1,31 @@
+Script started on Thu 18 Jan 2018 12:25:30 PM PST
+]0;comp341010@cs2:~/lab1[?1034h[comp341010@cs2 lab1]$ exitclearjavac smallprogram.java
+]0;comp341010@cs2:~/lab1[comp341010@cs2 lab1]$ java sm,a[K[Kallprogram.[K
+Your first initial? J
+Your last initial? B
+Repeating 20 times.
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+J.B. likes Linux! 
+
+]0;comp341010@cs2:~/lab1[comp341010@cs2 lab1]$ exit
+exit
+
+Script done on Thu 18 Jan 2018 12:25:48 PM PST

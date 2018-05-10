@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<!-- Shivani Patel T00064422 -->
+
+<head>
+
+<title> Assigment2 </title>
+
+<link rel = "stylesheet" type = "text/css" href = "styling.css">
+
+<script type = "text/javascript">
+
+
+function showhide(id)
+{
+	var e = document.getElementById(id);
+	e.style.display = (e.style.display = 'block') ? 'none' : 'block';
+}
+
+</script>
+
+</head>
+
+<body style = "background-color: white;">
+
+<div class = "main">
+	<div class = "header">
+		TRU Forum
+	
+			<p class = "date"></p>
+	
+</div>
+
+<div class = "navigation">
+	<a href = "javascript:showhide('rightconer')">
+		<img style = "height:60px; width:80px;" src="menu.jpg">
+	</a>
+</div>
+
+<div id = "rightconer" class = "navigation" style= "display:block; z-index:999">
+	<ul>
+			<li>Sign In</li>
+			<li>Join </li>
+			<li>Forgot Password</li>
+	</ul>
+</div>
+
+<div class = "footer">
+	<h3><a href = "http://www.tru.ca/science/programs/compsci.html"> About Us </a></h3>
+</div>
+
+</div>
+
+</body>
+</html>
+			

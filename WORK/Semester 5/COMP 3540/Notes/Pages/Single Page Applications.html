@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/4.%20spa.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Single Page Applications</title>
+    <link type="text/css" rel="stylesheet" href="./Single Page Applications_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./Single Page Applications_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./Single Page Applications_files/table.css">
+    <script src="./Single Page Applications_files/jquery.min.js.download"></script>
+    <script src="./Single Page Applications_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">5.4 Single Page Applications</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 5 section 4">
+            <li><x-summary>Motivations</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>When the result of 'SearchQuestions' is displayed in TRUQA, 
+                        all the content for MainPage should be sent from the server and redisplayed.</li>
+                    <li>Why isn't it possible to get just data from the server and display it?</li>
+                </ul>
+            </li>
+
+            <li><x-summary>What is SPA?</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Read the first paragraph in <a target="_blank" href="https://en.wikipedia.org/wiki/Single-page_application">Single-page application</a>.</li>
+                    <li>A single web page with all necessary code of HTML, CSS, and JS is loaded.</li>
+                    <li>This single web page provides the users with UI.</li>
+                    <li>Responding to the user's actions, requests are sent to the server-side script, and data come back. 
+                        Now the server works like a library or a service provider.
+                        APIs can be defined.
+                    </li>
+                    <li>With the data sent from the server, some content can be changed/deleted or new content can be added.</li>
+                    <li>The control is done at the client-side, not by the server-side script.</li>
+                    <li>Thin server architecture</li>
+                    <li><img src="./Single Page Applications_files/SPA.png"></li>
+                    <li><img src="./Single Page Applications_files/SPA-Architecture.png" width="70%" height="70%"></li>
+                </ul>
+            </li>
+
+            <li><x-summary>Related technical approaches</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>iFrame</li>
+                    <li>Server-sent event</li>
+                    <li>Ajax</li>
+                    <li>JSON and XML</li>
+                    <li>WebSockets - real time bidirectional communications; statefull architecture; discussed in COMP 4620</li>
+                </ul>
+            </li>
+        
+            <li><x-summary>Issues</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">From "Challenges with the SPA model" in <a target="_blank" href="https://en.wikipedia.org/wiki/Single-page_application#Challenges_with_the_SPA_model">https://en.wikipedia.org/wiki/Single-page_application</a>:
+                    <li>Browser history - Forward/back buttons in SPA?</li>
+                    <li>Search engine optimization (SEO) - not discussed in this course</li>
+                    <li>Analytics - not discussed in this course</li>
+                    <li>Speed of initial load</li>
+                </ul>
+            </li>
+        
+        
+            <li><x-summary>Some review questions and learning outcomes</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Define what SPA is.</li>
+                    <li>List the four technical approaches used in SAP.</li>
+                </ul>
+            </li>
+            <br>
+        </ol>
+    </div>
+
+
+</body></html>

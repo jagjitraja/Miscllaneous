@@ -1,0 +1,355 @@
+        window.addEventListener('load', function() { resize_div(); }, false);
+        window.addEventListener('resize', function() { resize_div(); }, false);
+//        window.onload = function() { resize_div(); };
+//        window.onresize = function() { resize_div(); };
+        
+        function resize_div()
+        {
+            if (document.getElementById('pane_upper') != null) {
+                document.getElementById('pane_upper').style.height = '70px';
+                document.getElementById('pane_upper').style.width = '100%';
+                document.getElementById('pane_upper').style.border = 'solid 1px black';
+            }
+        }
+        
+        function eh_click(e)
+        {
+            e.target.style.display = block;
+        }
+        
+        function close_details(id)
+        {
+            document.getElementById(id).removeAttribute("open");
+        }
+
+        /*
+        *
+        */
+
+        var howto_url = '';
+
+        function eh_howto_url(url, howto_title)
+        {
+            howto_url = url;
+            document.getElementById('howto_label').innerHTML = howto_title;
+        }
+
+        var howto_2nd_url = '';
+        function eh_howto_2nd_url(url, howto_title)  // This function is used to load a page in the second iframe from the 1st iframe
+        {
+            howto_2nd_url = url;
+            parent.document.getElementById('howto_2nd_label').innerHTML = howto_title;
+        }
+
+        /*
+        *   Custom HTML elements
+        *   For FirFox, 'about:config -> dom.webcomponents.enabled' should be true to use custom elements.
+        */
+
+        var ULCircleProto = Object.create(HTMLElement.prototype);
+        ULCircleProto.createdCallback = function() {
+            this.style.setProperty('list-style-type', 'circle');
+        }
+        document.registerElement('ul-circle', {
+            prototype: ULCircleProto,
+            extends: 'ul'
+        });
+
+        var ULDiscProto = Object.create(HTMLElement.prototype);
+        ULDiscProto.createdCallback = function() {
+            this.style.setProperty('list-style-type', 'disc');
+        }
+        document.registerElement('ul-disc', {
+            prototype: ULDiscProto,
+            extends: 'ul'
+        });
+
+        var ULSquareProto = Object.create(HTMLElement.prototype);
+        ULSquareProto.createdCallback = function() {
+            this.style.setProperty('list-style-type', 'square');
+        }
+        document.registerElement('ul-square', {
+            prototype: ULSquareProto,
+            extends: 'ul'
+        });
+
+        var xSummaryProto = Object.create(HTMLElement.prototype);
+        xSummaryProto.createdCallback = function() {
+        }
+        document.registerElement('x-summary', {
+            prototype: xSummaryProto
+        });
+
+
+        /*
+        *   jQuery routines
+        */
+
+        $(document).ready(function() 
+        {
+            $('.hide_seek_hover').children().hide();
+            $('.hide_seek_hover').children().css('background-color', '#E0E0E0');
+
+            $('.hide_seek_hover').mouseenter(function() {
+                $(this).css('color', 'Blue');
+                $(this).css('background-color', 'LightSkyBlue');
+                $(this).children().css('color', 'Black');
+                $(this).children().show();
+            });
+            $('.hide_seek_hover').mouseleave(function() {
+                $(this).css('color', 'Black');
+                $(this).css('background-color', 'transparent');
+                $(this).children().hide();
+            });
+
+            $('.hide_seek_click').children('ul, ol').hide();
+            $('.hide_seek_click').children('ul, ol').css('background-color', '#E0E0E0');
+            $('.hide_seek_click').mouseenter(function() {
+                $(this).css('cursor', 'pointer');
+                $(this).children('ul, ol').css('cursor', 'auto');
+                // $(this).css('color', 'Blue');
+                $(this).css('background-color', 'LightSkyBlue');
+                $(this).children('ul, ol').css('color', 'Black');
+            });
+            $('.hide_seek_click').mouseleave(function() {
+                $(this).css('cursor', 'auto');
+                // $(this).css('color', 'Black');
+                $(this).css('background-color', 'transparent');
+            });
+            $('.hide_seek_click').click(function(event) {
+                event.stopPropagation();
+                $(this).children('ul, ol').toggle();
+            });
+
+            // This will automatically load the content in 'data-content' attribute value in 'includedContent' class.
+            // Any existing content will be overwritten.
+            $('.includedContent').each(function() {
+                var filename = $(this).attr('data-content');
+                $(this).load(filename, '', function() {
+                    $('x-summary').click(function(e) {  // for sibling elements
+                        e.stopImmediatePropagation();
+                        $(this).siblings().toggle();
+                    });
+                    $('.toggle').click(function(event) {  // for child elements
+                        event.stopImmediatePropagation();
+                        $(this).children().toggle('ul, ol, p, div');
+                    });
+                });
+            });
+
+            // When the elements of '.clickable_content' class is clicked,
+            //     this will load the content in 'data-content' attribute value into another element having id 'data-target-id'.
+            // Any existing content will be overwritten.
+            $('.clickable_content').click(function(event) {
+                var filename = $(this).attr('data-content');
+                var target_id = $(this).attr('data-target-id');
+                $('#' + target_id).load(filename, '', function() {
+                    $('x-summary').click(function(e) {  // for sibling elements
+                        e.stopImmediatePropagation();
+                        $(this).siblings().toggle();
+                    });
+                    $('.toggle').click(function(event) {  // for child elements
+                        event.stopImmediatePropagation();
+                        $(this).children('ul, ol, p, div').toggle();
+                    });
+                });
+            });
+
+            // Initially x-summary is defined with display:none in class.css.
+            // For sibling elements
+            $('x-summary').click(function(event) {  // It works with Chrome, not FireFox.
+                                                    // FireFox: about:config -> dom.webcomponents.enabled -> true
+                event.stopImmediatePropagation();  // very important.
+                                                   // not stopPropagation()
+                $(this).siblings().toggle();
+            });
+
+            /*
+            *   Another version; For child elements
+            */
+            $('.toggle').click(function(event) {
+                event.stopImmediatePropagation();
+                $(this).children('ul, ol, p, div').toggle();
+            });
+
+            //
+            var __pane_upper2_folded = true;
+            $('.pane_upper2').click(function() {
+                if (__pane_upper2_folded) {
+                    $('x-summary').siblings().show();
+                    __pane_upper2_folded = false;
+                } else {
+                    $('x-summary').siblings().hide();
+                    __pane_upper2_folded = true;
+                }
+                //$('x-summary').siblings().toggle();
+            });
+        });
+
+        /*
+        *   Check if the browser is Chrome.
+        *   If the browser is not Chrome, show the warning message with #warning
+        */
+
+        $(document).ready(function() 
+        {
+            if (navigator.sayswho.indexOf('Chrome') == -1 && navigator.sayswho.indexOf('Firefox') == -1)
+            //if (getBrowserName() != 'Chrome')
+                $('#warning').show();
+            else
+                $('#warning').hide();
+        });
+        navigator.sayswho = (function(){
+            var N = navigator.appName, ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*([\d\.]+)/i);
+            if (M && (tem = ua.match(/version\/([\.\d]+)/i)) != null) 
+                M[2] = tem[1];
+            M = M? [M[1], M[2]]:[N, navigator.appVersion, '-?'];
+            return M.join(' ');
+        })();
+        
+        function getBrowserName() {
+            var nVer = navigator.appVersion;
+            var nAgt = navigator.userAgent;
+            var browserName  = navigator.appName;
+            var fullVersion  = ''+parseFloat(navigator.appVersion); 
+            var majorVersion = parseInt(navigator.appVersion,10);
+            var nameOffset,verOffset,ix;
+
+            // In Opera, the true version is after "Opera" or after "Version"
+            if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
+             browserName = "Opera";
+             fullVersion = nAgt.substring(verOffset+6);
+             if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+               fullVersion = nAgt.substring(verOffset+8);
+            }
+            // In MSIE, the true version is after "MSIE" in userAgent
+            else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
+             browserName = "Microsoft Internet Explorer";
+             fullVersion = nAgt.substring(verOffset+5);
+            }
+            // In Chrome, the true version is after "Chrome" 
+            else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
+             browserName = "Chrome";
+             fullVersion = nAgt.substring(verOffset+7);
+            }
+            // In Safari, the true version is after "Safari" or after "Version" 
+            else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
+             browserName = "Safari";
+             fullVersion = nAgt.substring(verOffset+7);
+             if ((verOffset=nAgt.indexOf("Version"))!=-1) 
+               fullVersion = nAgt.substring(verOffset+8);
+            }
+            // In Firefox, the true version is after "Firefox" 
+            else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
+             browserName = "Firefox";
+             fullVersion = nAgt.substring(verOffset+8);
+            }
+            // In most other browsers, "name/version" is at the end of userAgent 
+            else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < 
+                      (verOffset=nAgt.lastIndexOf('/')) ) 
+            {
+             browserName = nAgt.substring(nameOffset,verOffset);
+             fullVersion = nAgt.substring(verOffset+1);
+             if (browserName.toLowerCase()==browserName.toUpperCase()) {
+              browserName = navigator.appName;
+             }
+            }
+            // trim the fullVersion string at semicolon/space if present
+            if ((ix=fullVersion.indexOf(";"))!=-1)
+               fullVersion=fullVersion.substring(0,ix);
+            if ((ix=fullVersion.indexOf(" "))!=-1)
+               fullVersion=fullVersion.substring(0,ix);
+
+            majorVersion = parseInt(''+fullVersion,10);
+            if (isNaN(majorVersion)) {
+             fullVersion  = ''+parseFloat(navigator.appVersion); 
+             majorVersion = parseInt(navigator.appVersion,10);
+            }
+
+            return browserName;
+        }
+
+        /*
+        *   Client-side cookie management
+        */
+        
+        // The next three function are  from http://www.w3schools.com/js/js_cookies.asp
+        
+        /*
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+        */
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var user = getCookie("username");
+            if (user != "") {
+                alert("Welcome again " + user);
+            } else {
+                user = prompt("Please enter your name:", "");
+                if (user != "" && user != null) {
+                    setCookie("username", user, 365);
+                }
+            }
+        }        
+        
+        // I added the next four functions
+        // Especially, I added 'path' and 'domain'. If there is no 'domain', then other programs cannot use these cookies.
+        
+        function setCookieDays(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/; domain=cs.tru.ca";
+        }
+
+        function setCookieHours(cname, cvalue, exhours) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exhours * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/; domain=cs.tru.ca";
+        }
+
+        function setCookieMinutes(cname, cvalue, exminutes) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exminutes * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/; domain=cs.tru.ca";
+        }
+
+        function deleteCookie(cname) {
+            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=cs.tru.ca";
+        }
+
+/*
+*   Simple data binding
+*/
+
+// Select all the elements having 'x-model', and for each of them
+$(document).ready(function() {
+    $("[x-model]").each(function() {
+        // For 'keyup' event,
+      $(this).on('keyup', function() {
+          // Save the input value into the model variable.
+            var model = $(this).attr('x-model');
+            var value = $(this).val();
+            // Bind the model to any elements having x-bind=model.
+            var selector = "[x-bind='" + model + "']";
+            $(selector).html(value);
+        });
+    });
+});

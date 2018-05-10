@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript/5.%20howto_capture_event.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>3.5 How to capture an event?</title>
+    <link type="text/css" rel="stylesheet" href="./3.5 How to capture an event__files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./3.5 How to capture an event__files/class.css">
+    <script src="./3.5 How to capture an event__files/jquery-1.11.1.min.js.download"></script>
+    <script src="./3.5 How to capture an event__files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">3.5 How to capture an event?</h1>
+    </div>
+    
+    <div class="pane_lower2">
+    
+        <!-- for test -->
+        <div id="msg" style="margin-left:20px">Test: Mouse position: x=450, y=397</div>
+        <script>
+            document.addEventListener('mousemove', function(e) {
+                document.getElementById('msg').innerHTML = 'Test: Mouse position: x=' + e.clientX + ', y=' + e.clientY;
+            });
+        </script>
+        <!-- end of test -->
+
+    <ol class="nested_subsection" style="counter-reset: chapter 3 section 5">
+        <li><x-summary>Quick review of JavaScript</x-summary>
+            <ul class="ul_initial" style="display: block;">
+                <li><x-summary>If you do not remember much about JavaScript, 
+                    study <a target="_blank" href="http://www.w3schools.com/js/default.asp">JavaScript Tutorial</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Control statements</li>
+                        <li>Functions</li>
+                        <li>Variables with the keyword var, and variables without var.
+                            How are they different?</li>
+                        <li>Data types</li>
+                        <li>Arrays
+                            <ul is="ul-square" style="list-style-type: square;">
+                                <li>Linear arrays: <i>numbered</i> indexes</li>
+                                <li><span class="xemp">Associative arrays</span>: <i>named</i> indexes; 
+                                    If you do not remember much about arrays, 
+                                    study <a target="_blank" href="http://www.w3schools.com/js/js_arrays.asp">JavaScript Arrays</a>.</li>
+                                <li>How to know the number of array elements? This is why arrays are ob.....</li>  
+                                <li>How to add a new element into an array? Create a new array and copy?</li>
+                            </ul>
+                        </li>
+                        <li><span class="xemp">For-in</span> loop for associative arrays and objects: If you do not remember much about this loop, 
+                            study <a target="_blank" href="http://www.w3schools.com/js/js_loop_for.asp">JavaScript For Loop</a>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+        <li><x-summary>How to capture events (load, click, mouseover, mousemove, resize, ...)?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Here is an image of the concept of events and event handlers.</x-summary> <img src="./3.5 How to capture an event__files/EventLoop-Queue-n-Handlers.png" style="height: 200px; width: 400px; display: inline;"></li>
+                <li><x-summary>Do you remember <span class="xemp" the="" 3="" models="" of="" event="" handling<="" span="">, i.e., how to register event handlers?</span></x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary><a target="_blank" href="http://www.w3schools.com/js/js_htmldom_events.asp">The traditional model</a>. Here is an example.</x-summary>
+<pre style="display: block;">target_object.<b>on</b><i>eventname</i> = function() {...};
+</pre>
+                        </li>
+                        <li><x-summary><a target="_blank" href="http://www.w3schools.com/js/js_htmldom_events.asp">The inline model</a>. Here is an example.</x-summary>
+<pre style="display: block;">&lt;!-- &lt;p <b>on</b><i>eventname</i> = "dosomething(event)"&gt;This web technology course is amazing!&lt;/p&gt;  --&gt;
+&lt;button <b>on</b>click="<b>this</b>.<b>innerHTML</b>='Amazing!'"&gt;Click me! I'll rock you.&lt;/button&gt;
+<button onclick="this.innerHTML = &#39;Amazing!&#39;">Click me! I'll rock you.</button>
+</pre>
+                        </li>
+                        <li><x-summary><a target="_blank" href="http://www.w3schools.com/js/js_htmldom_eventlistener.asp">W3C event-registration model</a>. Here is an example.</x-summary>
+<pre style="display: block;">// target_object.<b>addEventListener</b>('eventname', dosomething);  // dosomething() is an event handler.
+window.???('load', function() {  // What is the name of this type of function?
+    document.getElementById('menu-signin').???('click', menu_signin_selected);
+});
+function menu_signin_selected(e) {  // e is an Event object.
+    ...
+}    
+</pre>
+                        </li>
+                        <li>Can you register multiple handlers for the same event over the same target element?</li>
+                        <li><x-summary>How to remove a registered event handler?</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;removeEventLister()</span></li>
+                        <li>How to register the same event handler over multiple objects of the same HTML element type?</li>
+                        <li>Do you remember how to change the content of an element?</li>
+                        <li>What is the <b>this</b> object?</li>
+                        <li><x-summary><b>Trial 1</b>: Let's try the above button example of "Click me! I'll rock you.," using W3C event-registration model.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try1-textarea" rows="7" cols="100">&lt;button ???='tr1-button'&gt;Click me! I'll rock you.&lt;/button&gt;
+&lt;script&gt;
+    document.???(???, ???);
+    ??? tr1_eh(e) {
+        e.target.??? = 'Interesting!';  // target is the object on which the event was triggered.
+    }
+&lt;/script&gt;
+                                </textarea>
+                                <button id="try1-button">Submit</button>
+                                <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try1-button').click(function() {
+                                        $('#try1-div').html($('#try1-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>Can we say a JavaScript program is like a collection of event handlers?</li>
+                <li>Read 'Common HTML Events' in <a target="_blank" href="http://www.w3schools.com/js/js_events.asp">JavaScript Events</a>.</li>
+                <li>Read <a target="_blank" href="http://www.w3schools.com/jsref/dom_obj_event.asp">HTML DOM Events</a> for more events.</li>
+                <li><x-summary>Read 'Event Object' in <a target="_blank" href="http://www.w3schools.com/jsref/dom_obj_event.asp">HTML DOM Events</a> 
+                    to see what properties and methods are included in Event objects.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>How to obtain the event object?</li>
+                        <li>How to obtain the <b>target</b> element on which the event is triggered?</li>
+                        <li>How to obtain the key value when a key is pressed?</li>
+                        <li>How to obtain the mouse position?</li>
+                        <li>Can you write the code tracing mouse position? E.g., xeys - <img src="./3.5 How to capture an event__files/Xeyes-Command.jpeg" width="10%" height="10%"></li>
+                    </ul>
+                </li>
+                <li><x-summary><b>Trial 2</b>: Let's try to capture the mouse move and show the positions.</x-summary>
+                    <div style="display: block;">
+                        <textarea id="try2-textarea" rows="7" cols="100">&lt;p ???='tr2-msg'&gt;Position: &lt;/p&gt;
+&lt;script&gt;
+    document.???(???, ???(e) {
+        document.???.??? = 'Position: x = ' + e.??? + ', y = ' + ???.???;
+    });
+&lt;/script&gt;
+                        </textarea>
+                        <button id="try2-button">Submit</button>
+                        <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                        <script>
+                            $('#try2-button').click(function() {
+                                $('#try2-div').html($('#try2-textarea').val());
+                            });
+                        </script>
+                    </div>
+                </li>
+            </ul>
+            
+            </li><li>Now you can complete the first assignment - <a href="http://cs.tru.ca/~mlee/comp3540/Winter2017/8.%20Seminars/dropdown_menu_client_student.html" download="">dropdown_menu_client.html</a></li>
+        
+        
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to use associative arrays.</li>
+                <li>List some common events.</li>
+                <li>List the three models of event handling with examples.</li>
+                <li>How to capture events on an element using JavaScript.</li>
+                <li>How to obtain the target element on which the event is triggered.</li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+</body></html>

@@ -1,0 +1,34 @@
+[   
+    {
+        "Major": "COMP",
+        "Number": "4620",
+        "Title": "Web-based Information Systems",
+        "Instution": "TRU",
+        "Year": "Winter 2016",
+    },
+    
+ {
+        "Major": "COMP",
+        "Number": "3540",
+        "Title": "Advanced web design and programming",
+        "Instution": "TRU",
+        "Year": "Winter 2016",
+    },
+    
+ {
+        "Major": "MATH",
+        "Number": "2120",
+        "Title": "Linear Algebra",
+        "Instution": "TRU",
+        "Year": "Winter 2016",
+    },
+    
+    {
+        "Major": "BIO",
+        "Number": "1500",
+        "Title": "Human Biology",
+        "Instution": "TRU",
+        "Year": "Winter 2016",
+    }
+]
+    

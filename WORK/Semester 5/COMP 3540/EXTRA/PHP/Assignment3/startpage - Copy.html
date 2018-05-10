@@ -1,0 +1,145 @@
+<!DOCTYPE html> 
+
+<html> 
+
+<!-- Shivani Patel T00064422 -->
+
+<head>
+
+<title> Assigment2 </title>
+
+<link rel = "stylesheet" type = "text/css" href = "styling.css">
+
+<script type = "text/javascript">
+
+
+
+var d=new Date();
+var monthname=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+//Ensure correct for language. English is "January 1, 2004"
+var TODAY = monthname[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+
+
+var x0, y0; 
+	var direction = "not determined yet"; 
+
+	window.addEventListener('load', function(e) { 
+		
+		x0 = window.innerWidth / 2; 
+		y0 = (window.innerHeight - 100) / 2 + 100; 
+		
+		displayDirectionToMouse();
+		
+		// for resize
+		window.addEventListener('resize', function(e) {
+		x0 = window.innerWidth / 2; 
+		y0 = (window.innerHeight - 100) / 2 + 100; 
+	});
+	
+		//for mousemove
+		document.body.addEventListener("mousemove", function(e) {  
+		 var x = e.clientX; 
+		 var y = e.clientY; 
+		 
+		 var angle; 
+
+		 // Upper and right 
+		 if (x >= x0 && y <= y0) { 
+			 angle = Math.atan((y0 - y) / (x - x0)); 
+			 if (angle >= (Math.PI / 2) * (5 / 6)) 
+				 direction = "12 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+				 direction = "1 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+			     direction = "2 o'clock"; 
+			 else 
+			 	direction = "3 o'clock"; 
+		  } 
+		  // Upper and left 
+		  else if (x < x0 && y <= y0) { 
+
+		     angle = Math.atan((y - y0) / (x - x0));
+			 
+			 if (angle >= (Math.PI / 2) * (5 / 6)) 
+				 direction = "12 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+				 direction = "11 o'clock"; 
+			 else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+			     direction = "10 o'clock"; 
+			 else 
+			 	direction = "9 o'clock"; 
+		  } 
+		  // Lower and left 
+		  else if (x < x0 && y > y0) { 
+		  	angle = Math.atan((y0 - y) / (x - x0));
+
+		  if (angle >= (Math.PI / 2) * (5 / 6)) 
+		  	direction = "6 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+		  	direction = "7 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+		  	direction = "8 o'clock"; 
+		  else direction = "9 o'clock";
+		  } // Lower and right 
+		  else { 
+		  	angle = Math.atan((y - y0) / (x - x0)); 
+		  if (angle >= (Math.PI / 2) * (5 / 6)) 
+		  	direction = "6 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (5 / 6) && angle >= (Math.PI / 2) * (3 / 6)) 
+		  	direction = "5 o'clock"; 
+		  else if (angle < (Math.PI / 2) * (3 / 6) && angle >= (Math.PI / 2) * (1 / 6)) 
+		  	direction = "4 o'clock"; 
+		  else direction = "3 o'clock"; 
+		} 
+
+		displayDirectionToMouse(); 
+	});  
+
+	}); 
+
+
+	function displayDirectionToMouse() { 
+		document.getElementById("direction").innerHTML = "Direction to mouse Pointer is: " + direction;
+		
+	}  
+</script>
+
+</head>
+
+<body style = "background-color: white;">
+
+<div class = "main">
+	<div class = "header">
+		TRU Forum
+	
+			<p class = "date"> <script language = "javascript" type = "text/javascript">document.write(TODAY);</script> </p>
+	
+</div>
+
+<div class = "navigation" style = "">
+	<ul>
+		<li style = "background-color:white;" ><img style = "margin-top:0px;height:35px; width:50px;" src="menu.jpg"/><a></a>
+			<ul>
+				<li><a href ="#" >Sign In</a></li>
+				<li><a href = "#">Join</a> </li>
+				<li><a href = "#">Forgot Password</a></li>
+			
+		</li>
+	</ul>
+	
+
+</div>
+
+<div class="box" >
+		<div id="direction"><div id = "message"></div></div>
+	</div>
+
+<div class = "footer">
+	<h3><a href = "http://www.tru.ca/science/programs/compsci.html"> About Us </a></h3>
+</div>
+
+</div>
+
+</body>
+</html>
+			

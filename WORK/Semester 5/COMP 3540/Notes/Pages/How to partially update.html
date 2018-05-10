@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/6.%20ajax.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>How to partially update</title>
+    <link type="text/css" rel="stylesheet" href="./How to partially update_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./How to partially update_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./How to partially update_files/table.css">
+    <script src="./How to partially update_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./How to partially update_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">5.6 How to partially update - AJAX</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 5 section 6">
+        <li><x-summary>Motivations</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How can you update just a part of a web page?
+                    Do you have to redisplay the web page?</li>
+                <li>Can we try <a target="_blank" href="http://www.google.ca/">Google</a>? 
+                    Google suggests some good queries without reloading the page.</li>
+                <li>In TRUQA, when the search result needs to be displayed, should MainPage be reloaded?</li>
+                <li>Why not to use iframe that we studied in the previous section?</li>
+            </ul>
+        </li>
+
+        <li><x-summary>Let's study <b class="xemp">AJAX</b>.</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/xml/ajax_intro.asp">AJAX Introduction</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Can you explain how AJAX works?</li>
+                        <li>What technologies are used together with AJAX?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read and try all in <a target="_blank" href="http://www.w3schools.com/xml/ajax_examples.asp">AJAX Examples</a>, especially 'Retrieve the content of a PHP file'.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                    </ul>
+                </li>
+                <li><x-summary>Read and try all in <a target="_blank" href="http://www.w3schools.com/xml/ajax_xmlhttprequest_create.asp">AJAX - Create an XMLHttpRequest Object</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>How do you create an object in JavaScript?</li>
+                        <li>Which object is used for AJAX?</li>
+                        <li>How do you check if your browser supports AJAX?</li>
+                        <li><x-summary><b>Trial 1</b>: Let's check if your browser supports AJAX.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try1-textarea" rows="6" cols="100">&lt;script&gt;
+if (!???.???)
+    alert('Your browser does not support AJAX.');
+else
+    alert('Your browser supports AJAX.');
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try1-button">Submit</button>
+                                <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try1-button').click(function() {
+                                        $('#try1-div').html($('#try1-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li>What does "<b>For security reasons, modern browsers do not allow access across domains.</b>" mean?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read and try all in <a target="_blank" href="http://www.w3schools.com/xml/ajax_xmlhttprequest_send.asp">AJAX - Send a Request To a Server</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Which method is used open a channel to a server program?</li>
+                        <li>Which method is used to send a message to the server program?</li>
+                        <li>How to send GET data?</li>
+                        <li><x-summary>How to send POST data?</x-summary> &nbsp;&nbsp;&nbsp;<code style="display: inline;">xhttp.open("POST", url); xhttp.send("username=John&amp;password=secretepassword");</code></li>
+                        <li><x-summary>How to avoid using a cached data?</x-summary> &nbsp;&nbsp;&nbsp;<span style="display: inline;">The post method</span></li>
+                        <li>When does 'readystatechange' event occur?</li>
+                        <li>How to know if there is a response message set from the server program?</li>
+                        <li><x-summary><b>Trial 2</b>: Let's to send a query information to TRUQA controller, using the GET method.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try2-textarea" rows="14" cols="100">&lt;p id='tr2-msg'&gt;Message here!&lt;/p&gt;
+&lt;script&gt;
+var xhttp = ??? ???();  // create an AJAX object
+xhttp.??? = function() {  // register an event handler for the onreadystatechange event
+    if (this.??? == 4 &amp;&amp; ???.??? == 200) {  // check readyState and status
+        alert(this.???);  // text response
+        $(???).???(this.???);  // display the text response to the above &lt;p&gt; using jQuery
+    }
+};
+var controller = "//cs.tru.ca/~mlee/comp3540/Software/test_display_inputs.php";
+var query="page='MainPage'&amp;command='PostQuestion'&amp;question='How big is the universe?'";
+xhttp.???(???, ??? + "?" + ???, true);  // open the channel using the GET method
+xhttp.???();  // send the empty data
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try2-button">Submit</button>
+                                <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try2-button').click(function() {
+                                        $('#try2-div').html($('#try2-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li><x-summary><b>Trial 3</b>: Let's to send a query information to TRUQA controller, using the POST method.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try3-textarea" rows="17" cols="100">&lt;p ???='tr3-msg'&gt;Message here!&lt;/p&gt;
+&lt;script&gt;
+var xhttp = ??? ???();  // create an AJAX object
+xhttp.??? = function() {  // register an event handler for the onreadystatechange event
+    if (this.??? == 4 &amp;&amp; ???.??? == 200) {  // check readyState and status
+        alert(this.???);  // text response
+        ???(???).???(this.???);  // display the text response to the above &lt;p&gt; using jQuery
+    }
+};
+var controller = "//cs.tru.ca/~mlee/comp3540/Software/test_display_inputs.php";
+var query="page='MainPage'&amp;command='PostQuestion'&amp;question='How big is the universe?'";
+xhttp.???("???", controller);  // open the channel to the controller using the post method
+//Send the proper header information along with the request
+xhttp.???("Content-type", "application/x-www-form-urlencoded");  // setRequestHeader()
+// send the query
+xhttp.???(query);
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try3-button">Submit</button>
+                                <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try3-button').click(function() {
+                                        $('#try3-div').html($('#try3-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li><x-summary>What if you try to retrieve data from another server?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Why is <a target="_blank" href="http://en.wikipedia.org/wiki/Same-origin_policy">the same-origin policy</a> important?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read and try all in <a target="_blank" href="http://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp">AJAX - Server Response</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>When is this event triggered?</li>
+                        <li>What does the value 4 for readyState mean?</li>
+                        <li>What does the value 200 for status mean?</li>
+                        <li>What is a <b>callback function</b>?</li>
+                        <li>Read the last example carefully.</li>
+                        <li>List the two types of server response.</li>
+                        <li>How to use a text response?</li>
+                        <li>How to use an XML response?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read and try all in <a target="_blank" href="http://www.w3schools.com/xml/ajax_php.asp">AJAX - PHP Example</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Read the first example carefully. 'Google Suggest' uses the same idea.</li>
+                        <li>Can you write your own 'TRU Suggest'? 
+                            Do you think you will need to send only the new character or the whole string?</li>
+                        <li>Do you have to use only PHP for server-side programs?</li>
+                        <li><x-summary>$_REQUEST ???</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;= $_POST + $_GET + $_COOKIE</span></li>
+                        <li>strtolower(), strlen(), substr(), stristr(), strstr()</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read and try all in <a target="_blank" href="http://www.w3schools.com/php/php_ajax_database.asp">AJAX - Database Example</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Read the first example carefully.</li>
+                        <li><x-summary><b>Trial 4</b>: Let's to send the 'ListQuestions' command to TRUQA controller, using the POST method.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try4-textarea" rows="17" cols="100">&lt;p ???='tr4-msg'&gt;Message here!&lt;/p&gt;
+&lt;script&gt;
+var xhttp = ??? ???();  // create an AJAX object
+xhttp.??? = function() {  // register an event handler for the onreadystatechange event
+    if (this.??? == 4 &amp;&amp; ???.??? == 200) {  // check readyState and status
+        alert(this.???);  // text response
+        ???(???).???(this.???);  // display the text response to the above &lt;p&gt; using jQuery
+    }
+};
+var controller = "truqa_list_questions.php";
+var query="page='MainPage'&amp;command='ListQuestions'";
+xhttp.???("???", controller);  // open the channel to the controller using the post method
+//Send the proper header information along with the request
+xhttp.???("Content-type", "application/x-www-form-urlencoded");  // setRequestHeader()
+// send the query
+xhttp.???(query);
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try4-button">Submit</button>
+                                <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try4-button').click(function() {
+                                        $('#try4-div').html($('#try4-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li>Can you write the table in the client, not the server-side?
+                            Then <b>how to send data to the client from the server?</b></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+        <li><x-summary><b class="xemp">jQuery AJAX functions</b></x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ajax_intro.asp">AJAX Introduction</a>.</li>
+                <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ajax_load.asp">AJAX load()</a>.
+                    <ul is="ul-circle" style="list-style-type: circle;">
+                        <li><x-summary><b>Trial 5</b>: Let's use .load() to display a table sent from TRUQA. 
+                            (Note that the 'GET' method is assumed.)
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try5-textarea" rows="6" cols="100">&lt;p ???='tr5-msg'&gt;Message here!&lt;/p&gt;
+&lt;script&gt;
+var controller = "truqa_list_questions.php";
+var query="page='MainPage'&amp;command='ListQuestions'";
+$(???).???(controller + ??? + query);  // jQuery load()
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try5-button">Submit</button>
+                                <div id="try5-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try5-button').click(function() {
+                                        $('#try5-div').html($('#try5-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ajax_get_post.asp">AJAX get() and post()</a>.
+                    <ul is="ul-circle" style="list-style-type: circle;">
+                        <li><x-summary><b>Trial 6</b>: Let's use .post() to display a table sent from TRUQA. 
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try6-textarea" rows="13" cols="100">&lt;p ???='tr6-msg'&gt;Message here!&lt;/p&gt;
+&lt;button type='button' onclick='???'&gt;Click me!&lt;/button&gt;
+&lt;script&gt;
+function tr6_query() {
+    var controller = "truqa_list_questions.php";
+    $.???(controller,  // jQuery post()
+        { ???: 'MainPage', command: 'ListQuestions' ???,  // page and command in an object
+        ??(data) {  // a callbackk function
+            ???('#tr6-msg').???(data);
+        }
+    );
+}
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try6-button">Submit</button>
+                                <div id="try6-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try6-button').click(function() {
+                                        $('#try6-div').html($('#try6-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+</li>
+                <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/ajax_ajax.asp">jQuery ajax() Method</a>.</li>
+                <li><x-summary>How to update '#result-pane' in MainPage of TRUQA, using load()?</x-summary>
+<pre style="display: block;">var command = {
+    page: 'MainPage',
+    command: 'SearchQuestions',
+    term: search_terms
+};
+$('#button-search-questions').click(function() {
+    var search_terms = ...;
+    $('#result-pane').<b>load</b>('controller.php', command);  // when the second arg is object, POST is used. Otherwise, GET is used.
+});
+</pre>
+                </li>
+                <li><x-summary>How to update '#result-pane' in MainPage of TRUQA, using POST?</x-summary>
+<pre style="display: block;">$('#button-search-questions').click(function() {
+    var search_terms = ...;
+    $.<b>post</b>('controller.php',
+    {
+        ???
+    },
+    function(result) {
+        ???
+    });
+});
+</pre>
+                </li>
+                <li><x-summary>How to update '#result-pane' in MainPage of TRUQA, using ajax()?</x-summary>
+<pre style="display: block;">$('#button-search-questions').click(function() {
+    var search_terms = ...;
+    $.<b>ajax</b>({
+        <b>url</b>: 'controller.php',
+        <b>type</b>: 'POST',
+        <b>data</b>: {
+            ???
+        },
+        <b>success</b>: function(result) {
+            ???
+        }
+    });
+});
+</pre>
+                </li>
+            </ul>
+        </li>
+        
+        <li><x-summary>Is there any formal format of data that is sent from the server?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>It will be discussed in the next section.</li>
+            </ul>
+        </li>
+        
+        <br>
+        <li><x-summary>Some review questions and learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Use of AJAX</li>
+                <li>Use of jQuery AJAX functions</li>
+            </ul>
+        </li>
+    </ol>
+
+    <br>
+    </div>
+
+
+</body></html>

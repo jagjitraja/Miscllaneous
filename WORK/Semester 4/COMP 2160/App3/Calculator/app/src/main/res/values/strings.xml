@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Calculator</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_0">0</string>
+    <string name="_Dot">.</string>
+    <string name="result">Result:</string>
+    <string name="add">+</string>
+    <string name="subtract">-</string>
+    <string name="divide">/</string>
+    <string name="multiply">*</string>
+    <string name="equals">=</string>
+    <string name="memory_add">m+</string>
+    <string name="memory_clear">mc</string>
+    <string name="memory_subtract">m-</string>
+    <string name="memory_recall">m</string>
+    <string name="ac">AC</string>
+    <string name="del">Del</string>
+    <string name="cleared">Cleared!</string>
+    <string name="maximum_decimals_error">Maximum Number of decimal places reached!</string>
+    <string name="only_one_dp">Only one dot per number</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="proceed">Proceed</string>
+    <string name="calculator">Calculator \n JAGJIT SINGH BILKHU \n T00533766</string>
+    <string name="decimal_places">0.0000</string>
+    <string name="memory_cleared">Memory Cleared</string>
+    <string name="memory_saved">saved in memory</string>
+    <string name="max_reached">Maximum Reached</string>
+    <string name="title">Calculator</string>
+</resources>

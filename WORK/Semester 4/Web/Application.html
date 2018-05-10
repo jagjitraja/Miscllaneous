@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="./divStyles.css">
+  <link rel="stylesheet" type="text/css" href="./application.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		
+	</head>
+	<body>
+
+    <div id = "start">
+
+	
+    </div>
+
+    <div id = "content" class = "row">
+
+        <div id = "sideNav" class = "col-md-3 col-sm-3">
+        
+            <nav id = "navigation" class = "navbar navbar-default">
+                <div class = "container-fluid">
+
+                    <div class = "navbar-header">
+                        <a href = "#" class = "navbar-brand">JSB</a>
+                        <button button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navLinks" aria-expanded="false">
+                            <span class = "icon-bar"></span>
+                            <span class = "icon-bar"></span>
+                            <span class = "icon-bar"></span>
+                        </button>
+                    </div>
+                  
+          <div id = "navLinks" class="collapse navbar-collapse">
+
+            <ul class="nav nav-pills nav-stacked">
+              <li class = "link"><a href = "#aboutMe">About Me</a></li>
+              <li class = "link"><a href = "#skills">Skills</a></li>
+              <li class = "link"><a href = "#experience">Experience</a></li>
+              <li class = "link"><a href = "#education">Education</a></li>
+              <li class = "link"><a href = "#contactMe">Contact Me</a></li>
+            </ul>
+
+          </div>
+                
+                </div>
+            </nav>
+        </div>
+
+        <div id = "data" class="col-md-9 col-sm-9">
+
+            <div id = "aboutMe" class = "dataDiv">
+
+                <h2>A little about me ... </h2>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id = "skills" class = "dataDiv">
+                <h2> My skills and specialities</h2>
+            </div>
+
+            <div id = "experience" class = "dataDiv">
+                <h2>My Experience</h2>
+            </div>
+
+            <div id = "education" class = "dataDiv">
+                <h2>My Education and studies</h2>
+            </div>
+
+            <div id = "contactMe" class = "dataDiv">
+                <h2>Lets get in touch</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        $(window).scroll(function(){
+            if($(window).scrollTop()>=$(window).innerHeight()){
+                if(!$('#sideNav').hasClass('staticNav')){
+                    $('#sideNav').addClass('staticNav');
+                    $('#data').addClass('scrollCont');
+                } 
+            }
+            else if($(window).scrollTop()<$(window).innerHeight()){
+                if($('#sideNav').hasClass('staticNav')){
+                    $('#data').removeClass('scrollCont');
+                    $('#sideNav').removeClass('staticNav');
+                }
+            }
+        })
+    </script>
+	</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/1.%20bootstrap.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>5.1 Bootstrap - Responsive Web Design</title>
+    <link type="text/css" rel="stylesheet" href="./5.1 Bootstrap - Responsive Web Design_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./5.1 Bootstrap - Responsive Web Design_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./5.1 Bootstrap - Responsive Web Design_files/table.css">
+    <script src="./5.1 Bootstrap - Responsive Web Design_files/jquery.min.js.download"></script>
+    <script src="./5.1 Bootstrap - Responsive Web Design_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">5.1 Bootstrap - Responsive Web Design</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 5 section 1">
+            <li><x-summary>Motivations</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Try to resize the window http://tru.ca</li>
+                    <li>Doesn't the layout response to the resizing? Is the horizontal scroll bar used?</li>
+                    <li>How to use the same applications over different screen sizes, such as monitors and  cell phones?</li>
+                    <li>Any good design templates for TRUQA, such as menu and form?</li>
+                    <li>Try <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Winter2017/8.%20Seminars/w999_controller.php">TRUQA</a>.</li>
+                </ul>
+            </li>
+
+            <li><a class="xemp" target="_blank" href="https://en.wikipedia.org/wiki/Responsive_web_design">Responsive web design (RWD)</a>.
+                <br><img src="./5.1 Bootstrap - Responsive Web Design_files/220px-Content-is-like-water-1980.jpg">
+            </li>
+            <li><x-summary><span class="xemp">Bootstrap</span> Tutorial</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Bootstrap is the most popular HTML, CSS, and JavaScript framework for developing responsive, mobile-first web sites.</li>
+                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/">Bootstrap Tutorial</a>.</li>
+                    <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_get_started.asp">Bootstrap Get Started</a>.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>What is RWD?</li>
+                            <li>What does Bootstrap include? Are design templates included?</li>
+                            <li>&lt;meta&gt; tag?</li>
+                            <li class="xemp">Typical structure to use Bootstrap
+                                <ol>
+                                    <li>&lt;meta&gt; tag</li>
+                                    <li>Bootstrap CSS library</li>
+                                    <li>jQuery library</li>
+                                    <li>Bootstrap JS library</li>
+                                    <li>div.container or div.container-fluid class - not nestable</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><x-summary>How to adjust the layout?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_grid_basic.asp">Bootstrap Grids</a>.</li>
+                            <li class="xemp"><code>div.col-(xs|sm|md|lg)-(1|2|...|12)</code> within <code>div.row</code></li>
+                        </ul>
+                    </li>
+                    
+                    <li><x-summary><b>Trial 1</b>: Let's try to give good divisions.
+                        Two rows, and two columns in the second row.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try1-textarea" rows="16" cols="100">&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;&lt;/link&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;??? src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"&gt;&lt;/script&gt;
+&lt;div class=???&gt;
+    &lt;div class=??? style='background-color:LightBlue; height:100px;'&gt;
+        &lt;h1 style='???:center'&gt;COMP 3540&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;div class=???&gt;
+        &lt;div class='col-sm-2' style='background-color:LightGreen; height:200px;'&gt;
+            What a great world!
+        &lt;/div&gt;
+        &lt;div class='col-???-???' style='background-color:LightYellow; height:200px;'&gt;
+            What a wonderful world!
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                            </textarea>
+                            <button style="margin-top:11px" id="try1-button2">Submit</button>
+                            <script>
+                                $('#try1-button2').click(function() {
+                                    $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                        { code: $('#try1-textarea').val() },
+                                        function(data) {
+                                            document.getElementById('try1-iframe').contentWindow.document.body.innerHTML = data; }
+                                    );
+                                });
+                            </script>
+                            <br><iframe style="margin-top:10px" id="try1-iframe" name="try1-iframe" width="99%" src="./5.1 Bootstrap - Responsive Web Design_files/saved_resource.html"></iframe>
+                        </div>
+                    </li>
+                                
+                    <li><x-summary>For consistent look and feel, and <span class="xemp">design templates</span> - There are many topics to read here.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_tables.asp">Bootstrap Tables</a>.</li>
+                            <li><x-summary><b>Trial 2</b>: Let's try to write a table with a hover effect.
+                                <div>
+                                    <textarea id="try2-textarea" rows="12" cols="100">&lt;??? rel="stylesheet" ???="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;&lt;/link&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;??? src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"&gt;&lt;/script&gt;
+
+&lt;div class='???'
+&lt;table class=???&gt;
+    &lt;tr&gt;&lt;th&gt;Course Number&lt;/th&gt;&lt;th&gt;Course Title&lt;/th&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;COMP 2680&lt;/td&gt;&lt;td&gt;Web Site Design and Development&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;COMP 3540&lt;/td&gt;&lt;td&gt;Advanced Web Design and Programming&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;COMP 3710&lt;/td&gt;&lt;td&gt;Applied Artificial Intelligence&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try2-button2">Submit</button>
+                                    <script>
+                                        $('#try2-button2').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try2-textarea').val() },
+                                                function(data) {
+                                                    document.getElementById('try2-iframe').contentWindow.document.body.innerHTML = data; }
+                                            );
+                                        });
+                                    </script>
+                                    <br><iframe style="margin-top:10px" id="try2-iframe" name="try2-iframe" width="99%" src="./5.1 Bootstrap - Responsive Web Design_files/saved_resource(1).html"></iframe>
+                                </div>
+                            </x-summary></li>
+                    
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_buttons.asp">Bootstrap Buttons</a>.</li>
+                            <li><x-summary><b>Trial 3</b>: Let's try to write a button of info type.</x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try3-textarea" rows="10" cols="100">&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;&lt;/link&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"&gt;&lt;/script&gt;
+
+&lt;div class='???'
+    &lt;input type='hidden' name='StartPage' value='SignIn'&gt;
+    Username: &lt;input type='text' name='username'&gt;&lt;br&gt;
+    Password: &lt;input type='password' name='password'&gt;&lt;br&gt;
+    &lt;input type='submit' class='??? ???' value='Submit'&gt;
+&lt;/div&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try3-button2">Submit</button>
+                                    <script>
+                                        $('#try3-button2').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try3-textarea').val() },
+                                                function(data) {
+                                                    document.getElementById('try3-iframe').contentWindow.document.body.innerHTML = data; }
+                                            );
+                                        });
+                                    </script>
+                                    <br><iframe style="margin-top:10px" id="try3-iframe" name="try3-iframe" width="99%" src="./5.1 Bootstrap - Responsive Web Design_files/saved_resource(2).html"></iframe>
+                                </div>
+                            </li>
+
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_dropdowns.asp">Bootstrap Dropdowns</a>.</li>
+                            <li><x-summary><b>Trial 4</b>: Let's try to write a drop-down menu for TruQA.</x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try4-textarea" rows="15" cols="100">&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;&lt;/link&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"&gt;&lt;/script&gt;
+
+&lt;div class="???"&gt;
+  &lt;button type="button" class="btn btn-primary dropdown-???" data-toggle="???"&gt;TruQA
+    &lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+  &lt;ul class="???"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;SignIn&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Join&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;ForgotPassword&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="???"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;About Us&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try4-button2">Try using <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/runcode.php">runcode</a>.</button>
+                                    <!--
+                                    <script>
+                                        $('#try4-button2').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try4-textarea').val() },
+                                                function(data) {
+                                                    document.getElementById('try4-iframe').contentWindow.document.body.innerHTML = data; }
+                                            );
+                                        });
+                                    </script>
+                                    <br><iframe style='margin-top:10px' id='try4-iframe' name='try4-iframe' width='99%'></iframe>
+                                    -->
+                                </div>
+                            </li>
+
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_collapse.asp">Bootstrap Collapse</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_tabs_pills.asp">Bootstrap Tabs and Pills</a>.
+                                Study the last two examples carefully.
+                            </li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_forms.asp">Bootstrap Forms</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp">Bootstrap Inputs</a>.</li>
+                            <li><x-summary><b>Trial 5</b>: Let's try to write a horizontal form for SignIn in TruQA.</x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try5-textarea" rows="27" cols="100">&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;&lt;/link&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"&gt;&lt;/script&gt;
+
+&lt;form class="form-horizontal"&gt;
+  &lt;div class="form-group"&gt;
+    &lt;div class='col-sm-???'&gt; 
+        &lt;label class="control-label" for="username"&gt;Username:&lt;/label&gt; 
+    &lt;/div&gt;
+    &lt;div class="col-sm-10"&gt;
+      &lt;input type="text" class="form-control" id="username" placeholder="Enter username"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="???"&gt;
+    &lt;div class='col-sm-2'&gt; 
+    &lt;label class="control-label" ???="password"&gt;Password:&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class="col-sm-???"&gt; 
+      &lt;input type="password" class="form-control" id="password" ???="Enter password"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="???"&gt; 
+    &lt;div class="col-sm-offset-2 col-sm-10"&gt;
+      &lt;button type="submit" class="btn btn-default"&gt;Submit&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;                                    </textarea>
+                                    <button style="margin-top:11px" id="try5-button2">Submit</button>
+                                    <script>
+                                        $('#try5-button2').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try5-textarea').val() },
+                                                function(data) {
+                                                    document.getElementById('try5-iframe').contentWindow.document.body.innerHTML = data; }
+                                            );
+                                        });
+                                    </script>
+                                    <br><iframe style="margin-top:10px" id="try5-iframe" name="try5-iframe" width="99%" src="./5.1 Bootstrap - Responsive Web Design_files/saved_resource(3).html"></iframe>
+                                </div>
+                            </li>
+
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/bootstrap/bootstrap_modal.asp">Bootstrap Modals</a>. 
+                                What is an <a target="_blank" href="https://en.wikipedia.org/wiki/Modal_window">modal window</a>?
+                            </li>
+                            <li><x-summary><b>Trial 6</b>: Let's try to write SignIn in TruQA.</x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try6-textarea" rows="32" cols="100">&lt;link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"&gt;&lt;/link&gt;
+&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"&gt;&lt;/script&gt;
+
+&lt;button type="button" class="btn btn-info btn-md" data-toggle="???" data-target="???"&gt;Open SignIn&lt;/button&gt;
+
+&lt;div class='??? fade' id='tr6-modal' role='dialog'&gt;
+    &lt;div class='modal-dialog'&gt;
+        &lt;div class='modal-???'&gt;
+            &lt;form class="form-horizontal"&gt;
+                &lt;div class='modal-???'&gt;
+                    &lt;h2 class='modal-title'&gt;SignIn&lt;/h2&gt;
+                &lt;/div&gt;
+                &lt;div class='modal-???'&gt;
+                    &lt;div class="form-group"&gt;
+                        &lt;label class="control-label" for="username"&gt;Username:&lt;/label&gt; 
+                        &lt;input type="text" class="form-control" id="username" placeholder="Enter username"&gt;
+                    &lt;/div&gt;
+                    &lt;div class="form-group"&gt;
+                        &lt;label class="control-label" ???="password"&gt;Password:&lt;/label&gt;
+                        &lt;input type="password" class="form-control" id="password" ???="Enter password"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class='modal-???'&gt;
+                    &lt;div class="form-group"&gt; 
+                        &lt;button type="cancel" class="btn btn-default" data-dismiss="modal"&gt;Cancel&lt;/button&gt;
+                        &lt;button type="submit" class="btn btn-default"&gt;Submit&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;  
+            &lt;/form&gt;             
+        &lt;/div&gt;  
+    &lt;/div&gt;    
+&lt;/div&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try6-button2">Try using <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/runcode.php">runcode</a>.</button>
+                                </div>
+                            </li>
+
+                            <li>There are many other topics.</li>
+                        </ul>
+                     </li>
+                </ul>
+            </li>
+            
+            <li><x-summary>Some examples that can be used in TRUQA</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>What is a modal?</li>
+                    <li><a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/dropdown-menu.html">Dropdown menu in StartPage</a></li>
+                    <li><a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/modal-signin.html">SignIn</a></li>
+                    <li><a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/layout-mainpage.html">Layout for MainPage</a></li>
+                    <li>Read carefully the source code of the above examples.</li>
+                </ul>
+            </li>
+        
+            <li><x-summary>Some review questions and learning outcomes</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Questions for StartPage and MainPage
+                        <ul is="ul-circle" style="list-style-type: circle;">
+                            <li>How to use a drop-down menu</li>
+                            <li>How to open a modal window with a &lt;button&gt; or a &lt;a&gt;</li>
+                            <li>How to use inputs in a form</li>
+                            <li>How to use a form in a modal window</li>
+                        </ul>
+                    </li>
+                    <li>Questions for MainPage
+                        <ul is="ul-circle" style="list-style-type: circle;">
+                            <li>How to use a table</li>
+                            <li>How to use tabs/pills for menu bars (not drop-down menu)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+
+</body></html>

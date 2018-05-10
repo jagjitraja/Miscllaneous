@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/2.%20jquery.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>5.2 jQuery</title>
+    <link type="text/css" rel="stylesheet" href="./5.2 jQuery_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./5.2 jQuery_files/class.css">
+    <script src="./5.2 jQuery_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./5.2 jQuery_files/class.js.download"></script>
+</head>
+
+<body>
+    <!-- non visible -->
+    
+    <div style="display:none">
+        <form id="-form-trial" method="post">
+            <textarea id="-textarea-trial" name="code"></textarea>
+        </form>
+    </div>
+    
+    <!-- title division -->
+    
+    <div class="pane_upper2">
+        <h1 style="text-align: center">5.2 jQuery</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <!-- content division -->
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 5 section 2">
+            <li><x-summary>What is <b>jQuery</b>?</x-summary>
+                <ul style="list-style-type: disc; display: block;">
+                    <li>jQuery is the most popular JavaScript library 
+                        that is used to make it <b>easier</b> to use JavaScript and CSS.
+                        Read all in <a target="_blank" href="http://en.wikipedia.org/wiki/Comparison_of_JavaScript_frameworks">Comparison of JavaScript frameworks</a>.</li>
+                    <li>The jQuery library contains HTML/DOM manipulation, CSS manipulation, AJAX, and utilities. 
+                        Many web sites use jQuery.</li>
+                    <li>Read "What is jQuery" and "Why jQuery" in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_intro.asp">jQuery Introduction</a>.</li>
+                    <li>Try an example <a target="_blank" href="http://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_hide">Click and Disappear</a>.
+                        Isn't the code so simple?
+                    </li>
+                    <li>Can you understand the above code? What is '<code><b>$</b>(...)</code>'?</li>
+                    <li><b><i>Isn't the above example an event handler?</i></b> Any idea how to implement?</li>
+                </ul>
+                <br style="display: inline;">
+            </li>
+            
+            <li><x-summary>What can we do with jQuery? What features are included in jQuery?</x-summary>
+                <ul style="list-style-type: disc; display: block;">
+                    <li>HTML/DOM manipulation: meaning?</li>
+                    <li>CSS manipulation</li>
+                    <li><b>HTML event methods</b></li>
+                    <li>Effects and animations</li>
+                    <li><b>AJAX</b> - to be discussed in the next section</li>
+                    <li>Utilities</li>
+                </ul>
+                <br style="display: inline;">
+            </li>
+
+            <li><x-summary>How to use jQuery?</x-summary>
+                <ol style="list-style-type: lower-alpha; display: block;">
+                    <li>First, read "Adding jQuery to Your Web Pages", "Downloading jQuery", and "jQuery CDN"
+                        in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_get_started.asp">jQuery Get Started</a>.</li>
+                    <li><x-summary>Second, with jQuery you <b>select</b> (or query) HTML elements [based on an <b>event</b>] and <b>perform actions</b> on them.</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>Example 1.
+<pre><b>$</b>(<b>document</b>).<b>ready</b>(function() {  // What is 'document'? What is '$(...)'? What is 'ready(...)'? What is 'function() {...}'?
+    <b>$</b>(<i>selector</i>).<i>action</i>();  // Do this action over selected objects
+});
+</pre>
+                            </li>
+                            <li>Example 2.
+<pre>$(document).ready(function() {
+    $(<i>selector</i>).<i>event</i>(function() {  // When this event is triggered
+        $(<i>selector</i>).<i>action</i>();       //   do this action over selected objects
+        $(<b>this</b>).<i>action</i>();           // <b>What is 'this'?</b> The current HTML DOM element or $(<i>selector</i>)?
+    });
+});
+// or
+$((function() {  // Nothig different from the above example. Can you imagin how $ works?
+    $(<i>selector</i>).<b>on</b>(<i>event</i>, function() {
+        $(<i>selector</i>).<i>action</i>();
+        $(this).<i>action</i>();           // <b>What is 'this'?</b> The current HTML DOM element or $(<i>selector</i>)?
+    });
+});
+</pre>
+                            </li>
+                            <li>Read "The Document Ready Event" in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_syntax.asp">jQuery Syntax</a></li>
+                            <li>Read "jQuery Syntax" in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_syntax.asp">jQuery Syntax</a></li>
+                        </ul>
+                    </li>
+                </ol>
+                <br style="display: inline;">
+            </li>
+
+            <li><x-summary>What to select? How to select?</x-summary>
+                <ul style="list-style-type: disc; display: block;">
+                    <li><x-summary>In general, there are three types of selectors. Do you remember the selectors in CSS?</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>The element selector - mutiple elements - E.g., <code>$('p')</code></li>
+                            <li>The #id selector - only one element - E.g., <code>$('#test')</code>, <code>$('p#test')</code></li>
+                            <li>The .class selector - multiple elements - E.g., <code>$('.testclass')</code>, <code>$('p.testclass')</code></li>
+                            <li></li>
+                            <li>The current HTML element - <code>$(this)</code></li>
+                            <li>Elements with an attribute - E.g., <code>$("a[target='_blank']")</code>, <code>$("input[name='property']:checked")</code></li>
+                            <li>...</li>
+                        </ul>
+                    </li>
+                    <li><x-summary><b>Trial 1</b>: Let's try a simple jQuery example.
+                        When a &lt;p&gt; of id='tr1' is clicked, let's show alert().
+                        </x-summary>
+                        <div style="display: block;">
+                            <textarea id="try1-textarea" rows="11" cols="100">&lt;??? ???="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(???).???(function() {
+        $(???).click(??? {
+            alert('If you expect more, you will get more.');
+        });
+    });
+&lt;/script&gt;
+&lt;p id='different'&gt;Different one&lt;/p&gt;
+&lt;p id='tr1'&gt;Click me!&lt;/p&gt;
+&lt;button id='tr1'&gt;Click me!&lt;/button&gt;
+                            </textarea>
+                            <button id="try1-button">Submit</button>
+                            <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try1-button').click(function() {
+                                    $('#try1-div').html($('#try1-textarea').val());
+                                });
+                            </script>
+                            <!--
+                            <button style='margin-top:11px' id='try1-button2'>Submit</button>
+                            <script>
+                                $('#try1-button2').click(function() {
+                                    $('#-form-trial').attr('action', '//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php');
+                                    $('#-form-trial').attr('target', 'try1-iframe');
+                                    $('#-textarea-trial').val($('#try1-textarea').val());
+                                    $('#-form-trial').submit();
+                                });
+                            </script>
+                            <br><iframe style='margin-top:10px' id='try1-iframe' name='try1-iframe' width='99%'></iframe>
+                            -->
+                        </div>
+                    </li>
+                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_selectors.asp">jQuery Selectors</a> and try all the examples and exercises.
+                        Try <a target="_blank" href="http://www.w3schools.com/jquery/trysel.asp"><b>jQuery Selector Tester</b></a>.</li>
+                    
+                    <li><x-summary><b>Trial 2</b>: Let's try another jQuery example.
+                        When a button of id='tr2' is clicked, let's hide all &lt;div&gt; belonging to .tr2-target.
+                        </x-summary>
+                        <div style="display: block;">
+                            <textarea id="try2-textarea" rows="11" cols="100">&lt;??? ???=???&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(???).???(function() {
+        $(???).click(??? {
+            ???
+        });
+    });
+&lt;/script&gt;
+&lt;div class='tr2-target'&gt;Out of troubles, there is always an opportunity.&lt;/div&gt;
+&lt;div&gt;Out of troubles, there is always an opportunity.&lt;/div&gt;
+&lt;button type='button' id='tr2'&gt;Click me!&lt;/button&gt;
+                            </textarea>
+                            <button id="try2-button">Submit</button>
+                            <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try2-button').click(function() {
+                                    $('#try2-div').html($('#try2-textarea').val());
+                                });
+                            </script>
+                            <!--
+                            <button style='margin-top:11px' id='try2-button2'>Submit</button>
+                            <script>
+                                $('#try2-button2').click(function() {
+                                    $('#-form-trial').attr('action', '//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php');
+                                    $('#-form-trial').attr('target', 'try2-iframe');
+                                    $('#-textarea-trial').val($('#try2-textarea').val());
+                                    $('#-form-trial').submit();
+                                });
+                            </script>
+                            <br><iframe style='margin-top:10px' id='try2-iframe' name='try2-iframe' width='99%'></iframe>
+                            -->
+                        </div>
+                    </li>
+                    <li><x-summary>How to select one of multiple selected ones? (Multiple DOM objects can be simply selected without events.)</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>Read ""<code>data()</code>", <code><b style="color:blue">each()</b></code>", "<code>get()</code>", "<code>index()</code>", "<code>toArray()</code>" in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ref_misc.asp">jQuery Miscellaneous Methods</a>.</li>
+                            <li>In examples, <code>alert($(this).text());</code>?  <code>alert($(this).innerHTML);</code>? 
+                            </li><li><b>How to get a DOM object specified by the selector?</b></li>
+                        </ul>
+                    </li>
+                    <li><x-summary>How to know how many objects are selected?</x-summary>
+                        <span style="display: inline;">&nbsp;&nbsp;<code>alert($('dev')<b>.length</b>);</code></span></li>
+                    <li>How to put your jQuery function in a separate file?</li>
+                </ul>
+                <br style="display: inline;">
+            </li>
+
+            <li><x-summary>What kind of jQuery events?</x-summary>
+                <ul style="list-style-type: disc; display: block;">
+                    <li><x-summary>jQuery is tailor-made to respond to events in an HTML page.
+                        jQuery events are very similar to HTML. 
+                        Generally you can use ...</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>Mouse events</li>
+                            <li>Keyboard events</li>
+                            <li>Form events</li>
+                            <li>Document and window events</li>
+                        </ul>
+                    </li>
+                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_events.asp">jQuery Event Methods</a>.</li>
+                    <li><x-summary>Some questions</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>What is the data type of the argument passed to on() in the last example?</li>
+                            <li>What is a callback function?</li>
+                        </ul>
+                    </li>
+                    <li><x-summary><b>Trial 3</b>: Let's change the background color,
+                        when the mouse moves over &lt;p&gt; in .tr3, like :hover in CSS. 
+                        </x-summary>
+                        <div style="display: block;">
+                            <textarea id="try3-textarea" rows="12" cols="100">&lt;??? ???="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    $(???).???(function() {
+        $(???).???(??? {
+            ???;  // Use this.style
+        },
+        function() {
+            ???;  // Use $(this).css()
+        });
+    });
+&lt;/script&gt;
+&lt;p class='tr3'&gt;If you do not expect anything, you will get nothing.&lt;/p&gt;
+                            </textarea>
+                            <button id="try3-button">Submit</button>
+                            <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try3-button').click(function() {
+                                    $('#try3-div').html($('#try3-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+                <br style="display: inline;">
+            </li>
+
+            <li><x-summary>jQuery features - Let's see what we can do with jQuery.</x-summary>
+                <ul style="list-style-type: disc; display: block;">
+                    <li><x-summary>jQuery Effects: Hide, Show, Toggle, Slide, Fade, and Animate</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_hide_show.asp">jQuery Hide/Show - hide, show, toggle</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_fade.asp">jQuery Fade - fadeIn, fadeOut, fadeToggle, fadeTo</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_slide.asp">jQuery Slide - slideDown, slideUp, slideToggle</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_animate.asp">jQuery Animate - custom animations</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_stop.asp">jQuery stop()</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_callback.asp">jQuery Callback</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_chaining.asp">jQuery Chaining - multiple methods within a single statement</a>.</li>
+                        </ul>
+                        <br style="display: inline;">
+                    </li>
+
+                    <li><x-summary>jQuery HTML and CSS: How to create, remove, <b>change</b>, <b>get</b>?</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>HTML
+                                <ul is="ul-square" style="list-style-type: square;">
+                                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_dom_get.asp">jQuery - <b>Get</b> Content and Attributes</a>.</li>
+                                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_dom_set.asp">jQuery - <b>Set</b> Content and Attributes</a>.</li>
+                                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_dom_add.asp">jQuery - Add Elements</a>.</li>
+                                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_dom_remove.asp">jQuery - Remove Elements</a>.</li>
+                                    <li><b>How are .val() and .attr() different for input-like elements?</b> E.g., $(this).val() and $(this).attr('value').</li>
+                                </ul>
+                            </li>
+                            <li>CSS
+                                <ul is="ul-square" style="list-style-type: square;">
+                                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_css_classes.asp">jQuery - Get and Set CSS Classes</a>.</li>
+                                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_css.asp">jQuery - <b>css()</b></a>.</li>
+                                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_dimensions.asp">jQuery - Dimensions</a>. Can you change the demision of an element?</li>
+                                </ul>
+                            </li>
+                            <li><x-summary>Example: nested ordered list; e.g., 2.1, 2.2, ...; what methods should be used?; read the code carefully.</x-summary><div style="display: block;">
+                                <ol id="testNestedOl" style="list-style-type: none;">
+                                    2.1&nbsp;&nbsp;<li style="display: inline;">COMP 2680<br></li>
+                                    2.2&nbsp;&nbsp;<li style="display: inline;">COMP 3540<br></li>
+                                    2.3&nbsp;&nbsp;<li style="display: inline;">COMP 4620<br></li>
+                                </ol>
+                                <script>
+                                    $('#testNestedOl').css('list-style-type', 'none');
+                                    $('#testNestedOl > li').css('display', 'inline');
+                                    $('#testNestedOl > li').each(function() {
+                                        $(this).before('2.' + (Number($(this).index()) + 1) + '&nbsp;&nbsp;');
+                                        $(this).html($(this).html() + '<br>');
+                                    });
+                                    $('#testNestedOl > li:even').hover(function() {
+                                        $(this).css('background-color', 'Grey');
+                                    }, function() {
+                                        $(this).css('background-color', 'transparent');
+                                    });
+                                </script>
+                                <ol id="testNestedOl2" style="list-style-type: none;">
+                                    <li><li>3.1&nbsp;&nbsp;Excellent</li></li>
+                                    <li><li>3.2&nbsp;&nbsp;Fantastic</li></li>
+                                    <li><li>3.3&nbsp;&nbsp;Amazing</li></li>
+                                    <li><li>3.4&nbsp;&nbsp;Wonderful</li></li>
+                                </ol>
+                                <script>
+                                    $('#testNestedOl2').css('list-style-type', 'none');
+                                    $('#testNestedOl2 > li').each(function() {
+                                        $(this).html('<li>3.' + (Number($(this).index()) + 1) + '&nbsp;&nbsp;' + $(this).text() + '</li>');
+                                    });
+                                    $('#testNestedOl2 > li:even').hover(function() {
+                                        $(this).css('background-color', 'Grey');
+                                    }, function() {
+                                        $(this).css('background-color', 'transparent');
+                                    });
+                                </script>
+                            </div></li>
+                            <li><x-summary>Here is the code of the above nested ordered list.</x-summary>
+<pre style="display: block;">&lt;ol id='testNestedOl'&gt;
+    &lt;li&gt;COMP 2680&lt;/li&gt;
+    &lt;li&gt;COMP 3540&lt;/li&gt;
+    &lt;li&gt;COMP 4620&lt;/li&gt;
+&lt;/ol&gt;
+&lt;script&gt;
+    $('???').css('list-style-type', 'none');  // To remove ordering numbers
+    $('#testNestedOl &gt; ???').???('display', '???');  // In order to make &lt;li&gt; be displayed in the same line
+    $('#testNestedOl &gt; li').???(function() {  // For each of them
+        $(this).???('2.' + (Number($(this).???()) + 1) + '&nbsp;&nbsp;');  // Before each &lt;li&gt;, using .before()
+        $(this).html($(this).html() + '&lt;br&gt;');  // Include a line break at the end of the list.
+    });
+    /* or
+    $('#testNestedOl &gt; li').???(function() {  // For each of them
+        $(this).???('2.' + (Number($(this).???()) + 1) + '&nbsp;&nbsp;');  // Before each &lt;li&gt;, using .prepend()
+    });
+    */
+    
+    $('#testNestedOl &gt; li:???').hover(function() {  // even or odd
+        $(this).css('background-color', 'Grey');
+    }, function() {
+        $(this).css('background-color', 'transparent');
+    });
+&lt;/script&gt;
+</pre>
+                            </li>
+                            <li><x-summary><b>Trial 4</b>: Let's try the above example with different id='tr4'.</x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try4-textarea" rows="24" cols="100">&lt;ol id='tr4'&gt;
+    &lt;li&gt;COMP 2680&lt;/li&gt;
+    &lt;li&gt;COMP 3540&lt;/li&gt;
+    &lt;li&gt;COMP 4620&lt;/li&gt;
+&lt;/ol&gt;
+&lt;script&gt;
+    $('???').css('list-style-type', 'none');  // To remove ordering numbers
+    $('#tr4 &gt; ???').???('display', ???);  // In order to make &lt;li&gt; be displayed in the same line
+    $('#tr4 &gt; li').???(function() {  // For each of them
+        $(this).???('2.' + (Number($(this).???()) + 1) + '  ');  // Before each &lt;li&gt;, using .before()
+        $(this).html($(this).html() + '&lt;br&gt;');  // Include a line break at the end of the list.
+    });
+    /* or
+    $('#tr4 &gt; li').???(function() {  // For each of them
+        $(this).???('2.' + (Number($(this).???()) + 1) + '  ');  // Before each &lt;li&gt;, using .prepend()
+    });
+    */
+    
+    $('#tr4 &gt; li:???').hover(function() {  // even or odd
+        $(this).css('background-color', 'Grey');
+    }, function() {
+        $(this).css('background-color', 'transparent');
+    });
+&lt;/script&gt;
+                                    </textarea>
+                                    <button id="try4-button">Submit</button>
+                                    <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try4-button').click(function() {
+                                            $('#try4-div').html($('#try4-textarea').val());
+                                        });
+                                    </script>
+                                </div>
+                            </li>
+                        </ul>
+                        <br style="display: inline;">
+                    </li>
+
+                    <li><x-summary>jQuery Traversing: How to get parents, children, siblings?</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_traversing.asp">What is Traversing?</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_traversing_ancestors.asp">jQuery Traversing - Ancestors</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_traversing_descendants.asp">jQuery Traversing - Descendants</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_traversing_siblings.asp">jQuery Traversing - Siblings</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_traversing_filtering.asp">jQuery Traversing - Filtering</a>.</li>
+                        </ul>
+                        <br style="display: inline;">
+                    </li>
+
+                    <li><x-summary>jQuery AJAX: How to send/receive data asynchronously? We will discuss this topic in the next section.</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ajax_intro.asp">AJAX Introduction</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ajax_load.asp">AJAX load()</a>.</li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ajax_get_post.asp">AJAX get() and post()</a>.</li>
+                        </ul>
+                        <br style="display: inline;">
+                    </li>
+
+                    <li><x-summary>jQuery Misc</x-summary>
+                        <ul style="list-style-type: circle; display: block;">
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ref_events.asp">jQuery Event Methods</a>.
+                                This is interesting that we can trigger events, not only response to events.
+                                Try <a target="_blank" href="http://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_event_click_trigger">this</a> for an example.
+                            </li>
+                            <li>Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_noconflict.asp">noConflict()</a>.</li>
+                        </ul>
+                        <br style="display: inline;">
+                    </li>
+                </ul>
+            </li>
+            <li><x-summary>Some other interesting examples.</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>How to trigger events - 
+                        Read all in <a target="_blank" href="http://www.w3schools.com/jquery/jquery_ref_events.asp">jQuery Event Methods</a> and try some examples.
+                        Try <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/view_main_mccfbc_db.html">this example of MCCFBC DB</a>.
+                    </li>
+                    <li>How to read multiple selected options - 
+                        Try <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/backward-chaining-zookeeper.html">this example of Backward Chaining for ZooKeeper</a>.
+                    </li>
+                </ul>
+            </li>
+            <li>Can you design and implement a similar but simple library?</li>
+
+            <li><x-summary>Some review questions and learning outcomes</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>How to obtain/change CSS property values</li>
+                    <li>How to obtain/change HTML contents</li>
+                    <li>How to obtain/chage input values</li>
+                    <li>How to hide/show an HTML element when a button is clicked</li>
+                    <li>How to send a form when a button is clicked</li>
+                    <li>How to obtain all the checked checkboxes;
+                        How to obtain all the selected options</li>
+                    <li>When an object is selected, how to trigger an event on another object</li>
+                    <li>Know the general pattern how to use jQuery.</li>
+                    <li>List the three general types of selectors</li>
+                    <li>Use jQeury for event handling, better effects, and manipulation of CSS, HTML, and AJAX.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+
+</body></html>

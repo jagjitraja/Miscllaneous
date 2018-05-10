@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!-- saved from url=(0098)https://cs.tru.ca/~mlee/comp3540/Winter2018/6.%20security_concerns/1.%20secure_comm_encryption.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>6.1 Secure communications and encryption</title>
+    <link type="text/css" rel="stylesheet" href="./6.1 Secure communications and encryption_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./6.1 Secure communications and encryption_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./6.1 Secure communications and encryption_files/table.css">
+    <script src="./6.1 Secure communications and encryption_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./6.1 Secure communications and encryption_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">6.1 Secure communications and encryption</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 6 section 1">
+            <li><x-summary>Motivations</x-summary> 
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>How to trust a web site that says it is eBay or CS?</li>
+                    <li>How to send a credit card number in a secure manner?</li>
+                    <li>In TRUQA, you will need to send the username and password.
+                        The username and password are not encrypted.
+                        Can anybody read the username and password during the transmission to the server?</li>
+                    <li>Assuming there is a way to send the username and password in a secure manner,
+                        do we still need strong passwords?</li>
+                    <li>As a system administrator, how can you trust users?</li>
+                    <li>Check the URL field on the top of the browser. <b>Do you see the 'https' instead of 'http'?</b></li>
+                    <li>How about the user authentication used for this section?</li>
+                </ul>
+            </li>
+
+            <li><x-summary>Secure communications, and encryption and decryption</x-summary> 
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Is it safe to send username and password as plain texts? 
+                        <x-summary>Here are some issues that you still need to solve.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Server (or website) authentication - how to authenticate a server?</li>
+                            <li>User authentication - how to authenticate a user?</li>
+                            <li>Secure connection - how to send data through a secure connection?</li>
+                            <li>Encryption and decryption - how to encrypt data?</li>
+                        </ul>
+                    </li>
+                    <li><x-summary>Read all in <a href="https://cs.tru.ca/~mlee/comp3540/Winter2018/6.%20security_concerns/PHP%20secure%20comm%20and%20encryption.ppt">PHP secure communications and encryption</a>.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>How can you trust a web site?</li>
+                            <li>List the two types of authentications.</li>
+                            <li>What information can you obtain from a digital secure certificate?</li>
+                            <li>How can you check if HTTPS is not being used?</li>
+                            <li><span class="xemp">How can you redirect the HTTP connection to HTTPS?</span></li>
+                            <li>Is it a good idea to store passwords in a database table as plain text?</li>
+                            <li>What is a hash function?</li>
+                            <li>Can you store encrypted password into your 'username_password' database table?</li>
+                            
+                            <li><x-summary><b>Trial 1</b>: Let's try to add a new user with encrypted password.</x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try1-textarea" rows="9" cols="100">&lt;?php
+$username = 'jwilliams';  // just for testing
+$password = 'topsecrete';
+$hashed_password = ???($password);  // hash function
+$query = "insert into Users (Username, Password)
+            values (???, ???)";  // save hashed_password
+// ...
+echo $password . ' -&gt; ' . $hashed_password;  // just for testing
+?&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try1-button">Submit the code to the server to execute PHP code</button>
+                                    <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try1-button').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try1-textarea').val() },
+                                                function(data) { $('#try1-div').html(data); }
+                                            );
+                                        });
+                                    </script>
+                                </div>
+                            </li>
+                            
+                            <li><x-summary><b>Trial 2</b>: Let's try to ask the user to enter username and password using 'Basic Authentication'.</x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try2-textarea" rows="12" cols="100">&lt;?php
+$username = $_SERVER['PHP_AUTH_USER'];
+$password = ???;  // PHP_AUTH_PW
+if (!isset($username) || ???($password) || $username != 'comp3540' || $password != ???) {
+    header('WWW-Authenticate: Basic realm = "My Realm"');
+    ???('HTTP/1.0 401 Unauthorized');
+    exit();
+}
+else
+    echo 'Valid username and password&lt;br&gt;';
+?&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try2-button">Submit the code to the server to execute PHP code</button>
+                                    <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try2-button').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try2-textarea').val() },
+                                                function(data) { $('#try2-div').html(data); }
+                                            );
+                                        });
+                                    </script>
+                                </div>
+                            </li>
+                            
+                            <li><x-summary>How to encrypt and decrypt data?</x-summary>
+                                <ol style="display: block;">
+                                    <li>Decide the cipher algorithm and mode.</li>
+                                    <li>Get the IV (initialization vector) size.</li>
+                                    <li>Create the IV.</li>
+                                    <li>Encrypt data with the key, ...</li>
+                                </ol>
+                            </li>
+                            <li><x-summary>How to send encrypted data?</x-summary>
+                                <ul style="display: block;">
+                                    <li>base64_encode()</li>
+                                    <li>base64_decide()</li>
+                                </ul>
+                            </li>
+                            <li><x-summary><b>Trial 3</b>: Let's just try the next example to see how encryption/decryption work.
+                                    The execution might take some time. This is because of mcrypt_...() functions.
+                                    Just wait till you see any result.
+                                </x-summary>
+                                <div style="display: block;">
+                                    <textarea id="try3-textarea" rows="22" cols="100">&lt;?php
+// Both sides
+$cipher = MCRYPT_RIJNDAEL_128;
+$mode = MCRYPT_MODE_CBC;  // cipher block chaining
+$key = sha1('secretPassword', true);  // true =&gt; raw_output; ???
+                                      // how to use SHA256 instead?
+// Sender
+$credit_card_no = '4111 1111 1111 1111';
+$ivs = mcrypt_get_iv_size($cipher, $mode);
+$iv = mcrypt_create_iv($ivs);
+$data = ???($cipher, $key, $credit_card_no, $mode, $iv);  // encrpt it
+$data = base64_encode($data);  // to help the data survive going
+                               //     through transport layers
+echo 'Encrypted and encoded data: ' . $data . '&lt;br&gt;';
+// transmit $data through the Internet
+
+// Receiver
+$data = ???($data);  // decode it
+$credit_card_no = ???($cipher, $key, $data, $mode, $iv);  // decrypt it
+echo 'Decrypted, i.e., original, data: ' . $credit_card_no . '&lt;br&gt;';
+?&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try3-button">Submit the code to the server to execute PHP code</button>
+                                    <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try3-button').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try3-textarea').val() },
+                                                function(data) { $('#try3-div').html(data); }
+                                            );
+                                        });
+                                    </script>
+                                </div>
+                            </li>
+                            <li>How to send error message back?</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <br>
+            <li><x-summary>Learning outcomes</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>List the four issues concerning security.</li>
+                    <li>Distinguish the user authentication and the server authentication.</li>
+                    <li>How to authenticate servers using digital certificates.</li>
+                    <li>How to authenticate users using passwords.</li>
+                    <li>How to redirect to HTTPS.</li>
+                    <li>How to hash user passwords for user authentication.</li>
+                    <li>How to encrypt/decrypt data.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+
+
+</body></html>

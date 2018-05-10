@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--T00533766 - JAGJIT SINGH BILKHU -->
+
+    <style>
+        div#ddm-container {
+            position: fixed;
+            top: 10px; 
+            right: 10px;
+            width:400px; height:300px; 
+            border:1px solid black;
+        }
+        
+        ul.ddm {
+            list-style: none;
+            display: inline;
+            text-align: center;
+            padding: 0;  /* no indentation for the list item */
+            background: #ddd;
+            border: 1px solid black;
+            position: relative;
+            top: 50px; left: 50px;
+        }
+        
+        ul.ddm > li {
+            display: inline;
+            position: relative;  /* important to give the child elements the correct position with absolute positioning */
+            cursor: pointer;
+        }
+        ul.ddm > li:hover {
+			background: #aaa; 
+		}
+        
+        ul.ddm > li > ul {
+            list-style: none;
+            display: none;  /* initially not displayed */
+            position: absolute;  /* should be absolute, not relative */
+            height: auto;  /* 100% height of the parent element, i.e., li */
+            left: 0;
+			width:100%;
+            padding: 0;  /* no indentation for the list item */
+            border: 1px solid black;
+        }
+        ul.ddm > li:hover > ul{
+			display: block; 
+		}  /* display the menu back */
+        
+        ul.ddm > li > ul > li:hover { 
+			background: #aaa;
+		}
+		
+    </style>
+    
+    <script>
+        window.addEventListener('load', function() {
+            document.getElementById('ddmID').addEventListener('click', function(e) {
+                var content = e.target.innerHTML.trim();
+                if (content.indexOf('<ul>') < 0)
+                    alert(content);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id='ddm-container'>
+        <ul class='ddm' id='ddmID'>
+            <li>COMP Courses
+                <ul>
+                    <li>COMP 3270</li>
+                    <li>COMP 3540</li>
+                    <li>COMP 3710</li>
+                </ul>
+            </li>
+            <li>MATH Courses
+                <ul>
+                    <li>MATH 1650</li>
+                    <li>MATH 1700</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>

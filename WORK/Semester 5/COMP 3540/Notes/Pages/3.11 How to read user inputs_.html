@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript/11.%20howto_read_user_inputs.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>3.11 How to read user inputs?</title>
+    <link type="text/css" rel="stylesheet" href="./3.11 How to read user inputs__files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./3.11 How to read user inputs__files/class.css">
+    <script src="./3.11 How to read user inputs__files/jquery-1.11.1.min.js.download"></script>
+    <script src="./3.11 How to read user inputs__files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">3.11 How to read user inputs?</h1>
+    </div>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 3 section 11">
+        <li><x-summary>How to read user inputs?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>What elements within a form can be used to read data from the user?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>input
+                            <ul is="ul-square" style="list-style-type: square;">
+                                <li><b>type</b>: <b>text</b>, <b>password</b>, <b>hidden</b>, <b>submit</b>, email, ...</li>
+                                <li><b>name</b></li>
+                                <li><b>value</b></li>
+                                <li>autocomplete</li>
+                                <li>autofocus</li>
+                                <li>readonly, disabled, size, maxlength, ...</li>
+                                <li>Try all the examples in <a target="_blank" href="http://www.w3schools.com/html/html_form_attributes.asp">HTML Input Attributes</a>.</li>
+                                <li>When do you use 'hidden'?</li>
+                            </ul>
+                        </li>
+                        <li>textarea</li>
+                        <li>radio</li>
+                        <li>checkbox</li>
+                        <li>select and option</li>
+                        <li>datalist</li>
+                        <li>Try all the examples in <a target="_blank" href="http://www.w3schools.com/html/html_form_elements.asp">HTML Form Elements</a>,
+                            <a target="_blank" href="http://www.w3schools.com/html/html_form_input_types.asp">HTML Input Types</a>,
+                            and <a target="_blank" href="http://www.w3schools.com/html/html_forms.asp">HTML Forms</a>.</li>
+                    </ul>
+                </li>
+                <li>Just a question. Do you remember how to select elements using attributes in CSS?
+                    If you do not remember, study <a target="_blank" href="http://www.w3schools.com/css/css_attribute_selectors.asp">CSS Attribute Selectors</a>.
+                </li>
+                <li><x-summary><b>Trial 1</b>: Let's try to write the code read username, password, and note from the user,
+                    when a button is clicked.
+                    For each input-like element, you can read 'name' and 'value' values.
+                    </x-summary>
+                    <div style="display: block;">
+                        <textarea id="try1-textarea" rows="25" cols="100">&lt;???&gt;
+    label???tr1 { display:???; width:80px; }  /* inline-??? to give width */
+&lt;/style&gt;
+&lt;label class='tr1' for='tr1-username'&gt;Username: &lt;/label&gt;
+&lt;input id='tr1-username' ???='text' name='???'&gt;&lt;/input&gt;
+&lt;br&gt;
+&lt;label class='tr1' ???='tr1-password'&gt;Password: &lt;/label&gt;
+&lt;input id='tr1-password' type='???' ???='password'&gt;&lt;/input&gt;
+&lt;br&gt;
+&lt;label class='tr1' ???='tr1-note'&gt;Note: &lt;/label&gt;
+&lt;textarea id='tr1-note' ???='note'&gt;&lt;/textarea&gt;
+&lt;br&gt;
+&lt;button id='tr1-read' class='tr1'&gt;Click to read!&lt;/button&gt;
+&lt;???&gt;
+    document.???('tr1-read').???('click', ???() {
+        var msg = '';
+        msg += document.getElementById('tr1-username').name + ', ' +
+               document.getElementById('tr1-username').value + "\n"; 
+        msg += document.getElementById('tr1-password').??? + ', ' +
+               document.getElementById('tr1-password').??? + "\n"; 
+        msg += document.getElementById('tr1-note').??? + ', ' +
+               document.getElementById('tr1-note').???; 
+        ???(msg);  // Display the message using an alert window
+    });
+&lt;/script&gt;
+                        </textarea>
+                        <button id="try1-button">Submit</button>
+                        <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                        <script>
+                            $('#try1-button').click(function() {
+                                $('#try1-div').html($('#try1-textarea').val());
+                            });
+                        </script>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li><x-summary>How to automatically fill in an input field?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+            </ul>
+        </li>
+        <li><x-summary>How to hide user typing?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+            </ul>
+        </li>
+
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to read data from the user.</li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+</body></html>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppOne</string>
+    <string name="button2">Top Right</string>
+    <string name="button">Top Left</string>
+    <string name="button4">Bottom Right</string>
+    <string name="button3">Bottom Left</string>
+    <string name="text">Welcome To Lab 1</string>
+</resources>

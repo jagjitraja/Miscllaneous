@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript/4.%20howto_transit.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>3.4 How to transit to another web page/application?</title>
+    <link type="text/css" rel="stylesheet" href="./3.4 How to transit to another web page_application__files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./3.4 How to transit to another web page_application__files/class.css">
+    <script src="./3.4 How to transit to another web page_application__files/jquery-1.11.1.min.js.download"></script>
+    <script src="./3.4 How to transit to another web page_application__files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">3.4 How to transit to another web page/application?</h1>
+    </div>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 3 section 4">
+        <li><x-summary>Which element can be used to transit to another web page/application?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>&lt;a&gt;</li>
+                <li>&lt;form&gt;</li>
+                <li><x-summary class="xemp">&lt;iframe&gt;</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/html/html_iframe.asp">HTML Iframes</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>For what do you use iframes?</li>
+                                <li>Study carefully 'Use iframe as a Target for a Link' in the above web page.</li>
+                            </ul>
+                        </li>
+                        <li>Study carefully all in <a target="_blank" href="http://css-tricks.com/snippets/html/post-data-to-an-iframe/">Post Data to an iframe</a>.</li>
+                    </ul>
+                </li>
+                <li><x-summary>How can you display a linked page into an iframe in the same window?</x-summary>
+                    <span style="display: inline;">&nbsp;&nbsp;&nbsp;The <b>target</b> attribute with the value of the <b>name</b> of an iframe</span>
+                </li>
+                <li><x-summary>How can you display the result from a form into an iframe in the same window?</x-summary>
+                    <span style="display: inline;">&nbsp;&nbsp;&nbsp;The <b>target</b> attribute with the value of the <b>name</b> of an iframe</span>
+                </li>
+                <li><x-summary>Trial 1. Let's try to display www.tru.ca in an iframe.</x-summary>
+                    <div style="display: block;">
+                        <textarea id="try1-textarea" rows="5" cols="100">&lt;div&gt;
+    &lt;a ???=??? ???='tr1-frame'&gt;cs.tru.ca&lt;/a&gt;
+&lt;/div&gt;
+&lt;iframe ???='tr1-frame' width='100%'&gt;
+&lt;/iframe&gt;
+                        </textarea>
+                        <button id="try1-button">Submit</button>
+                        <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                        <script>
+                            $('#try1-button').click(function() {
+                                $('#try1-div').html($('#try1-textarea').val());
+                            });
+                        </script>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li><x-summary>Can you use JavaScript to transit to another web page/application?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Read all <a target="_blank" href="http://www.w3schools.com/jsref/met_win_open.asp">Window open() Method</a>.</li>
+            </ul>
+        </li>
+        
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to transit to another web page/application using HTML elements and JavaScript code.</li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+</body></html>

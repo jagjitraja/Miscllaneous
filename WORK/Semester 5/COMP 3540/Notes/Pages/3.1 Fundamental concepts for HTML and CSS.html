@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript/1.%20fundamental.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>3.1 Fundamental concepts for HTML and CSS</title>
+    <link type="text/css" rel="stylesheet" href="./3.1 Fundamental concepts for HTML and CSS_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./3.1 Fundamental concepts for HTML and CSS_files/class.css">
+    <script src="./3.1 Fundamental concepts for HTML and CSS_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./3.1 Fundamental concepts for HTML and CSS_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">3.1 Fundamental concepts for HTML and CSS</h1>
+    </div>
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 3 section 1">
+            <li><x-summary>HTML elements and their attributes</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>A HTML document(or page) is like <b>a tree of HTML elements</b>.</li>
+                    <li>List all the HTML elements.</li>
+                    <li>What is the main purpose of using <b>attributes</b>?
+                        How about CSS?</li>
+                    <li>What does <b>inheritance</b> in the hierarchical structure mean? For example, what color is used for 'inheritance' in the next code?
+<pre>&lt;p style='color:blue'&gt;
+    What does &lt;b&gt;inheritance&lt;/b&gt; in the hierarchical structure mean?
+&lt;p&gt;
+</pre>
+                    </li>
+                    <li><x-summary>Trial 1: Let's try the above example, with the followings.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try0-textarea" rows="4" cols="100">&lt;p ???='???:LightBlue'&gt;
+    What does &lt;b&gt;inheritance&lt;/b&gt; in the hierarchical structure mean?
+&lt;/p&gt;
+                            </textarea>
+                            <button id="try0-button">Submit</button>
+                            <div id="try0-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try0-button').click(function() {
+                                    $('#try0-div').html($('#try0-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">Box model</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>What components are included in the <b>box model</b>?</li>
+                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/css/css_boxmodel.asp">CSS Box Model</a>.</li>
+                    <li><x-summary>Which component(s) is(are) included in <b>width</b> and <b>height</b> of an HTML element box?</x-summary>
+                        <span style="display: inline;">&nbsp;&nbsp;&nbsp;Content only</span>
+                    </li>
+                    <li>What is the default width for &lt;p&gt;? Default width for other elements?</li>
+                    <li>How are <b>attributes</b> and <b>properties</b> different?</li>
+                    <li><x-summary>Here is an example.</x-summary>
+                        <span style="display: inline;">
+<pre>&lt;div style='margin: 20px; border: 10px solid blue; padding: 20px; background-color:yellow; font-size:150%;'&gt;
+    &lt;span style='background-color:Green'&gt;Hmmm&lt;/span&gt;
+    &lt;p style='background-color:Red'&gt;Amazing!&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+<div style="margin: 20px; border: 10px solid blue; padding: 20px; background-color:yellow; font-size:150%;">
+    <span style="background-color:Green">Hmmm</span>
+    <p style="background-color:Red">Amazing!</p>
+</div>
+                        </span>
+                    </li>
+                    <li><x-summary>Trial 2: Can you change the width and height of any HTML element?
+                        Let's try with &lt;span&gt; or &lt;a&gt;, and &lt;p&gt;.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try1-textarea" rows="5" cols="100">&lt;div ???='???: 20px; ???: 10px solid blue; ???: 20px; background-color:yellow; font-size:150%;'&gt;
+    &lt;span ???='background-???:Green'&gt;Hmmm. Interesting!&lt;/span&gt;
+    &lt;p style='background-color:Red'&gt;Amazing!&lt;/p&gt;
+    &lt;a ???='cs.tru.ca' ???='_blank' ???='background-color:Yellow'&gt;CS.TRU.CA&lt;/a&gt;
+&lt;/div&gt;
+                            </textarea>
+                            <button id="try1-button">Submit</button>
+                            <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try1-button').click(function() {
+                                    $('#try1-div').html($('#try1-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">Two display types of element - How to display elements</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li><b>Inline</b> elements - For examples, ...</li>
+                    <li><b>Block</b> elements - For examples, ...</li>
+                    <li>How are they different?</li>
+                    <li>Default width for block elements?</li>
+                    <li><x-summary><b>Here is an example.</b></x-summary>
+<span style="display: inline;">
+<pre>&lt;div style='border: 2px blue solid'&gt;
+    &lt;p style='width: 400px; border: 2px black solid''&gt;
+        I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+    &lt;/p&gt;
+    &lt;span&gt;
+        n July 14th, President Shaver - along with the three TRU Vice Presidents - announced an "Open Governance" initiative, 
+        academic decision-making issues with all members of the TRU community.
+        &lt;div style='border: 2px yellow solid; width: 400px;'&gt;
+            TRUFA has prepared a formal response to these initiatives, which you can read in full here:  
+        &lt;/div&gt;
+        I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+    &lt;/span&gt;
+    &lt;span style='border: 2px black solid'&gt;
+        Lunch will be served at 12 noon and the session runs from 12:30 to 2:00 pm.  
+    &lt;/span&gt;
+    &lt;p style='border: 2px black solid'&gt;
+        I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+    &lt;/p&gt;
+    &lt;span&gt; <b>&lt;-- Will it be display at the side of the above paragraph? --&gt;</b>
+        Lunch will be served at 12 noon and the session runs from 12:30 to 2:00 pm.  
+    &lt;/span&gt;
+&lt;/div&gt;
+</pre>
+<div style="border: 2px blue solid">
+    <p style="width: 400px; border: 2px black solid">
+        P: I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+    </p>
+    <span>
+        SPAN: n July 14th, President Shaver - along with the three TRU Vice Presidents - announced an "Open Governance" initiative, 
+        academic decision-making issues with all members of the TRU community.
+        <div style="border: 2px yellow solid; width: 400px;">
+            DIV: TRUFA has prepared a formal response to these initiatives, which you can read in full here:  
+        </div>
+        I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+    </span>
+    <span style="border: 2px black solid">
+        SPAN: Lunch will be served at 12 noon and the session runs from 12:30 to 2:00 pm.  
+    </span>
+    <p style="border: 2px black solid; width:50%">
+        P: I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+    </p>
+    <span>
+        SPAN: Lunch will be served at 12 noon and the session runs from 12:30 to 2:00 pm.  
+    </span>
+</div>
+</span>
+                    </li>
+                    <li><x-summary>Trial 3: Try yourself headings, p, span, div, a, img ('html5.png'), ul, li.
+                        Find which ones are of inline type and which ones are of block type.
+                        </x-summary>
+                        <div style="display: block;">
+                            <textarea id="try2-textarea" rows="10" cols="100">&lt;???&gt;Wonderful World!&lt;/h1&gt;
+&lt;p&gt;Beautiful day&lt;/p&gt;
+???
+&lt;???&gt;
+    &lt;???&gt;HTML5&lt;/li&gt;
+    &lt;???&gt;CSS3&lt;/li&gt;
+    &lt;???&gt;JavaScript&lt;???&gt;
+&lt;/ul&gt;
+&lt;span&gt;Another story&lt;/span&gt;
+                            </textarea>
+                            <button id="try2-button">Submit</button>
+                            <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try2-button').click(function() {
+                                    $('#try2-div').html($('#try2-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li><x-summary>Can you change height and width of any inline elements?</x-summary> &nbsp;&nbsp;&nbsp;<span style="display: inline;">Directly? No. Then is there any way to change the width and height of inline elements?</span></li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">Displaying - How to change the display type</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li><x-summary>CSS property to change display type ???</x-summary> &nbsp;&nbsp;&nbsp;<span style="display: inline;">display</span></li>
+                    <li>block</li>
+                    <li>inline</li>
+                    <li>inline-block</li>
+                    <li style="color: Blue">none</li>
+                    <li>...</li>
+                    <li><x-summary>Here is an example of '<b>inline-block</b>'.</x-summary><span style="display: inline;">
+<pre>&lt;div style='border: 2px blue solid'&gt;
+    &lt;span&gt;
+        n July 14th, President Shaver - along with the three TRU Vice Presidents - announced an "Open Governance" initiative, 
+        one aspect of which was a commitment to host two annual Town Halls at which 
+        the senior administrators would be available to discuss governance and 
+        academic decision-making issues with all members of the TRU community.
+        &lt;<b>span</b> style='border: 2px yellow solid; width: 400px; <b>display:inline-block</b>; text-align: center'&gt;
+            TRUFA
+        &lt;/span&gt;
+        I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+        Lunch will be served at 12 noon and the session runs from 12:30 to 2:00 pm.  
+    &lt;span&gt;
+&lt;/div&gt;
+</pre>
+<div style="border: 2px blue solid">
+    <span>
+        n July 14th, President Shaver - along with the three TRU Vice Presidents - announced an "Open Governance" initiative, 
+        one aspect of which was a commitment to host two annual Town Halls at which 
+        the senior administrators would be available to discuss governance and 
+        academic decision-making issues with all members of the TRU community.
+        <span style="border: 2px yellow solid; width: 400px; display:inline-block; text-align: center">
+            TRUFA
+        </span>
+        I want to urge those faculty, who are able, to attend the first Town Hall meeting scheduled for Thursday, September 15th in the CAC Mountain Room.  
+        Lunch will be served at 12 noon and the session runs from 12:30 to 2:00 pm.  
+    <span>
+</span></span></div>
+                    </span></li>
+                    <li><x-summary>Trial 4: Let's try to change span to block type and test. 
+                        You may change p to inine type as well.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try3-textarea" rows="5" cols="100">&lt;p&gt;
+    President Shaver - along with the three TRU Vice Presidents - announced
+    &lt;span ???='???:???'&gt;TRUFA&lt;/span&gt;
+    I want to urge those faculty, who are able, 
+&lt;/p&gt;
+                            </textarea>
+                            <button id="try3-button">Submit</button>
+                            <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try3-button').click(function() {
+                                    $('#try3-div').html($('#try3-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li><x-summary>Trial 5: Let's try to change div to '<b>none</b>' type and test what will be displayed.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try4-textarea" rows="4" cols="100">&lt;div ???&gt;
+    President Shaver - along with the three TRU Vice Presidents - announced
+    I want to urge those faculty, who are able, 
+&lt;/div&gt;
+                            </textarea>
+                            <button id="try4-button">Submit</button>
+                            <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try4-button').click(function() {
+                                    $('#try4-div').html($('#try4-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">Grouping</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Why do you need to group elements?</li>
+                    <li><x-summary>As an inline element, ???</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;&lt;span&gt;</span></li>
+                    <li><x-summary>As a block element, ???</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;&lt;div&gt;</span></li>
+                    <li>The above two elements are called containers.</li>
+                    <li>How to make an element or a group of element disappear when a button is clicked?
+                        This could used for modal windows.
+                        <x-summary>Here is an example.</x-summary>
+                        <div style="display: block;">
+                            <p id="p-disappear" style="display:inline">"This sentence will be disappered when the button is clicked."</p>
+                            <button id="button-disappear">Let's delete the left sentence.</button>
+                            <script>
+                                var disappeared_5 = false;
+                                $('#button-disappear').click(function(){
+                                    if (!disappeared_5) {
+                                        $('#p-disappear').css('display', 'none');
+                                        $(this).html("Let's show it back.");
+                                    }
+                                    else {
+                                        $('#p-disappear').css('display', 'inline');
+                                        $(this).html("Let's delete the left.");
+                                    }
+                                    disappeared_5 = disappeared_5 ? false : true;
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li><x-summary><b>Trial 6</b>: Let's try to hide &lt;div&gt; and show it using a button. Initially the &lt;div&gt; is displayed.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try5-textarea" rows="9" cols="100">&lt;div id="t6-block"&gt;
+    &lt;p&gt;Interesting!&lt;/p&gt;
+    &lt;img ???='html5.png' width='50px' height='50px'&gt;&lt;/img&gt;
+&lt;/div&gt;
+&lt;button id='t6-button' type='button'&gt;Click me!&lt;/button&gt;
+&lt;script&gt;
+    var displayed = true;
+    ???  // Do you remember how to register event handlers?
+&lt;/script&gt;
+                            </textarea>
+                            <button id="try5-button">Submit</button>
+                            <div id="try5-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try5-button').click(function() {
+                                    $('#try5-div').html($('#try5-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">Positioning</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li><x-summary class="xemp">List the four positioning methods. How are they different?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Static - the normal flow of elements with the display type</li>
+                            <li>Relative - relative to normal position</li>
+                            <li>Fixed - relative to the viewport, which means it always stays in the same place even if the page is scrolled.</li>
+                            <li>Absolute - relative to <b>the nearest positioned (anything but static) <u>ancestor</u></b></li>
+                        </ul>
+                    </li>
+                    <li>Read all in <a target="_blank" href="http://www.w3schools.com/css/css_positioning.asp">CSS Layout - The position Property</a>.</li>
+                    <li>In the 4<sup><font size="1">th</font></sup> example in the above link, what will happen if the outer &lt;div&gt; does not use the relative positioning?</li>
+                    <li><x-summary>Here is another example.</x-summary>
+                      <span style="display: inline;">
+<pre>&lt;p&gt;
+    Positioning
+&lt;/p&gt;
+&lt;!--You can try the next code yourself.--&gt;
+&lt;div style='position:relative; top:-50px; left:100px; width:800px; height:400px; border:1px solid black;'&gt;
+    &lt;div style='position:absolute; top:20px; right: -100px; width:500px; height:200px; border:2px solid blue;'&gt;&lt;/div&gt;
+    &lt;div style='position:relative; top:100px; right: -100px; width:500px; height:200px; border:2px solid green;'&gt;
+        &lt;p style='position:relative; left:50px; top:10px; width:200px; margin:0px; text-align:center; border:2px solid red;'&gt; 
+            Interesting!
+        &lt;/p&gt;
+        Ahhhhhhh
+        &lt;!-- In the next &lt;p&gt;, top is not specified. -&gt; The natural flow is used for the top value.
+             It is confusing. It might be better to use two position values, such as top&amp;left, top&amp;right, bottom&amp;left, or bottom&amp;right. --&gt;
+        &lt;p style='position:absolute; left:100px; width:200px; margin:0px; text-align:center; border:2px solid yellow;'&gt;
+            Hmmmmm
+        &lt;/p&gt;
+    &lt;/div&gt; 
+&lt;/div&gt;
+</pre>
+                        <span><x-summary>Can you show how the above code is displayed? 
+                            Click here to see it.</x-summary>
+                            <span style="display: inline;">
+                                <p>
+                                    Positioning
+                                </p>
+                                <!--You can try the next code yourself.-->
+                                <div style="position:relative; top:-50px; left:100px; width:800px; height:400px; border:1px solid black;">
+                                    <div style="position:absolute; top:20px; right:-100px; width:500px; height:200px; border:2px solid blue;"></div>
+                                    <div style="position:relative; top:100px; right:-100px; width:500px; height:200px; border:2px solid green;">
+                                        <p style="position:relative; left:50px; top:10px; width:200px; margin:0px; text-align:center; border:2px solid red;"> 
+                                            Interesting!
+                                        </p>
+                                        <p style="position:absolute; left:100px; width:200px; margin:0px; text-align:center; border:2px solid yellow;"> 
+                                            Hmmmmm
+                                        </p>
+                                    </div> 
+                                </div>
+                            </span>
+                        </span>
+                      </span>
+                    </li>
+                    <li><x-summary>Trial 7.1: Try yourselves the above example.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try6-textarea" rows="4" cols="100"></textarea>
+                            <button id="try6-button">Submit</button>
+                            <div id="try6-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try6-button').click(function() {
+                                    $('#try6-div').html($('#try6-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li><x-summary>Trial 7.2: Let's try to display an &lt;ul&gt; right below a &lt;li&gt;, 
+                        where the &lt;ul&gt; is a child element of the &lt;li&gt;.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try6-2-textarea" rows="30" cols="100">&lt;style&gt;
+    #tr7-2-menu-item { 
+        list-style:none;
+        display:inline-block; width:140px; 
+        text-align:center;
+        border:1px solid black;  background-color:White;
+        position:???; left:50px;
+    }
+    #tr7-2-menu-item:hover {
+        background-color:Grey;
+    }
+    #tr7-2-menu-item ??? ul { 
+        list-style:none;
+        padding:0;
+        border:1px solid blue;  background-color:White;
+        position:???; top:???; left:???;
+    }
+    #tr7-2-menu-item &gt; ul ??? li:??? {
+        background-color:Grey;
+    }
+&lt;/style&gt;
+&lt;div style='height:100px;'&gt;
+    &lt;li id='tr7-2-menu-item'&gt;Web Tech Courses
+        &lt;ul&gt; &lt;!-- It should be displayed right below the parent &lt;li&gt;. --&gt;
+            &lt;li&gt;COMP 2680&lt;/li&gt;
+            &lt;li&gt;COMP 3540&lt;/li&gt;
+            &lt;li&gt;COMP 4620&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/div&gt;
+                            </textarea>
+                            <button id="try6-2-button">Submit</button>
+                            <div id="try6-2-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try6-2-button').click(function() {
+                                    $('#try6-2-div').html($('#try6-2-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li><x-summary>Trial 7.3: Let's try to display an &lt;ul&gt; right below a &lt;li&gt;, 
+                        where the &lt;ul&gt; is a child element of the &lt;li&gt;, 
+                        only when the mouse moves over the &lt;li&gt;.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try6-3-textarea" rows="32" cols="100">&lt;style&gt;
+    #tr7-3-menu-item { 
+        list-style:none;
+        display:inline-block; width:140px; 
+        text-align:center;
+        border:1px solid black; background-color:White;
+        position:relative; left:50px;
+    }
+    #tr7-3-menu-item:hover {
+        background-color:Grey;
+    }
+    #tr7-3-menu-item:??? ??? ??? {
+        display:???;
+    }
+    #tr7-3-menu-item ??? ul { 
+        list-style:none;
+        padding:0;
+        display:none; 
+        border:1px solid blue; background-color:White;
+        position:absolute; top:100%; left:0;
+    }
+    #tr7-3-menu-item &gt; ul ??? li:??? {
+        background-color:Grey;
+    }
+&lt;/style&gt;
+&lt;li id='tr7-3-menu-item'&gt;Web Tech Courses
+    &lt;ul&gt;
+        &lt;li&gt;COMP 2680&lt;/li&gt;
+        &lt;li&gt;COMP 3540&lt;/li&gt;
+        &lt;li&gt;COMP 4620&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+                            </textarea>
+                            <button id="try6-3-button">Submit</button>
+                            <div id="try6-3-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try6-3-button').click(function() {
+                                    $('#try6-3-div').html($('#try6-3-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li><x-summary>Trial 7.4: Let's try to display an &lt;ul&gt; at the right side of a &lt;li&gt;, 
+                        where the &lt;ul&gt; is a child element of the &lt;li&gt;.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try6-4-textarea" rows="28" cols="100">&lt;style&gt;
+    #tr7-4-menu-item { 
+        list-style:none;
+        display:inline-block; width:140px; 
+        text-align:center;
+        border:1px solid black; background-color:White;
+        position:???; left:50px;
+    }
+    #tr7-4-menu-item:hover {
+        background-color:Grey;
+    }
+    #tr7-4-menu-item ??? ul { 
+        list-style:none;
+        padding:0;
+        display:block; width:100px;
+        border:1px solid blue; background-color:White;
+        position:???; top:???; left:???;
+    }
+    #tr7-4-menu-item &gt; ul ??? li:??? {
+        background-color:Grey;
+    }
+&lt;/style&gt;
+&lt;li id='tr7-4-menu-item'&gt;Web Tech Courses
+    &lt;ul&gt;
+        &lt;li&gt;COMP 2680&lt;/li&gt;
+        &lt;li&gt;COMP 3540&lt;/li&gt;
+        &lt;li&gt;COMP 4620&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/li&gt;
+                            </textarea>
+                            <button id="try6-4-button">Submit</button>
+                            <div id="try6-4-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try6-4-button').click(function() {
+                                    $('#try6-4-div').html($('#try6-4-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li>An example of drop-down menu
+                        <style>
+                            #ddm li, #ddm ul {
+                                list-style: none;
+                                padding: 0;
+                                background-color: DimGray;
+                            }
+                            #ddm ul {
+                                border:1px solid black;
+                            }
+                            #ddm > li {
+                                position: relative;
+                            }
+                            #ddm > li > ul {
+                                display: none;
+                                position: absolute;
+                                top: 100%;
+                                left: 0;
+                            }
+                            #ddm li:hover {
+                                background-color: #eee;
+                            }
+                            #ddm > li:hover > ul {
+                                display: block;
+                            }
+                        </style>
+                        <ul id="ddm">
+                            <li style="width: 50px;"><img src="./3.1 Fundamental concepts for HTML and CSS_files/menu_icon.png" width="50px" height="50px">
+                                <ul>
+                                    <li>COMP2680</li>
+                                    <li>COMP3540</li>
+                                    <li>COMP3710</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><x-summary>Trial 8: Let's write the code for the above drop-down menu, with 'menu_icon.png'.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try6-5-textarea" rows="14" cols="100">&lt;style&gt;
+    #ddm2 li { list-style: none }
+    #ddm2 &gt; li &gt; ul { padding: 0 }
+    ???
+&lt;/style&gt;
+&lt;ul id='ddm2'&gt;
+    &lt;li style='width: 50px;'&gt;&lt;img src='menu_icon.png' width='50px' height='50px'&gt;&lt;/img&gt;
+        &lt;ul&gt;
+            &lt;li&gt;COMP2680&lt;/li&gt;
+            &lt;li&gt;COMP3540&lt;/li&gt;
+            &lt;li&gt;COMP3710&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+                            </textarea>
+                            <button id="try6-5-button">Submit</button>
+                            <div id="try6-5-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try6-5-button').click(function() {
+                                    $('#try6-5-div').html($('#try6-5-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">Overlapping</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>When HTML elements are <u>positioned</u>, they can be overlapped.
+                        Which element should be displayed first?</li>
+                    <li>Read 'Overlapping Elements' in <a target="_blank" href="http://www.w3schools.com/css/css_positioning.asp">CSS Layout - The position Property</a>.</li>
+                    <li>Warning: '<b>z-index</b>' works only with poisitioned elements with relative, fixed, and absolute.</li>
+                    <li>Warning: '<b>z-index</b>' is inherited to descendants no matter what value is specifed in the descendants.</li>
+                    <li><x-summary>Trial 9: Let's try to display 'HTML5' over 'html5.png'.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try7-textarea" rows="4" cols="100">&lt;span ???='???:relative; right:???; z-index:???'&gt;HTML5&lt;/span&gt;
+&lt;img ???='html5.png' width='50px' ???='50px' ???='position:relative; ???:2'&gt;&lt;/img&gt;
+                            </textarea>
+                            <button id="try7-button">Submit</button>
+                            <div id="try7-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try7-button').click(function() {
+                                    $('#try7-div').html($('#try7-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li>Can you make a modal window? E.g., <img src="./3.1 Fundamental concepts for HTML and CSS_files/modal.png"></li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">How to control HTML elements from JavaScript code?</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>All the HTML elements are modeled in a DOM tree as objects.
+                        You need to know how to get those HTML element objects.</li>
+                    <li>The attribute 'id'</li>
+                    <li><b>document.getElementById()</b>; document.getElementsByTagName()</li>
+                    <li>.setAttribute(), .getAttribute(), .style.setProperty(), .style.getProperty()</li>
+                    <li>.<i>attribute</i>, .style.<i>property</i></li>
+                    <li>How about background-color?</li>
+                    <li>How to change CSS values?</li>
+                    <li>How to register event handlers? List the three types.</li>
+                    <li><x-summary>Trial 10: Let's try to hide and show 'html5.png' using a button.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try8-textarea" rows="13" cols="100">&lt;div id="tr10-block"&gt;
+    &lt;p&gt;Interesting!&lt;/p&gt;
+    &lt;img id='tr10-img' ???='html5.png' ???='50px' height='50px'&gt;&lt;/img&gt;
+&lt;/div&gt;
+&lt;button id='tr10-button' type='button'&gt;Click me!&lt;/button&gt;
+&lt;script&gt;
+    document.???(???).???('click', ???() {
+        if (document.getElementById('tr10-img').???.??? == ???)
+            ???
+        else
+            ???
+    });
+&lt;/script&gt;
+                            </textarea>
+                            <button id="try8-button">Submit</button>
+                            <div id="try8-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try8-button').click(function() {
+                                    $('#try8-div').html($('#try8-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li><x-summary class="xemp">How to read CSS properties that are not defined in &lt;style&gt; tags?</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li class="xemp">The CSS properties defined in &lt;style&gt; tags CANNOT be accessed through 'style' object in JavaScript.</li>
+                    <li><b>window.<u>getComputedStyle(dom_obj)</u>.css_property</b> should be used, even for default values.</li>
+                    <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">&lt;style&gt;
+    #testcssjs {
+        display: block;
+    }
+&lt;/style&gt;
+&lt;div id='testcssjs'&gt;
+    Hmmm
+&lt;/div&gt;
+&lt;script&gt;
+    alert(document.???('testcssjs').???.display);  // Nothing displayed
+    alert(<u><b>???</b>(document.getElementById('testcssjs'))</u>.???);  // 'block' displayed
+    document.getElementById('testcssjs').style.display = 'none';
+    alert(document.getElementById('testcssjs').style.display);  // 'none' displayed
+    alert(<u><b>???</b>(document.getElementById('testcssjs'))</u>.display);  // ??? displayed
+&lt;/script&gt;
+</pre>
+                    </li>
+                    <li><x-summary>Trial 11: Let's try the above example.</x-summary>
+                        <div style="display: block;">
+                            <textarea id="try9-textarea" rows="4" cols="100"></textarea>
+                            <button id="try9-button">Submit</button>
+                            <div id="try9-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try9-button').click(function() {
+                                    $('#try9-div').html($('#try9-textarea').val());
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li>Reference: https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+
+</body></html>

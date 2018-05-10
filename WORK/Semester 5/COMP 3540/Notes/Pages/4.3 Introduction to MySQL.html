@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)http://cs.tru.ca/~mlee/comp3540/Winter2018/4.%20dynamic_web_applications/3.%20intro_mysql.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>4.3 Introduction to MySQL</title>
+    <link type="text/css" rel="stylesheet" href="./4.3 Introduction to MySQL_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./4.3 Introduction to MySQL_files/class.css">
+    <script src="./4.3 Introduction to MySQL_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./4.3 Introduction to MySQL_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1>4.3 MySQL</h1>
+    </div>
+
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 4 section 3">
+        <li>Introduction to PHP Database
+            <ul style="list-style-type: disc">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_intro.asp">PHP MySQL Introduction</a>.</x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li>What is MySQL?</li>
+                        <li>What is the format of databases in MySQL?</li>
+                        <li>What is SQL?</li>
+                        <li>Is MySQL a part of PHP? Is PHP a part of MySQL? What is the correct relation between them?</li>
+                        <li>What kind of queries do you think you need to use for dynamic web applications?</li>
+                    </ul>
+                </li>
+                <li><x-summary>How to use MySQL?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>We will use <b>procedural MySQLi - mysqli_*()s</b>.</li>
+                        <li>Connect to a MySQL DB; manipulate the DB with SQL statements; close the connection</li>
+                        <li>Connect? Isn't the web server connected to the MySQL server?</li>
+                        <li>What is a server?</li>
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_connect.asp">PHP Connect to the MySQL Server</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Isn't it dangerous to include username and password in a PHP file?</li>
+                                <li><x-summary>Can you read PHP code from a browser?</x-summary>
+                                    <span style="display: inline;">&nbsp;&nbsp;&nbsp;No. Only the execution result will come to the browser.
+                                        Username and password will be not visible from the browser, 
+                                        as long as they are not echoed.
+                                    </span>
+                                </li>
+                                <li>How can you obtain username and password to access a MySQL database?</li>
+                                <li>We will use procedural MySQLi.</li>
+                                <li><x-summary><span class="xemp">Here is an example to access MySQL database, 'COMP3540', on cs.tru.ca.</span>
+                                    You should not forget that the PHP code accessing MySQL on cs.tru.ca is running on the same system.</x-summary>
+<pre style="display: block;">// host, MySQL username, MySQL password, db name
+$conn = <b class="xemp">mysqli_connect</b>('<b>localhost</b>', 'username', 'password', 'COMP3540');  // not 'cs.tru.ca'; 'COMP3540' is a db name.
+if (mysqli_connect_errno())  // or if (!$conn)
+    echo "Failed to connect to COMP3540: " . mysqli_connect_error();
+else
+    echo "Succeeded to connect to COMP3540";
+mysqli_close($conn);
+</pre>
+                                </li>
+                                <li><x-summary><b>Trial 1</b>: Let's try to connect to your database on cs.tru.ca.
+                                        Your MySQL dbname, username and password are ...
+                                    </x-summary>
+                                    <div style="display: block;">
+                                        <textarea id="try1-textarea" rows="4" cols="100">&lt;?php
+    ???
+?&gt;
+                                        </textarea>
+                                        <button style="margin-top:11px" id="try1-button2">Submit the code to the server to execute PHP code</button>
+                                        <script>
+                                            $('#try1-button2').click(function() {
+                                                $.post('run_mixed_html_php.php',
+                                                    { code: $('#try1-textarea').val() },
+                                                    function(data) {
+                                                        document.getElementById('try1-iframe').contentWindow.document.body.innerHTML = data;
+                                                    }
+                                                );
+                                            });
+                                        </script>
+                                        <br><iframe style="margin-top:10px" id="try1-iframe" name="try1-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource.html"></iframe>
+                                    </div>
+                                </li>
+                                <li>Can the above username be used to control everything in the MySQL server?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_create.asp">PHP <b>Create Database</b></a>, and 
+                    <a target="_blank" href="http://www.w3schools.com/php/php_mysql_create_table.asp">PHP <b>Create Tables</b></a>.</x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li>SQL statements: CREATE DATABASE; CREATE TABLE</li>
+                        <li>Is it safe to allow a user to create a database?</li>
+                        <li>When do you use <b>mysqli_query()</b> and mysqli_error()?</li>
+                        <li>Read 'MySQL Data Types' in <a target="_blank" href="http://www.w3schools.com/sql/sql_datatypes.asp">SQL Data Types for Various DBs</a>.</li>
+                        <li>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_create_table.asp">PHP Create MySQL Tables</a>.</li>
+                        <li>What are PRIMARY KEY, NOT NULL, and AUTO_INCREMENT?</li>
+                        <li><x-summary>Here is an example to create a table in COMP3540.
+                            Note that the names of table and columns are NOT string values that use '' or "".
+                        </x-summary>
+<pre style="display: block;">// host, user name, password, db name
+$conn = mysqli_connect('localhost', ???, ???, 'COMP3540');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to COMP3540: ' . mysqli_connect_error();
+else {
+    $sql = '<b class="xemp">CREATE TABLE</b> Persons(SSN INT PRIMARY KEY, FirstName VARCHAR(30) NOT NULL, LastName VARCHAR(30) NOT NULL, Age INT)';
+    if (<b class="xemp">mysqli_query</b>($conn, $sql))
+        echo 'Table Persons created';
+    else
+        echo 'Error creating table: ' . mysqli_error($conn);
+    mysqli_close($conn);
+}
+</pre>
+                        </li>
+                        <li><span class="xemp">Try now to create a table for user management.</span> 
+                            You can use just two data types - VARCHAR(n) and INT.</li> 
+                        <li><x-summary><b>Trial 2</b>: Let's try to create a table named 'Persons'.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try2-textarea" rows="13" cols="100">&lt;?php
+$conn = ???(???, ???, ???, ???);
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = '??? ??? Persons(SSN INT PRIMARY KEY, FirstName VARCHAR(30) NOT NULL, LastName VARCHAR(30) NOT NULL, Age INT)';
+    if (???(???, $sql))
+        echo 'Table Persons created';
+    else
+        echo 'Error creating table: ' . mysqli_error($conn);
+    ???(???);
+}
+?&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try2-button2">Submit the code to the server to execute PHP code</button>
+                                <script>
+                                    $('#try2-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try2-textarea').val() },
+                                            function(data) {
+                                                document.getElementById('try2-iframe').contentWindow.document.body.innerHTML = data;
+                                            }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style="margin-top:10px" id="try2-iframe" name="try2-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource(1).html"></iframe>
+                            </div>
+                        </li>
+                        <li>Now we know how to create a table. How can you insert a row into the table?</li>
+                    </ul>
+                </li>
+
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_insert.asp">PHP MySQL <b>Insert</b> Into</a>.</x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li>What SQL statement is used to insert a row into a table?</li>
+                        <li><x-summary class="xemp">Here is an example.</x-summary>
+<pre style="display: block;">$conn = mysqli_connect('localhost', '???', '???', 'COMP3540');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to COMP3540: ' . mysqli_connect_error();
+else {
+    $sql = "<b class="xemp">insert into</b> Persons <b class="xemp">values</b> ('Dave', 'Smith', 23)";  // Do you remember all the columns?
+    if (mysqli_query($conn, $sql))
+        echo 'Table Persons updated';
+    else
+        echo 'Error updating table: ' . mysqli_error($conn);
+    $sql = "??? ??? Persons ??? (999888777, 'Tom', ???, 18)";  // Tom Davis
+    ???(???, $sql);
+    $sql = "??? ??? Persons ??? (888777666, ???, 'Brown', 21)";  // John Brown
+    ???($conn, ???);
+    $sql = "??? ??? Persons ??? (888777666, 'John', 'Black', 21)";  // What if you insert similar values again?
+    ???(???, ???);
+    ???($conn);
+}
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 3</b>: Let's try to insert a row into the table for user management..</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try3-textarea" rows="18" cols="100">&lt;?php
+$conn = ???(???, ???, ???, ???);
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "??? ??? Persons values ('Dave', 'Smith', 23)";  // Do you remember all the columns?
+    if (???(???, ???))
+        echo 'Table Persons updated';
+    else
+        echo 'Error updating table: ' . mysqli_error($conn);
+    $sql = "??? ??? Persons ??? (999888777, 'Tom', ???, 18)";  // Tom Davis
+    ???($conn, $sql);
+    $sql = "??? ??? Persons ??? (888777666, ???, 'Brown', 21)";  // John Brown
+    ???($conn, $sql);
+    $sql = "??? ??? Persons ??? (888777666, 'John', 'Black', 21)";  // What if ... ?
+    ???($conn, $sql);
+    mysqli_close($conn);}
+?&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try3-button2">Submit the code to the server to execute PHP code</button>
+                                <script>
+                                    $('#try3-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try3-textarea').val() },
+                                            function(data) {
+                                                document.getElementById('try3-iframe').contentWindow.document.body.innerHTML = data;
+                                            }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style="margin-top:10px" id="try3-iframe" name="try3-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource(2).html"></iframe>
+                            </div>
+                        </li>
+                        <li><x-summary>I would like to read tables using a web browser. Is there any convenient tool to admin MySQL?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Read the first paragraph in <a target="_blank" href="http://www.phpmyadmin.net/">phpMyAdmin</a>.</li>
+                                <li>Try now <a target="_blank" href="https://cs.tru.ca/phpmyadmin">https://cs.tru.ca/phpmyadmin</a> with your username and password, or with the username and password in the above example.</li>
+                                <li>Change your password.</li>
+                                <li>What else do you think you can do with phpMyAdmin?</li>
+                            </ul>
+                        </li>
+                        <li>How can you read a table with PHP? All the rows at once?</li>
+                    </ul>
+                </li>
+
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_select.asp">PHP MySQL <b>Select</b></a>.</x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li>What SQL statement is used to select rows from a table?</li>
+                        <li>How to get the rows one by one from the select result?</li>
+                        <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">$conn = mysqli_connect('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "<b class="xemp">select</b> FirstName, LastName <b class="xemp">from</b> Persons";  // "select * from Persons"
+                                                       // Column names are not strings.
+    // $sql = "select FirstName, LastName 
+    //         from Persons";  // Can you use multiple lines for a string value?
+    $result = ???($conn, $sql);  // The query result is NOT an array of selected rows.
+    echo <b class="xemp">mysqli_num_rows</b>($result) . '&lt;br&gt;';  // 
+    if (???($result) &gt; 0)  // if the number of rows is &gt; 0
+        while ($row = <b class="xemp">mysqli_fetch_assoc</b>($result))  // mysqli_fetch_assoc() returns an associative array, and mysqli_fetch_array() returns an indexed array.
+            echo $row['FirstName'] . " " . ???['LastName'] . '&lt;br&gt;';
+            // $row['FirstName'] . " " . $row['LastName'] . " " . $row['Age'] . '&lt;br&gt;';  // What if you try to print Age?
+    mysqli_close($conn);
+}
+</pre>
+                        </li>
+                        <li><x-summary>Why doesn't mysqli_query('select ...') return an array of all the selection result?</x-summary> 
+                            <span style="display: inline;">&nbsp;&nbsp;&nbsp;A lot of rows could be selected.</span></li>
+                        <li>How to count the number of selected rows?</li>
+                        <li><x-summary><b>Trial 4</b>: Let's try to the above 'select' example.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try4-textarea" rows="4" cols="100">&lt;?php
+    ???
+?&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try4-button2">Submit the code to the server to execute PHP code</button>
+                                <script>
+                                    $('#try4-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try4-textarea').val() },
+                                            function(data) {
+                                                document.getElementById('try4-iframe').contentWindow.document.body.innerHTML = data;
+                                            }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style="margin-top:10px" id="try4-iframe" name="try4-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource(3).html"></iframe>
+                            </div>
+                        </li>
+                        <li><x-summary>How to get all the rows at once?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Read all in <a target="_blank" href="http://www.w3schools.com/php/func_mysqli_fetch_all.asp">PHP mysqli_fetch_all() Function</a>.</li>
+                                <li>What value is returned from the above function?</li>
+                                <li>Is it a really good idea to use the above function?
+                                    What if the table size is huge?</li>
+                            </ul>
+                        </li>
+                        <li><x-summary class="xemp">How to store all fetched rows into an array?</x-summary>
+<pre style="display: block;">$users = array();
+while ($row = mysqli_fetch_assoc($result))
+    <b>$users[] = $row;</b>
+</pre>
+                        </li>
+                        <li>Now you know how to insert a new row and select rows. What else do you need to know?</li>
+                    </ul>
+                </li>
+
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/sql/sql_where.asp">SQL WHERE Clause</a>.</x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li>For what is the <b>where</b> clause used?</li>
+                        <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">$conn = mysqli_connect('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "select FirstName, LastName ??? Persons 
+            <b class="xemp">where</b> (Age <b>&gt;</b> 20)";  // Which rows will be selected?
+    $result = ???($conn, $sql);
+    while ($row = ???($result))  // Fetch an associative array
+        echo $row['FirstName'] . " " . $row['LastName'];
+    mysqli_close($conn);
+}
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 5</b>: Let's try to the above example.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try5-textarea" rows="13" cols="100">&lt;?php
+$conn = ???('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . ???();
+else {
+    $sql = "??? FirstName, LastName ??? Persons 
+            ??? (Age &gt; 20)";  // Which rows will be selected?
+    $result = ???($conn, $sql);
+    while ($row = ???($result))  // Fetch an associative array
+        echo $row['FirstName'] . " " . ???['LastName'];
+    mysqli_close($conn);
+}
+?&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try5-button2">Submit the code to the server to execute PHP code</button>
+                                <script>
+                                    $('#try5-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try5-textarea').val() },
+                                            function(data) {
+                                                document.getElementById('try5-iframe').contentWindow.document.body.innerHTML = data;
+                                            }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style="margin-top:10px" id="try5-iframe" name="try5-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource(4).html"></iframe>
+                            </div>
+                        </li>
+                        <li>What operator is used for equality checking?</li> 
+                        <li>The where clause is like a boolean statement with operators and columns.</li> 
+                        <li>Here is more information about the where clause - 
+                            <a target="_blank" href="http://www.w3schools.com/sql/sql_where.asp">SQL WHERE Clause</a>,
+                            <a target="_blank" href="http://www.w3schools.com/sql/sql_and_or.asp">SQL AND &amp; OR Operators</a>.
+                        </li>
+                        <li>Wouldn't it be nice to have a way to obtain sorted rows with a select statement?</li>
+                    </ul>
+                </li>
+
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/sql/sql_orderby.asp">SQL ORDER BY Keyword</a>.</x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">$conn = mysqli_connect('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "select FirstName, LastName 
+            from Persons 
+            where (Age &lt; 30 <b>and</b> Age &gt; 10)  // Comment here? 
+                                           // No good idea 
+                                           //   because this comment becomes a part of the string.
+            <b class="xemp">order by</b> Age <b class="xemp">DESC</b>"; 
+    $result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_assoc($result))
+        echo $row['FirstName'] . " " . $row['LastName'];
+    mysqli_close($conn);
+}
+</pre>
+                        </li>
+                        <li>How to sort in an ascending order?</li>
+                        <li>Can you use multiple columns for sorting?</li>
+                        <li><x-summary><b>Trial 6</b>: Let's try to the above example. The rows should be sorted in ascending order.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try6-textarea" rows="15" cols="100">&lt;?php
+$conn = ???('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "??? FirstName, LastName 
+            ??? Persons 
+            ??? (Age &lt; 30 ??? Age &gt; 10)
+            ??? ??? Age ???";  // ASC
+    $result = ???($conn, $sql);
+    while ($row = ???($result))
+        echo $row['FirstName'] . " " . $row['LastName'];
+    mysqli_close($conn);
+}
+?&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try6-button2">Submit the code to the server to execute PHP code</button>
+                                <script>
+                                    $('#try6-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try6-textarea').val() },
+                                            function(data) {
+                                                document.getElementById('try6-iframe').contentWindow.document.body.innerHTML = data;
+                                            }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style="margin-top:10px" id="try6-iframe" name="try6-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource(5).html"></iframe>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_update.asp">PHP MySQL <b>Update</b></a>.</x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li>How to modify a row or rows in a table?</li>
+                        <li><x-summary>Here is an example to update John Brown's age.</x-summary>
+<pre style="display: block;">$conn = mysqli_connect('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "<b class="xemp">update</b> Persons 
+            <b class="xemp">set</b> Age = 27 
+            where (FirstName = 'John' and LastName = ???)";  // Be careful that FirstName is a column name, but its data type is string. So 'John', not John.
+    $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, "select * from Persons");
+    while ($row = mysqli_fetch_assoc($result))
+        echo $row['FirstName'] . " " . $row['LastName'] . " " . $row['Age'];
+    mysqli_close($conn);
+}
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 7</b>: Let's try to the above example.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try7-textarea" rows="15" cols="100">&lt;?php
+$conn = mysqli_connect('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "??? Persons 
+            ??? Age = 27 
+            ??? (FirstName = 'John' and LastName = ???)";  // Update John Brown's age
+    $result = ???($conn, $sql);
+    $result = mysqli_query($conn, "select * from Persons");
+    while ($row = ???($result))
+        echo $row['FirstName'] . " " . $row['LastName'] . " " . $row['Age'];
+    mysqli_close($conn);
+}
+?&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try7-button2">Submit the code to the server to execute PHP code</button>
+                                <script>
+                                    $('#try7-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try7-textarea').val() },
+                                            function(data) {
+                                                document.getElementById('try7-iframe').contentWindow.document.body.innerHTML = data;
+                                            }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style="margin-top:10px" id="try7-iframe" name="try7-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource(6).html"></iframe>
+                            </div>
+                        </li>
+                        <li>Now you know how to do CRUD (Create, Retrieve, Update and Delete) operations, i.e., select/insert/update. How can you delete a row?</li>
+                    </ul>
+                </li>
+
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_mysql_delete.asp">PHP MySQL <b>Delete</b></a></x-summary>
+                    <ul style="list-style-type: circle; display: block;">
+                        <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">$conn = mysqli_connect('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "<b class="xemp">delete from</b> Persons 
+            where (FirstName = 'John' and LastName = ???)";  // Delete John Brown's record(s)
+    $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, "select * from Persons");
+    while ($row = mysqli_fetch_assoc($result))
+        echo $row['FirstName'] . " " . $row[???] . " " . $row['Age'];
+    mysqli_close($conn);
+}
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 8</b>: Let's try to the above example.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try8-textarea" rows="14" cols="100">&lt;?php
+$conn = mysqli_connect('???', '???', '???', '???');
+if (mysqli_connect_errno())
+    echo 'Failed to connect to ???: ' . mysqli_connect_error();
+else {
+    $sql = "??? ??? Persons 
+            ??? (??? = 'John' and LastName = ???)";  // Delete John Brown's record(s)
+    $result = ???($conn, $sql);
+    $result = mysqli_query($conn, "select * from Persons");
+    while ($row = ???($result))
+        echo $row['FirstName'] . " " . $row[???] . " " . $row['Age'];  // Firstname, lastname, age
+    mysqli_close($conn);
+}
+?&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try8-button2">Submit the code to the server to execute PHP code</button>
+                                <script>
+                                    $('#try8-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try8-textarea').val() },
+                                            function(data) {
+                                                document.getElementById('try8-iframe').contentWindow.document.body.innerHTML = data;
+                                            }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style="margin-top:10px" id="try8-iframe" name="try8-iframe" width="99%" src="./4.3 Introduction to MySQL_files/saved_resource(7).html"></iframe>
+                            </div>
+                        </li>
+                        <li><x-summary>How to delete all rows?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>DELETE FROM table_name;</li>
+                                <li>DELETE * FROM table_name;</li>
+                            </ul>
+                        </li>
+                        <li><x-summary>How to delete a table?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><b>DROP TABLE</b> table_name;  // Only when the table is empty?</li>
+                            </ul>
+                        </li>
+                        <li><x-summary>How to delete a database?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><b>DROP DATABASE</b> database_name;</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>To learn more about SQL, visit <a target="_blank" href="http://www.w3schools.com/sql/default.asp">SQL Tutorial</a>.</li>
+            </ul>
+        </li>
+
+        <li><x-summary>Some important questions</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to change the table name?</li>
+                <li>How to update columns? For example, adding a new column. Is it a good idea?</li>
+                <li>How to use multiple tables together? For example, two tables - Customers and Orders. How to join the two tables?</li>
+                <li>To learn more about SQL, visit <a target="_blank" href="http://www.w3schools.com/sql/default.asp">SQL Tutorial</a>.</li>
+                <li>There are many other interesting and useful topics to learn. Let's come back to SQL later for more advanced topics.</li>
+                <li><x-summary>Can you design a table for 'User Authentication' that will be used in TruQA?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Let's use a table. 'Users'.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>UserId, Username, Password, FullName, Email, Date</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Can you design a table 'Questions' that will be used in TruQA? One table? Two tables?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Let's use a table. 'Questions'.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>QuestionId, Question, Private, UserId, Date</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Can you design a table 'Answers' that will be used in TruQA?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                    </ul>
+                </li>
+                <li><x-summary><b>Some very interesting questions</b></x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Can you write a function to check the validity of a given username and password?</li>
+                        <li class="xemp"><x-summary>How can you retrieve all the questions including a search term?</x-summary>
+<pre style="display: block;">    $sql = "... where Question <b>like</b> '<b>%search-term%</b>'";
+</pre>
+                        </li>
+                        <li><x-summary>How to retrieve 10 questions that were posted most recently?</x-summary>
+                            <span style="display: inline;">&nbsp;&nbsp;&nbsp;limit #; limit #,#</span>
+                        </li>
+                        <li class="xemp">How can you retrieve all the questions that were posted by a certain user and that include a search term?</li>
+                        <li class="xemp">How can you retrieve all the answers for a particular question?</li>
+                        <li>How to retrive all the question posted by a certain user, with all the answers?</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+        <br>
+        <li><x-summary>Some review questions and learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Use of SQL to access MySQL for PHP programming.</li>
+                <li>How to create database and table?</li>
+                <li>How to insert a record in a table?</li>
+                <li>How to delete records from a table?</li>
+                <li>How to select records from a table?</li>
+                <li><x-summary>Write the PHP code to get all the questions that were posted by a user and send them back to the client in a table form.</x-summary>
+<pre style="display: block;">$sql = "select * from Users where Username = $username";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$userId = $row['UserId'];
+$sql = "select * from Questions where UserId = $userId";
+$result = mysqli_query($conn, $sql);
+$table = "&lt;table&gt;&lt;tr&gt;&lt;th&gt;Question&lt;/th&gt;&lt;th&gt;Date&lt;/th&gt;&lt;/tr&gt;";
+while($row = mysqli_fetch_assoc($result))
+    $table .= "&lt;tr&gt;&lt;td&gt;" . $row['Question'] . "&lt;/td&gt;&lt;td&gt;" . $row['Date'] . "&lt;/td&gt;&lt;/tr&gt;";
+$table .= "&lt;/table&gt;";
+echo $table;
+</pre>
+                </li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+</body></html>

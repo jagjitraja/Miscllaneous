@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/7.%20json.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Lightweigth data-interchange format - JSON</title>
+    <link type="text/css" rel="stylesheet" href="./Lightweigth data-interchange format - JSON_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./Lightweigth data-interchange format - JSON_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./Lightweigth data-interchange format - JSON_files/table.css">
+    <script src="./Lightweigth data-interchange format - JSON_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./Lightweigth data-interchange format - JSON_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">5.7 Lightweight data-interchange format - JSON</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 5 section 7">
+        <li><x-summary>Motivations</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>I'd like to receive data not HTML content from the server. 
+                    For example, just data not table code for the search results in TRUQA.
+                    Any formal data format with AJAX?</li>
+            </ul>
+        </li>
+
+        <li><x-summary>Let's study <b class="xemp">JSON</b>.</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_json_intro.asp">JSON - Introduction</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>What is JSON data in JavaScript?</li>
+                        <li>For what do you use JSON?</li>
+                        <li>Can a JSON file be a target URL for AJAX?</li>
+                        <li>Is the JSON format syntactically identical to the code for creating JS objects?</li>
+                        <li>What function is used to parse a JSON string into a JavaScript object?</li>
+                        <li><x-summary><b>Trial 1</b>: Let's convert the object for 'PostQuestion' to a string, and string to an object.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try1-textarea" rows="12" cols="100">&lt;script&gt;
+    var query = {page: 'MainPage', command: 'ListQuestions'};
+    var str = ???.???(query);  // convert the above object to a JSON string
+    ???(str);  // display the string using an alert window
+    // ...
+    // Let's assume a JSON str is sent from the server
+    var obj = ???.???(str);  // convert the JSON string to an object
+    var s = '';
+    for (???)  // find all the properties and their values in the object
+        s += ???;  // and attach them
+    alert(s);
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try1-button">Submit</button>
+                                <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try1-button').click(function() {
+                                        $('#try1-div').html($('#try1-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_json_syntax.asp">JSON Syntax</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Can you use single quotes?</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;No.</span></li>
+                        <li>List the 6 types of JSON values</li>
+                        <li>What is the extension of JSON files?</li>
+                        <li>What is the MIME type for JSON text?</li>
+                        <li>In the examples, do you think <code>employees[0]['firstName'] + " " + employees[0].lastName;</code> will work?
+                            This idea can be used in many interesting ways.</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_json_eval.asp">JSON How To</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                    </ul>
+                </li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_json_http.asp">JSON Http Request</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Read the first example carefully.</li>
+                        <li>What is XMLHttpRequest?</li>
+                        <li>What kind of bracket is used for JSON arrays?</li>
+                        <li>What kind of data is stored in 'myTutorials.txt'?</li>
+                        <li>Can you move the AJAX routine into an external JavaScript file and include the file?</li>
+                        <li><x-summary><b style="color:Red">Trial 2</b>: Let's get the list of questions from TruQA, and display it in a table.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try2-textarea" rows="22" cols="100">&lt;div id='tr2-msg'&gt;Result pane&lt;/div&gt;
+&lt;button type='button' ???=???&gt;List Questions&lt;/button&gt;
+&lt;script&gt;
+function tr2_list_questions() {
+    var url = 'truqa_list_questions_ajax.php';  // test program for 'ListQuestions' from TruQA
+    var query = {page: 'MainPage', command: 'ListQuestions'};
+    // jQuery post
+    ???.???(???, query, function(data) {
+        alert(data);  // just to see the format of the data
+        var rows = ???.???(data);  // convert a JSON string to an object 
+                                   //   the object will be a linear array of associative arrays
+        var t = '&lt;table&gt;';
+            for (var i = 0; i &lt; rows.???; i++) {  // for each row
+                t += '&lt;tr&gt;';
+                for (var p in ???)  // for each property
+                    t += '&lt;td&gt;' + ??? + '&lt;/td&gt;';  // the property value, not the property name 
+                t += '&lt;/tr&gt;';
+            }
+        t += '&lt;/table&gt;';
+        ???;  // display the table into &lt;div&gt; of id='tr2-msg'
+    });
+}
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try2-button">Submit</button>
+                                <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try2-button').click(function() {
+                                        $('#try2-div').html($('#try2-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li>Can you add table headers in the above Trial 2?</li>
+                        <li><x-summary><b>Trial 3</b>: Let's write a JSON file.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try3-textarea" rows="23" cols="100">&lt;!-- Let's write a JSON file for the following information
+Course number       Course title
+2680                Web Site Design and Development
+3540                Advanced Web Design and Programming
+3710                Applied Artificial Intelligence
+--&gt;
+&lt;div id='tr3-result'&gt;&lt;div&gt;
+&lt;script&gt;
+var file = '';  // Let's assume it is an actual text file.
+// Show the content in the file for the above course information
+// It should be a string containing an array of associative arrays.
+file = '[   \
+            {???, "Course title": "Web Site Design and Development"},\
+            {???},\
+            {???}\
+        ]';
+var data = file;  // Let's assume the content of the JSON file is sent from the server
+var obj = ???.??? (data);  // convert the JSON string to an object. It will be a linear array.
+var count = 0;
+???  // decide the number of associative arrays in the array
+alert(count);  // display the number
+???  // form a table with the JSON data and display it in the above &lt;div&gt;
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try3-button">Submit</button>
+                                <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try3-button').click(function() {
+                                        $('#try3-div').html($('#try3-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li>Can you add table headers in the above Trial 3?</li>
+                    </ul>
+                </li>
+                <!-- 
+                <li><x-summary>Read all in <a target='_blank' href='http://www.w3schools.com/json/json_files.asp'>JSON Files</a>.</x-summary>
+                -->
+                
+                <li><x-summary>How to convert a JSON object to a string?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">JSON.stringify()</a></li>
+                    </ul>
+                </li>
+                <li><x-summary>How to convert a JSON string to PHP variables?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><b class="xemp">json_encode()</b>: E.g., an associative array to a JSON string</li>
+                        <li><b class="xemp">json_decode()</b>: E.g., a JSON encoded string to an ...</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><x-summary>How to use JSON for TRUQA</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>How to send the 'SearchQuestions' result to the client from the server?</x-summary>
+                    <span style="display: inline;">
+<pre>$sql = "??? Question, Date from Questions ??? Question like '%" . $search_term . "%'";
+$result = ???($conn, $sql);
+
+$str = '[';
+$first = true;
+while($row = ???($result)) {
+    if ($first) $first = false;
+    else $str .= ',';
+    // $str .= '{"Question":"' . $row['Question'] . '", "Date":"' . $row['Date'] . '"}';  // {"Question" =&gt; "...", "Date" =&gt; "..."}
+    $str .= ???($row);  // json_???
+}
+$str .= ']';
+echo $str;
+
+// or
+
+// $caption: the caption of a table
+// $result: selection result
+function construct_table($result)
+{
+    $table = array();  // []
+    $i = 0;
+    while($row = ???($result))
+        $table[$i++] = $row;  // $row: an associative array
+    return ???($table);  // Convert the array to a JSON string
+}
+
+$sql = "??? Question, Date from Questions ??? Question like '%" . $search_term . "%'";
+$result = ???($conn, $sql);
+echo construct_table($result);
+</pre>
+                </span></li>
+                <li><x-summary>How to use the data sent from the server?</x-summary>
+                    <span style="display: inline;">
+<pre>$('#button-search-questions').click(function() {
+    var search_terms = ...;
+    $.<b>post</b>('controller.php',
+    {
+        ???
+    },
+    function(result) {  // retult: '[{...}, ...]'
+        $('#result-pane').???('Searched Questions', construct_table(result));
+    });
+});
+
+function construct_table(caption, data)  // data: '[{...}, ...]'
+{
+    // Convert the JSON string to an object
+    var obj = ???.???(data);  
+    // table tag
+    var table = '&lt;table&gt;';
+    // table caption
+    table += ??? + caption + '&lt;/caption&gt;';
+    // table headers
+    table += '&lt;tr&gt;';
+    for (var p in obj[???][0])
+        table += '&lt;th&gt;' + ??? + '&lt;/th&gt;';
+    table += '&lt;/tr&gt;';
+    // table data
+    for (var i = 0; i &lt; obj[???].???; i++) {
+        table += '&lt;tr&gt;';
+        for (var p in obj[???][i])
+            table += '&lt;td&gt;' + ??? + '&lt;/td&gt;';
+        table += '&lt;/tr&gt;';
+    }
+    // table end tag
+    table += '&lt;/table&gt;';
+
+    return table;
+}
+</pre>
+                </span></li>
+                <li><x-summary><b>Trial 4</b>: Let's try to send the list of questions in the JSON form.</x-summary>
+                    <div style="display: block;">
+                        <textarea id="try4-textarea" rows="37" cols="100">&lt;script&gt;
+// This variable will hold the value sent from the server script.
+var questions = 
+'&lt;?php
+    $conn = mysqli_connect('localhost', 'comp3540', 'comp3540424', 'COMP3540');
+    if (mysqli_connect_errno())
+        echo 'Failed to connect to MySQL: ' . mysqli_connect_error();
+    else {
+        $username = "comp3540";
+        $data = list_questions($username);
+        echo ???($data);  // convert an array to a JSON string.
+    }
+
+    function get_userid($username)
+    {
+        global $conn;
+        
+        $sql = "select * from Users where (Username = '$username')";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) &gt; 0) {
+            $row = mysqli_fetch_assoc($result);
+            return $row['UserId'];
+        }
+        else
+            return -1;
+    }
+
+    function list_questions($u)
+    {
+        global $conn;
+        
+        $uid = get_userid($u);
+        if ($uid &lt; 0)
+            return '';
+        
+        $sql = "select * from Questions where (UserId = $uid)";
+        $result = mysqli_query($conn, $sql);
+        $data = ???();  // empty array
+        $i = 0;
+        while($row = ???($result))  // fetch a row
+            $data[$i++] = ???;  // include the row into the array
+        
+        return $data;  // return the array of selected rows
+    }
+?&gt;';  // note that the single quote symbol is used.
+    
+questions = ???.???(questions);  // to object -&gt; linear array of associative arrays
+??? = tr4_make_table(questions);  // display the table in the &lt;div&gt;
+
+function tr4_make_table(ta) {
+    var str = '&lt;table&gt;';
+    for (var i = 0; i &lt; ta.???; i++) {
+        str += '&lt;tr&gt;';
+        for (var p in ???)  // for each ta[i]
+            str += '&lt;td&gt;' + ??? + '&lt;/td&gt;';  // the value, not property
+        str += '&lt;/tr&gt;';
+    }
+    str += '&lt;/table&gt;';
+    
+    return str;
+}
+&lt;/script&gt;
+
+&lt;div id='tr4-result'&gt;Result here!&lt;/div&gt;
+                        </textarea>
+                        <button style="margin-top:11px" id="try4-button2">Submit the code to the server to execute PHP code</button>
+                        <script>
+                            $('#try4-button2').click(function() {
+                                $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                    { code: $('#try4-textarea').val() },
+                                    function(data) {
+                                        $('#try4-div').html(data);
+                                    }
+                                );
+                            });
+                        </script>
+                        <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                    </div>
+                </li>
+                <li>Can you add table headers in the above Trial 4?</li>
+            </ul>
+        </li>
+        
+        <br>
+        <li><x-summary>Some review questions and learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Write JSON data.</li>
+                <li>Use AJAX to retrieve JSON and text data.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <br>
+    </div>
+
+
+</body></html>

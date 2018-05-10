@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)http://cs.tru.ca/~mlee/comp3540/Winter2018/5.%20frontend_frameworks_and_spa/5.%20iframe.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Running a web application in a window frame</title>
+    <link type="text/css" rel="stylesheet" href="./Running a web application in a window frame_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./Running a web application in a window frame_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./Running a web application in a window frame_files/table.css">
+    <script src="./Running a web application in a window frame_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./Running a web application in a window frame_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">5.5 Running a web application in a window frame</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 5 section 5">
+        <!-- test -->
+        <div style="position: fixed; width:400px; height:200px; right:0px; top:100px">
+            <iframe id="id-test-iframe" name="test_iframe" style="width:400px; height:200px;" src="./Running a web application in a window frame_files/saved_resource.html"></iframe>
+            <a target="test_iframe" href="http://cs.tru.ca/~mlee/comp3540"><button>Click me to browse COMP3540!</button></a> <!-- <button><a>...</a></button> does not work on FireFox -->
+            <button onclick="erase_iframe()">Erase it!</button>
+            <script>
+                function erase_iframe() {
+                    document.getElementById('id-test-iframe').contentWindow.document.body.innerHTML = '';
+                }
+            </script>
+        </div>
+        <!-- -->
+        <li><x-summary>Motivations</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>In MainPage of TRUQA, you will have a menu of 'Search', 'Post a Question', 'Answer a Question'.
+                    When the user selects 'Search', a modal window will be displayed to get a search query, 
+                    and the search query will be sent.
+                    The search result will come back.
+                    Where do you want to display the search result, or
+                    are you going to redisplay MainPage with the search result?
+                </li>
+                <li>Isn't it possible to display the result without reloading the entire page?
+                    Can you just use a part of the MainPage window to display the result?
+                </li>
+                <li>Another example is <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/runcode.php">Run HTML/PHP</a>.
+                    The execution result is displayed in the right side pane.
+                </li>
+                <li>The box and a button on the right side of this page is another example. Try it!</li>
+                <li>This idea can be used in SPAs.</li>
+            </ul>
+        </li>
+
+        <li><x-summary>How to open a new window?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>How to open a new window using JavaScript code?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/jsref/met_win_open.asp">Window open() Method</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>How are _blank, _parent, _self, and _top different?</li>
+                                <li>The value for 'name' can be the name of another window. What does this mean?</li>
+                                <li>What is the return value?</li>
+                                <li><x-summary>How to write html content into the new window?</x-summary> <code style="display: inline;">new_window_obj.document.body....</code>
+                                </li>
+                                <li>How to close a window?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>How to open a linked window?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/tags/att_a_target.asp">HTML &lt;a&gt; target Attribute</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><x-summary>What values are supported by the '<b>target</b>' attribute?</x-summary> 
+                                    <span style="display: inline;">_blank, _parent, _self, _top, and framename</span>
+                                </li>
+                                <li><x-summary>What is the 'framename' value?</x-summary>
+                                    <span class="xemp" style="display: inline;">name of an iframe</span>
+                                </li>
+                                <li>Are they different from the values for 'name' in window.open()?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>How to open a new window for displaying the result for form data?</x-summary>
+                </li>
+            </ul>
+        </li>
+
+        <li><x-summary>How to display a web page within a web page?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Example on the top and right coner.</li>
+                <li>Here is another <a <a="" target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/test_mysql_username_password_client.php">example</a>.</li>
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/html/html_iframe.asp">HTML <span class="xemp">Iframes</span></a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>When do you use iframe?</li>
+                        <li>How to display an URL within an iframe, when the URL is clicked?</li>
+                        <li><x-summary>Does an iframe have to always have the 'src' attribute?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>An iframe can be used with other elements, such as <b>&lt;form&gt;</b> and <b>&lt;a&gt;</b>,
+                                    with the '<b>target</b>' attribute. 
+                                    The value of the 'target' attribute is the value of the 'name' attribute in the target iframe.</li>
+                                <li><x-summary>Here is an example how to change the target to an iframe.</x-summary>
+<pre style="display: block;">&lt;iframe <b style="color:red">name</b>="iframe_a"&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;a href="https://cs.tru.ca/~mlee/comp3540" <b style="color:red">target</b>="iframe_a"&gt;COMP 3540&lt;/a&gt;&lt;/p&gt;
+</pre> 
+                                </li>
+                            </ul>
+                        </li>
+                        <li>List the three types how to display web content in an iframe.</li>
+                        <li>Here is an <a target="_blank" href="http://eligeske.com/wp-content/uploads/2011/01/javascript_dom2.jpg">image</a> showing the window object with iframes.</li>
+                        
+                        <li><x-summary><b>Trial 1</b>: Let's display cs.tru.ca in an iframe.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try1-textarea" rows="5" cols="100">&lt;a href='//cs.tru.ca' target=???&gt;cs.tru.ca&lt;/a&gt;
+&lt;br&gt;
+&lt;iframe ???='tr1-iframe' width='400px' height='300px'&gt;
+&lt;/iframe&gt;
+                                </textarea></code>
+                                <button id="try1-button">Submit</button>
+                                <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try1-button').click(function() {
+                                        $('#try1-div').html($('#try1-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li><x-summary><b>Trial 2</b>: Let's send a query to the server and 
+                                display the content coming from the server into an iframe.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try2-textarea" rows="8" cols="100">&lt;form method='get' action='iframe-exercise1.php' ???='tr2-iframe'&gt;
+    &lt;input type='text' name='command'&gt;
+    &lt;input type=???&gt;
+&lt;/form&gt;
+&lt;br&gt;
+&lt;iframe ???='tr2-iframe' width='400px' height='100px'&gt;
+&lt;/iframe&gt;
+                                </textarea></code>
+                                <button id="try2-button">Submit</button>
+                                <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try2-button').click(function() {
+                                        $('#try2-div').html($('#try2-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>Now do you now know how to display the search result in an iframe, when 'Search' menu item in TRUQA is selected?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Use a form with the url that searches and displays the result.</li>
+                        <li>The content/data coming from the server can be directed into an iframe using '<b>target</b>' in &lt;form&gt;.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><x-summary>How can the child window in an iframe communicate with the parent window??</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>How do you know in JavaScript code whether the iframe is completely loaded with new web content?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Any good ideas?</li>
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/jsref/event_onload.asp"><span class="xemp">onload</span> Event</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>When does the 'load' event occur?</li>
+                                <li>Can you give the three different styles to register event handlers?</li>
+                                <li>Which elements trigger this event?</li>
+                                <li>Do you think you can use this event on an iframe too?</li>
+                                <li><x-summary>How do you check if 'Cookies' are enabled? Which object contains the information about the browser?</x-summary>
+                                    <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                                        <li><a target="_blank" href="http://www.w3schools.com/jsref/obj_navigator.asp">The Navigator Object</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><x-summary>Here is an example how to check if the ifram with name='iframe_a' is loaded.</x-summary>
+<pre style="display: block;">$('[name="iframe_a"]').on('load', function() {
+    ...
+});
+</pre>
+                        </li>
+                        
+                        <li><x-summary><b>Trial 3</b>: Let's check if an iframe is fully loaded.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try3-textarea" rows="12" cols="100">&lt;form method='get' action='iframe-exercise1.php' target='tr3-iframe'&gt;
+    &lt;input type='text' name='command'&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+&lt;br&gt;
+&lt;iframe name='tr3-iframe' width='400px' height='100px'&gt; &lt;/iframe&gt;
+&lt;script&gt;
+    $(???).???('load', function() {
+        alert('Loaded!');
+    });
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try3-button">Submit</button>
+                                <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try3-button').click(function() {
+                                        $('#try3-div').html($('#try3-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>How do you access the elements/JS code in an iframe window?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Any good ideas?</li>
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/jsref/prop_frame_contentdocument.asp">IFrame <span class="xemp">contentDocument</span> Property</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Which property is used?</li>
+                                <li>Any security issues?</li>
+                            </ul>
+                        </li>
+                        <li><a target="_blank" href="http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_iframe_contentdocument">Here is an example</a>.
+                        </li>
+                        <li>Is it always possible? The same origin policy in web browsers?</li>
+                        <li><x-summary>Here is another example how to read data from an iframe.</x-summary>
+<pre style="display: block;">$('[name="iframe_a"]').on('load', function() {
+    alert(this.<b>contentWindow</b>.document.body.innerHTML);
+    alert(this.contentWindow.document.getElementById('test').innerHTML);
+    alert(this.contentWindow.test_variable);  // test_variable is a varible in a script loading in the iframe.
+});
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 4</b>: Let's try to access a varible loaded into an iframe.
+                            </x-summary>
+                            <div style="display: block;">
+                                <code><textarea id="try4-textarea" rows="12" cols="100">&lt;form method='get' action='iframe-exercise1.php' target='tr4-iframe'&gt;
+    &lt;input type='text' name='command'&gt;
+    &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+&lt;br&gt;
+&lt;iframe name='tr4-iframe' width='400px' height='100px'&gt; &lt;/iframe&gt;
+&lt;script&gt;
+    $('[name="tr4-iframe"]').on('load', function() {
+        alert(???.???.command);  // You may check the source code of the above iframe.
+    });
+&lt;/script&gt;
+                                </textarea></code>
+                                <button id="try4-button">Submit</button>
+                                <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try4-button').click(function() {
+                                        $('#try4-div').html($('#try4-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>How do you access the elements in the parent window from an iframe window?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Any good ideas?</li>
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/jsref/prop_win_parent.asp">Window <span class="xemp">parent</span> Property</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Which property is used?</li>
+                                <li>Any security issues?</li>
+                            </ul>
+                        </li>
+                        <li><a target="_blank" href="http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_parent2">Here is an example.</a>
+                        </li>
+                        <li>Is it always possible? The same origin policy in web browsers?</li>
+                    </ul>
+                </li>
+                <li><x-summary><a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/iframe_test.html">Here is another example.</a></x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>What if the iframe is hidden?</li>
+                    </ul>
+                </li>
+                <li>How to make two web applications on the same browser exchange data/signals?</li>
+                <li>Can you use an iframe as a tool to communicate with the server? Any good idea?</li>
+            </ul>
+        </li>
+        <li><x-summary>How to use iframe in MainPage of TRUQA</x-summary><span style="display: inline;">
+            <br><img src="./Running a web application in a window frame_files/iframe_truqa.png" width="50%" height="50%">
+<pre>&lt;form target='name-iframe-mainpage' method=... action=...&gt;...&lt;/form&gt;
+&lt;iframe name=??? style='display:none'&gt;&lt;/iframe&gt;
+
+$('#id-iframe-mainpage').on('load', function() {
+    var data = this.<b>contentWindow</b>.data_sent_from_server;  // data_sent_from_server is a variable that holds hard coded data. 
+                                                          // This data might be an object. 
+                                                          //   How can PHP code send a JS object? As a string?
+                                                          //   We will discuss about this later again.
+    var table = ... // using the above data
+    $('#id-result-pane-mainpage').html(table);
+});
+</pre>
+        </span></li>
+        <li><x-summary>Some review questions and learning outcomes</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to write new content into a newly created window?</li>
+                <li>How to redirect the web content linked with &lt;a&gt; into an iframe</li>
+                <li>How to redirect the web content coming from the server as the result of &lt;form&gt; into an iframe</li>
+                <li><x-summary>How to write JS code into an iframe?</x-summary> 
+                    <code style="display: inline;">iframe_obj<u>.<span class="xemp">contentWindow</span></u>.document.write('&lt;p&gt;Hmmmmm&lt;/p&gt;'); iframe_obj.contentWindow.close();</code>
+                </li>
+                <li><x-summary>How to access JS code in an iframe?</x-summary>
+                    <code style="display: inline;">alert(iframe_obj.contentWindow.data_sent_from_server);</code>
+                </li>
+                <li>How to use this above idea in MainPage of TRUQA</li>
+                <li>How to use iframe to open a new window within the current window</li>
+                <li>Explain how iframe window can access its parent window, with a specific example.</li>
+                <li>Explain how the current window access iframe child windows, with a specific example.</li>
+            </ul>
+        </li>
+    </ol> 
+    
+    <br>
+    </div>
+
+
+
+
+</body></html>

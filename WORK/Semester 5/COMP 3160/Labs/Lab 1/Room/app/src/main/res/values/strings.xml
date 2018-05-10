@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Room</string>
+    <string name="error">Please enter data for both fields</string>
+    <string name="guest_name_hint">Name</string>
+    <string name="party_size_hint">**</string>
+    <string name="add_button_text">Add Guest</string>
+    <string name="default_party_size">0</string>
+    <string name="default_guest_name">name</string>
+    <string name="added">Added</string>
+</resources>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript/6.%20howto_position.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>3.6 How to position an element? How to move an element?</title>
+    <link type="text/css" rel="stylesheet" href="./3.6 How to position an element_ How to move an element__files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./3.6 How to position an element_ How to move an element__files/class.css">
+    <script src="./3.6 How to position an element_ How to move an element__files/jquery-1.11.1.min.js.download"></script>
+    <script src="./3.6 How to position an element_ How to move an element__files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">3.6 How to position an element? How to move an element?</h1>
+    </div>
+
+    <div id="example1">
+        <button id="example1-button" style="position:fixed; right:10px; top:100px; z-index:1; font-size:2em">Click me! I'll rock you.</button>
+        <style> #example1-button:hover { cursor: pointer; } </style>
+        <script>
+            $('#example1-button').click(function() {
+                alert($(this).html());
+                if ($(this).html() == "Click me! I'll rock you.")
+                    $(this).html("Interesting!");
+                else
+                    $(this).html("Click me! I'll rock you.");
+            });
+        </script>
+        <p style="position:fixed; bottom:0; left:calc(50vw - 101px); background-color:Grey; width:200px; height:1em; text-align:center; z-index:1; font-size:200%">
+                <a id="example1-a" href="http://cs.tru.ca/">cs.tru.ca - 43</a>
+        </p>
+        <script>
+            var count = 0;
+            setInterval(function() {
+                $('#example1-a').html('cs.tru.ca - ' + count);
+                count++;
+            }, 5000);
+        </script>
+    </div>
+    
+    <div class="pane_lower2">
+    
+        <!-- for test -->
+        <style>
+            div.outside { display:table; width:calc(100% - 2px); height:150px; border:1px solid black; }
+            div.inside { display:table-cell; vertical-align:middle; }
+            p.hcenter { background-color:Yellow; width:50%; margin-left:auto; margin-right:auto; }
+        </style>
+        <div class="outside">
+            <div class="inside">
+                <p class="hcenter" style="text-align:center">This is an example of vertical and horizontal centering: <br>This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.</p>
+            </div>
+        </div>
+        <!-- end of test -->
+
+    <ol class="nested_subsection" style="counter-reset: chapter 3 section 6">
+        <li><x-summary>Motivations</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Can you write 'cs.tru.ca' at the horizontal and at the bottom?</li>
+                <li>Can you write the example button always at the right side?</li>
+            </ul>
+        </li>
+        
+        <li><x-summary>How to position an element?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>You may need to know the dimension of the window. 
+                    How to obtain the dimension?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>The <b>window</b> object represents an open window in a browser.
+                            This object has many properties including the dimension of the window.
+                            Find the properties from <a target="_blank" href="http://www.w3schools.com/jsref/obj_window.asp">The Window Object</a>.</li>
+                        <li><x-summary>What if the window shrinks or expands? How do you obtain the new width and height?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><x-summary>What event is triggered when the dimension of the window changes?</x-summary> <span style="display: inline;">&nbsp;&nbsp;&nbsp;resize</span></li>
+                                <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">window.addEventListener('resize', handler);
+</pre>
+                                </li>
+                                <li><x-summary><b>Trial 1</b>: Let's try to print the new width and height of the window content area.</x-summary>
+                                    <div style="display: block;">
+                                        <textarea id="try1-textarea" rows="7" cols="100">&lt;p id='tr1-msg'&gt;Width and height: &lt;/p&gt;
+&lt;???&gt;
+    window.???('???', tr1_eh);
+    function ???(e) {
+        ???.???('tr1-msg').??? = 'Width = ' + ???.innerWidth + ', height = ' + ???.???;
+    }
+&lt;/script&gt;
+                                        </textarea>
+                                        <button id="try1-button">Submit</button>
+                                        <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                                        <script>
+                                            $('#try1-button').click(function() {
+                                                $('#try1-div').html($('#try1-textarea').val());
+                                            });
+                                        </script>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>You also need to know the dimension of HTML elements. 
+                    How to obtain the dimension?
+                    What CSS properties are used for that?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>width, height</li>
+                        <li>margin, border, padding</li>
+                    </ul>
+                </li>
+                <li><x-summary>How to position, i.e., align, text?
+                    Read all in <a target="_blank" href="http://www.w3schools.com/cssref/pr_text_text-align.asp">CSS text-align Property</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>List the four ways to align text.</li>
+                        <li><b>Center of what?</b></li>
+                        <li><x-summary><b>Trial 2</b>: Let's try the four types of text alignment with span and p to see what happens.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try2-textarea" rows="8" cols="100">&lt;span ???&gt;What a wonderful&lt;/span&gt;
+&lt;p ???&gt;world!&lt;/p&gt;
+&lt;span ???&gt;What a wonderful&lt;/span&gt;
+&lt;p ???&gt;world!&lt;/p&gt;
+&lt;span ???&gt;What a wonderful&lt;/span&gt;
+&lt;p ???&gt;world!&lt;/p&gt;
+&lt;span ???&gt;What a wonderful&lt;/span&gt;
+&lt;p ???&gt;world!&lt;/p&gt;
+                                </textarea>
+                                <button id="try2-button">Submit</button>
+                                <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try2-button').click(function() {
+                                        $('#try2-div').html($('#try2-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>How to display an element at a certain position?
+                    Read all in <a target="_blank" href="http://www.w3schools.com/cssref/pr_class_position.asp">CSS position Property</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>'position' with 'left' and 'top' CSS properties. 
+                            Sometimes with 'right' and 'bottom' CSS properties as well.</li>
+                        <li>List the four ways to position HTML elements, i.e., position values.
+                            How are they different?</li>
+                        <li>Here are more examples in <a target="_blank" href="http://www.w3schools.com/css/css_positioning.asp">CSS Positioning</a>.
+                            Try all the examples.</li>
+                        <li>You may review 3.1.</li>
+                    </ul>
+                </li>
+                <li><x-summary>How to position an element at the <b>horizontal center</b> of the outer dimension?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/css/css_margin.asp">CSS Margin</a>.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>What does margin do?</li>
+                                <li>What does the '<b>auto</b>' value do?</li>
+                                <li>'<b>auto</b>' <i>works only for <b>block</b> elements with <b>relative</b> and <b>static</b> positioning.</i> Do you remember how to change an inline element to block type?</li>
+                                <li>Try <a target="_blank" href="http://www.w3schools.com/css/tryit.asp?filename=trycss_margin_sides">this example</a>.</li>
+                            </ul>
+                        </li>
+                        <li><x-summary><b>Trial 3</b>: Here is an example. Try this example yourself.</x-summary>
+                            <div style="display: block;">
+<pre>&lt;style&gt;
+    p { background-color: Yellow; }
+    p.left { width: 70%; <b>margin-right</b>: auto; }
+    p.right { width: 70%; <b>margin-left</b>: auto; }
+    p.hcenter { width: 50%; <b>margin</b>: auto; }
+    p.just { margin-top: 100px; margin-bottom: 50px; margin-left: 100px; margin-right: 50px; }
+    p.inside { width: 60%; <b>margin</b>: auto; }
+&lt;/style&gt;
+&lt;p&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;p class='left'&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;p class='right'&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;p class='hcenter'&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;p class='just'&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;div style='width:80%; height:200px; border: 5px solid Blue;'&gt;
+    &lt;p class='inside'&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+                                <div>
+                                    <textarea id="try3-textarea" rows="4" cols="100"></textarea>
+                                    <button id="try3-button">Submit</button>
+                                    <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try3-button').click(function() {
+                                            $('#try3-div').html($('#try3-textarea').val());
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </li>
+                        <li>How are the paragraphs in the above example displayed in different ways?</li>
+                        <li><x-summary><b>Trial 4</b>: Let's try the horizontal centering with 'margin:auto'.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try4-textarea" rows="4" cols="100">&lt;div style='width:400px; height:100px; border:1px solid blue;'&gt;
+    &lt;p style='width:200px; background-color:grey; ???'&gt;Horizontal centering with margin:auto&lt;/p&gt;
+&lt;/div&gt;
+                                </textarea>
+                                <button id="try4-button">Submit</button>
+                                <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try4-button').click(function() {
+                                        $('#try4-div').html($('#try4-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li><x-summary>How to do the horizontal centering for 'fixed' and 'absolute' positioned elements?
+                            E.g., the link at the bottom.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>You need to calculate the correct position, using '<span class="xemp">calc(), vw, vh</span>', where vw is for viewport width and vh is for viewport height.
+                                    0vw ~ 100vw, and 0vh ~ 100vw.
+                                </li>
+                                <li>E.g., the horizontal center with fixed positioning; 
+                                    Note that calc(50vw-55px) does not work. 
+                                    It should be calc(50vw - 55px). Spaces around '-' are necessary.
+<pre>&lt;p style='width:110px; position:fixed; top:25%; left:<b>???(50vw - 55px)</b>; background-color:Grey; text-align:center; z-index:1; font-size:200%'&gt;
+    &lt;a href='//cs.tru.ca'&gt;cs.tru.ca
+&lt;/p&gt;
+</pre>
+                                </li>
+                                <li><x-summary><b>Trial 5</b>: Let's try the above code.</x-summary>
+                                    <div style="display: block;">
+                                        <textarea id="try5-textarea" rows="4" cols="100"></textarea>
+                                        <button id="try5-button">Submit</button>
+                                        <div id="try5-div" style="border:1px solid black;"><br><br></div>
+                                        <script>
+                                            $('#try5-button').click(function() {
+                                                $('#try5-div').html($('#try5-textarea').val());
+                                            });
+                                        </script>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>How to position an element at the <b>vertical center</b> of the outer dimension?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Can you use margin-top and margin-bottom?</x-summary> <span style="display: inline;">Unfortunately not easy. Then?</span></li>
+                        <li><x-summary>You can use '<b>table-cell</b>' display type with '<b>vertical-align: middle</b>' CSS property.
+                            Here is an <b>example</b>.</x-summary>
+<pre style="display: block;">&lt;style&gt;
+    div.outside { <b>???</b>:<b>???</b>; <b>???</b>:<b>???</b>; width:400px; height:300px; border:1px solid blue; }
+&lt;/style&gt;
+&lt;p&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;div class='outside'&gt;
+    &lt;p style='text-align:center; width:60%'&gt;This course is a lot of fun. This course is a lot of fun. This course is a lot of fun. This course is a lot of fun.&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 6</b>: Let's try the vertical centering.
+                            Can you add the horizontal centering too?
+                            </x-summary>
+                            <div style="display: block;">
+                                <textarea id="try6-textarea" rows="4" cols="100"></textarea>
+                                <button id="try6-button">Submit</button>
+                                <div id="try6-div" style="border:1px solid black;"><br><br></div>
+                                <script>
+                                    $('#try6-button').click(function() {
+                                        $('#try6-div').html($('#try6-textarea').val());
+                                    });
+                                </script>
+                            </div>
+                        </li>
+                        <li>Try to complete <a href="http://cs.tru.ca/~mlee/comp3540/Software/test_direction_to_mouse.html">this exercise program</a> that
+                            displays the direction to mouse pointer.</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><x-summary>How to move an element - animation effect?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>By setting new position of the element. How to set a new position?</li>
+                <li>You may need to repeatedly redisplay the element to give an animation effect.
+                    <x-summary>How to use JavaScript Windows timer?
+                    Read all in <a target="_blank" href="http://www.w3schools.com/jsref/met_win_setinterval.asp">Window setInterval() Method</a> and
+                    <a target="_blank" href="http://www.w3schools.com/jsref/met_win_settimeout.asp">Window setTimeout() Method</a>.</x-summary>
+                </li>
+                <li><x-summary><b>Trial 7</b>: Let's try to increase a number every 2 seconds.</x-summary>
+                    <div style="display: block;">
+                        <textarea id="try7-textarea" rows="10" cols="100">&lt;p id='tr7-msg'&gt;Count: &lt;/p&gt;
+&lt;???&gt;
+    ??? count = 0;
+    window.???(???() {
+            count++;
+            ???.???('tr7-msg').??? = 'Count: ' + count;
+        },
+        ???
+    );
+&lt;/script&gt;
+                        </textarea>
+                        <button id="try7-button">Submit</button>
+                        <div id="try7-div" style="border:1px solid black;"><br><br></div>
+                        <script>
+                            $('#try7-button').click(function() {
+                                $('#try7-div').html($('#try7-textarea').val());
+                            });
+                        </script>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to obtain the dimension of the window.</li>
+                <li>How to obtain the dimension of an HTML element.</li>
+                <li>How to align text.</li>
+                <li>Distinguish and use the four ways to position HTML elements.</li>
+                <li>How to display an element at a certain position.</li>
+                <li>How to position an element at the horizontal center of the outer dimension.</li>
+                <li>How to position an element at the vertical center of the outer dimension.</li>
+                <li>How to move an element.</li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+</body></html>

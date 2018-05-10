@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)http://cs.tru.ca/~mlee/comp3540/Winter2018/3.%20html_css_javascript/12.%20howto_send_data_to_server.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>3.12 How to send data to the server?</title>
+    <link type="text/css" rel="stylesheet" href="./3.12 How to send data to the server__files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./3.12 How to send data to the server__files/class.css">
+    <script src="./3.12 How to send data to the server__files/jquery-1.11.1.min.js.download"></script>
+    <script src="./3.12 How to send data to the server__files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">3.12 How to send data to the server?</h1>
+    </div>
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 3 section 12">
+        <li><x-summary>How to send data to the server?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Using a <span class="xemp"><b>form</b></span>
+                    <ul is="ul-circle" style="list-style-type: circle;">
+                        <li><b>method</b>: post, get</li>
+                        <li><b>action</b>: the URL of the server script</li>
+                        <li><b>target</b>: window (or iframe) to display the web content coming back from the action server script</li>
+                    </ul>
+                </li>
+                <li>Input, checkbox, radio, textarea, select, ... within a form have <b>names</b> and <b>values</b>.
+                    <span class="xemp">These <b>pairs of name and value</b> will be submitted to the URL specified in <b>form-action</b>,
+                    when the <b>input-submit</b> within the form is clicked.</span></li>
+                <li>What if name is omitted?</li>
+                <li>How are the HTTP get and post methods different?
+                    Read all in <a target="_blank" href="http://www.w3schools.com/html/html_forms.asp">HTML Forms</a>.</li>
+                <li>Can an HTML document receive the user input?</li>
+                <li><x-summary>Here is an example.</x-summary>
+<pre style="display: block;">&lt;form ???='get' ???='controller.php'&gt;
+    &lt;input type='hidden' name='page' value='StartPage'&gt;
+    &lt;input type='???' name='command' value='SignIn'&gt;
+    Username:&lt;br&gt;
+    &lt;input type='text' name='username' required&gt;&lt;br&gt;
+    Password:&lt;br&gt;
+    &lt;input type='???' name='password' ???&gt;&lt;br&gt;
+    &lt;input type='???' value='Submit'&gt;
+&lt;/form&gt;
+
+// controller.php; Of course we will discuss about PHP very soon.
+&lt;?php
+    echo $_GET['page'] . '&lt;br&gt;';  // It should be ???.
+    echo $_GET['command'] . '&lt;br&gt;';  // It should be ???.
+    echo ???['username'] . '&lt;br&gt;';
+    echo ???['password'] ??? '&lt;br&gt;';
+?&gt;
+</pre>
+                </li>
+                
+                <li><b>Trial 1</b>: Let's try to send username and password to //cs.tru.ca/~mlee/comp3540/Software/test_display_inputs.php.
+                    You may use the form in the above example.
+                    <div>
+                        <textarea id="try1-textarea" rows="9" cols="100">&lt;form ???='get' ???='???'&gt;
+    &lt;input type='hidden' name='page' value='StartPage'&gt;
+    &lt;input type='???' name='command' value='SignIn'&gt;
+    Username:&lt;br&gt;
+    &lt;input type='text' name='username' required&gt;&lt;br&gt;
+    Password:&lt;br&gt;
+    &lt;input type='???' name='password' ???&gt;&lt;br&gt;
+    &lt;input type='???' value='Submit'&gt;
+&lt;/form&gt;
+                        </textarea>
+                        <button id="try1-button">Submit</button>
+                        <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                        <script>
+                            $('#try1-button').click(function() {
+                                $('#try1-div').html($('#try1-textarea').val());
+                            });
+                        </script>
+                    </div>
+                </li>
+                        
+                <li>We will discuss later how to receive data sent from the client when we discuss PHP.</li>
+                <li>There is another way to send data to the server. It is called <span class="xemp"><b>Ajax</b></span>, and we will discuss it later.</li>
+            </ul>
+        </li>
+
+        <br>
+        <li><x-summary>Learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to send data to the server.</li>
+                <li>Explain how the HTTP get and post methods are different.</li>
+            </ul>
+        </li>
+    </ol>
+    </div>
+
+
+</body></html>

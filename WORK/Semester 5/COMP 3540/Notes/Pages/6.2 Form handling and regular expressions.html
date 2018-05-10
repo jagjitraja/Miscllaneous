@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)http://cs.tru.ca/~mlee/comp3540/Winter2018/6.%20security_concerns/2.%20regular_expressions.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>6.2 Form handling and regular expressions</title>
+    <link type="text/css" rel="stylesheet" href="./6.2 Form handling and regular expressions_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./6.2 Form handling and regular expressions_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./6.2 Form handling and regular expressions_files/table.css">
+    <script src="./6.2 Form handling and regular expressions_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./6.2 Form handling and regular expressions_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">6.2 Form handling and regular expressions</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 6 section 2">
+            <li><x-summary>Motivations</x-summary> 
+                <ul is="ul-disc" style="list-style-type: disc; display: none;">
+                    <li><x-summary>How to submit multiple values with one name to a server-side script? Here is an example.</x-summary>
+                        <div style="display: none;">
+                            Favourite courses:
+                            <input id="input_comp2680" type="checkbox" name="favorite_courses[]" value="2680"><label for="input_comp2680">COMP2680</label>
+                            <input id="input_comp3270" type="checkbox" name="favorite_courses[]" value="3270"><label for="input_comp3270">COMP2680</label>
+                            <input id="input_comp3410" type="checkbox" name="favorite_courses[]" value="3410"><label for="input_comp3410">COMP3410</label>
+                            <input id="input_comp3540" type="checkbox" name="favorite_courses[]" value="3540"><label for="input_comp3540">COMP3540</label>
+                            <input id="input_comp3710" type="checkbox" name="favorite_courses[]" value="3710"><label for="input_comp3710">COMP3710</label>
+                            <input id="input_comp4620" type="checkbox" name="favorite_courses[]" value="4620"><label for="input_comp4620">COMP4620</label>
+                            <br>
+                            Cars:
+                            <select id="select_test_multiple_inputs" name="cars[]" multiple="">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="opel">Opel</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                            <br>
+                            <button id="button_test_multiple_inputs">Submit</button>
+                            <span id="span_test_multiple_inputs"></span>
+                            <script>
+                                $('#button_test_multiple_inputs').click(function() {
+                                    var cars = $('#select_test_multiple_inputs').val();
+                                    $('#span_test_multiple_inputs').load('test_multiple_inputs.php', {'cars':cars});
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li><x-summary>How to check if the format of an email address is correct? Here is an example.</x-summary>
+                        <div id="div_test_email_address" style="display: none;">
+                            Email address: <input id="input_test_email_address" type="text" name="email" placeholder="Email address">
+                            <button id="button_test_email_address">Submit</button>
+                            <span id="span_test_email_address"></span>
+                            <script>
+                                $('#button_test_email_address').click(function() {
+                                    var email = $('#input_test_email_address').val();
+                                    $('#span_test_email_address').load('test_email_address.php', {'email':email});
+                                });
+                            </script>
+                        </div>
+                    </li>
+                    <li>How to check if the format of a phone number is correct?</li>
+                    <li>How to enforce the user to input important input fields?</li>
+                    <li><x-summary>How to enforce the user to use complex passwords? Here is an example.</x-summary>
+                        <div id="div_test_password" style="display: none;">
+                            Minimum 4 character password: <input id="input_test_password" type="password" name="password" placeholder="Password">
+                            <button id="button_test_password">Submit</button>
+                            <span id="span_test_password"></span>
+                            <script>
+                                $('#button_test_password').click(function() {
+                                    var password = $('#input_test_password').val();
+                                    $('#span_test_password').load('test_password.php', {'password':password});
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            <li><x-summary>How to deal with any error in the user input? Read all in <a target="_blank" href="http://www.w3schools.com/php/php_form_validation.asp">PHP 5 Form Validation</a>.
+                Let's discuss another time these real security issues in web application, such as XSS.
+            </x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: none;">
+                    <li>List different input types and input-like elements.</li>
+                    <li>What is <code>$_SERVER['PHP_SELF']</code>?</li>
+                    <li>Can you interpret <code>action="&lt;?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?&gt;"</code>?</li>
+                    <li><x-summary>Do you need to send the form data to the same PHP program that displayed the current client? 
+                        Is there any benefit?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li>When only one PHP program is used for the user input and when the user inputs wrong data, 
+                                the PHP program might display the same input form with some error messages and the user input should be sent to the same PHP program.</li>
+                        </ul>
+                    </li>
+                    <li>What does <code>htmlspecialchars()</code> do?</li>
+                    <li>What is the benefit to use <code>htmlspecialchars()</code>?</li>
+                </ul>
+            </li>
+            
+            <li><x-summary class="xemp">How to send multiple data with one name with the checkbox-type input and the select elements?</x-summary>
+<pre style="display: none;">...
+&lt;?php
+...
+if (empty($_POST["courses"])) {
+    $coursesErr = "Courses are required";
+} else {
+    $aCourses = $_POST['courses'];
+    $courses = '';
+    for ($i = 0; $i &lt; <b>count($aCourses)</b>; $i++)
+        $courses .= $aCourses[$i] . ' ';
+}
+...
+?&gt;
+...
+&lt;form ...&gt;
+Courses:
+&lt;input type="checkbox" name="<b>courses[]</b>" value="COMP2680"&gt;COMP2680
+&lt;input type="checkbox" name="<b>courses[]</b>" value="COMP3540"&gt;COMP3540
+&lt;input type="checkbox" name="<b>courses[]</b>" value="COMP4620"&gt;COMP4620
+&lt;span class="error"&gt;* &lt;?php echo $coursesErr;?&gt;&lt;/span&gt;
+&lt;br&gt;
+Cars:
+&lt;select name="<b>cars[]</b>" <b>multiple</b>&gt;
+    &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+    &lt;option value="saab"&gt;Saab&lt;/option&gt;
+    &lt;option value="opel"&gt;Opel&lt;/option&gt;
+    &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;
+&lt;/form&gt;
+...
+$.post(..., { <b style="color:Red">'courses[]': ['volvo', 'open']</b>}, function(data) {...});
+...
+</pre>
+            </li>
+            <li><x-summary><b>Trial 1</b>: Let's try to submit multiple values with one name.</x-summary>
+                <div style="display: none;">
+                    <textarea id="try1-textarea" rows="32" cols="100">&lt;form&gt;
+Courses:
+&lt;input id='tr1-2680' type="checkbox" name="tr1-courses[]" value="COMP2680"&gt;COMP2680
+&lt;input id='tr1-3540' type="checkbox" name="tr1-courses[]" value="COMP3540"&gt;COMP3540
+&lt;input id='tr1-4620' type="checkbox" name="tr1-courses[]" value="COMP4620"&gt;COMP4620
+&lt;br&gt;
+Cars:
+&lt;select id='tr1-cars' name="tr1-cars[]" multiple&gt;
+    &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+    &lt;option value="saab"&gt;Saab&lt;/option&gt;
+    &lt;option value="opel"&gt;Opel&lt;/option&gt;
+    &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;
+&lt;button id='tr1-submit' type='button'&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+&lt;div id='tr1-result-1'&gt;Result here&lt;/div&gt;
+&lt;div id='tr1-result-2'&gt;Result here&lt;/div&gt;
+&lt;script&gt;
+    $('#tr1-submit').???(function() {
+        var car_name = $('#tr1-cars').???('name');  // to get the attribute
+        var car_values = $('#tr1-cars').???();  // to get the value
+        alert(car_name);
+        alert(car_values);
+        // output coming from the server will be loaded to the div
+        $('#tr1-result-1').???('//cs.tru.ca/~mlee/comp3540/Software/test_display_inputs.php', 
+            { car_name:car_values });  // Can you check the name in the output?
+                                       // Need to be careful.
+        // How about the checkboxes?
+        alert(document.getElementById('tr1-3540').???);  // to see if it is checked
+    });
+&lt;/script&gt;
+                    </textarea>
+                    <button style="margin-top:11px" id="try1-button">Submit the code to the server to execute PHP code</button>
+                    <div id="try1-div" style="border:1px solid black;"><br><br></div>
+                    <script>
+                        $('#try1-button').click(function() {
+                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                { code: $('#try1-textarea').val() },
+                                function(data) { $('#try1-div').html(data); }
+                            );
+                        });
+                    </script>
+                </div>
+            </li>
+
+            <li><x-summary>How to deal with required input fields? Read all in <a target="_blank" href="http://www.w3schools.com/php/php_form_required.asp">PHP 5 Forms - Required Fields</a>.</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: none;">
+                    <li><x-summary>In a PHP program, how can you check if the program is executed for the first time?
+                        Here is an example.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li><x-summary>The initial HTML content generated by the PHP code includes</x-summary>
+<pre style="display: none;">&lt;input type='hidden' name:'first' value:'true'&gt;
+</pre>
+                            </li>
+                            <li><x-summary>The next HTML content generated by the PHP code includes</x-summary>
+<pre style="display: none;">&lt;input type='hidden' name:'first' value:'false'&gt;
+</pre>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>In a PHP program, how can you check if an input field is empty?</li>
+                    <li>When you redisplay the form with error messages, how can you display the values that the user already correctly entered?
+                        In the example in the above link, let's assume that the user entered only E-mail and submitted the form. 
+                        I would like to see the E-mail address in the form redisplayed by the PHP program.
+                        What can you do here?
+                    </li>
+                    <li>Here is an <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/test_form1.php">example</a> for the above question.</li>
+                    <li>Here is another <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/test_form2.php">example</a> that solves the above question.</li>
+                    <li>How are they different?</li>
+                    <li>When the form is submitted with errors or empty fields, the error messages are displayed.
+                        Are only the error messages redisplayed? Is the entire page redisplayed?</li>
+                    <li><x-summary>Is it possible to use HTML, not PHP, for required input elements?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li>Yes.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_form_complete.asp">PHP 5 Complete Form Example</a>.</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: none;">
+                </ul>
+            </li>
+
+            <!--
+            <li><x-summary>Here is an <a target='_blank' href='../../Software/test_include_controller.php'>example for TRUQA</a>.
+                This example uses a form to send username and password within the MVC architecture.</x-summary>
+                <ul is='ul-disc'>
+                    <li><x-summary>test_include_controller.php</x-summary>
+<pre>
+&lt;?php
+    // If it is the first time
+    if (empty($_POST['user_request'])) {
+        $display_type = 'Start';
+        include('test_include_view_start.php');
+        exit();
+    }
+
+    // It is not the first time. The user sent data.
+
+    $user_request = $_POST['user_request'];
+
+    switch($user_request) 
+    {
+    case 'SignIn':
+        //$error_username = '';
+        //$error_password = '';
+        if (empty($_POST['username']))
+            $error_username = '*required'; 
+        else
+            $username = $_POST['username'];
+        if (empty($_POST['password']))
+            $error_password = '*required'; 
+        else
+            $password = $_POST['password'];
+        if (empty($error_username) && empty($error_password))
+            include('test_include_view_main.php');
+        else {
+            $display_type = 'SignIn';
+            include('test_include_view_start.php');
+        }
+        exit();
+
+    case 'Join':
+        ...
+         exit();
+
+    case 'ForgotPassword':
+        ...
+        exit();
+
+    default:
+        $display_type = 'Start';
+        include('test_include_view_start.php');
+        exit();
+    }
+?>
+</pre>
+                    </li>
+                    <li><x-summary>test_include_view_start.php</x-summary>
+<pre>
+&lt;!DOCTYPE html>
+
+&lt;html>
+&lt;head>
+&lt;/head>
+
+&lt;body>
+    &lt;h1>View-Start: Test with Controller&lt;/h1>
+    &lt;p>
+&lt;?php
+    echo 'Display type = ' . $display_type . '&lt;br>';
+    if ($display_type == 'Start')
+        echo 'StartPage with no popup box&lt;br>'; 
+    else if ($display_type == 'SignIn')
+        echo "StartPage with 'SignIn' popup box&lt;br>"; 
+    else if ($display_type == 'Join')
+        echo "StartPage with 'Join' popup box&lt;br>"; 
+    else if ($display_type == 'ForgotPassword')
+        echo "StartPage with 'ForgotPassword' popup box&lt;br>"; 
+    else
+        echo 'StartPage with no popup box&lt;br>'; 
+?>
+    &lt;/p>
+
+    &lt;form method='post' action='test_include_controller.php'>
+        &lt;input type='hidden' name='user_request' value='SignIn'>
+        Username: &lt;input type='text' name='username' value="&lt;?php echo $username ?>"> &lt;?php echo $error_username; ?> &lt;br>
+        Password: &lt;input type='password' name='password' value="&lt;?php echo $password ?>"> &lt;?php echo $error_password; ?> &lt;br>
+        &lt;input type='submit' value='Submit'>
+    &lt;/form>
+&lt;/body>
+&lt;/html>
+</pre>
+                    </li>
+                    <li>Study carefully the form in the above code.</li>
+                </ul>
+            </li>
+            -->
+
+            <li><x-summary class="xemp">How to validate the format of user inputs - <b>regular expression</b>: Read all in <a target="_blank" href="http://www.w3schools.com/php/php_form_url_email.asp">PHP 5 Forms - Validate E-mail and URL</a>.</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: none;">
+                    <li>How do you interpret the regular expression in <code>preg_match()</code>?</li>
+                    <li>How do you interpret the regular expression in <code>filter_var()</code>?</li>
+                    <li><x-summary class="xemp">Read all in <a target="_blank" href="http://www.phpf1.com/tutorial/php-regular-expression.html">PHP regular expression tutorial</a>.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li>There are two types of regular expressions. What type is used in PHP?</li>
+                            <li>What symbol is used to as a delimiter in PHP regular expressions?</li>
+                            <li>List the five groups of characters in a pattern.
+                                Can you explain how {}, [], and () are different?</li>
+                            <li><x-summary>Does '/^world$/' match 'world world'?</x-summary> <span style="display: none;">&nbsp;&nbsp;&nbsp;NO.</span></li>
+                            <li><x-summary>Does '/earth|world/' match 'world'?</x-summary> <span style="display: none;">&nbsp;&nbsp;&nbsp;YES.</span></li>
+                            <li>Can you make a regular expression for PHP identifiers?</li>
+                            <li><x-summary><b>Trial 2</b>: Let's try to use a regular expression to check the validity of identifiers.
+                                Identifiers must use only letters, digits, and '_'. They cannot start with a digit.
+                                </x-summary>
+                                <div style="display: none;">
+                                    <textarea id="try2-textarea" rows="12" cols="100">&lt;?php
+    $var1 = '_abc';
+    $var2 = '3courses';
+    $var3 = 'comp_courses';
+    $reg = ???; // regular expression
+    if (???(???, ???)) echo $var1 ??? ' -&gt; Match';
+    else echo ??? ' -&gt; Not match';
+    if (???(???, ???)) echo $var2 ??? ' -&gt; Match';;
+    else echo ??? ' -&gt; Not match';
+    if (???(???, ???)) echo $var3 ??? ' -&gt; Match';;
+    else echo ??? ' -&gt; Not match';
+?&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try2-button">Submit the code to the server to execute PHP code</button>
+                                    <div id="try2-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try2-button').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try2-textarea').val() },
+                                                function(data) { $('#try2-div').html(data); }
+                                            );
+                                        });
+                                    </script>
+                                </div>
+                            </li>
+                            <li>Can you make a regular expression for phone numbers?</li>
+                            <li>Can you make a regular expression for usernames in TRUQA?</li>
+                            <li><x-summary><b>Trial 3</b>: Let's try to use a regular expression to check the validity of TRUQA username.
+                                Usernames must be minimum 4 characters. Only letters, digits, '_' and '$' can be used.
+                                </x-summary>
+                                <div style="display: none;">
+                                    <textarea id="try3-textarea" rows="12" cols="100">&lt;?php
+    $username1 = 'abc';
+    $username2 = 'abc@tru';
+    $username3 = 'comp3540_tru';
+    $reg = ???; // regular expression
+    if (???(???, ???)) echo $username1 ??? ' -&gt; Match';
+    else echo ??? ' -&gt; Not match';
+    if (???(???, ???)) echo $username2 ??? ' -&gt; Match';;
+    else echo ??? ' -&gt; Not match';
+    if (???(???, ???)) echo $username3 ??? ' -&gt; Match';;
+    else echo ??? ' -&gt; Not match';
+?&gt;
+                                    </textarea>
+                                    <button style="margin-top:11px" id="try3-button">Submit the code to the server to execute PHP code</button>
+                                    <div id="try3-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try3-button').click(function() {
+                                            $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                                { code: $('#try3-textarea').val() },
+                                                function(data) { $('#try3-div').html(data); }
+                                            );
+                                        });
+                                    </script>
+                                </div>
+                            </li>
+                            <li>Can you make a regular expression for hexadecimal color codes?</li>
+                        </ul>
+                    </li>
+                    <li>Use of <a target="_blank" href="http://php.net/manual/en/function.preg-match-all.php"><code>preg_match_all()</code></a>.</li>
+                    <li>Check the third parameter in <code>preg_match_all()</code>. How do you interpret <code>array &amp;$matches</code>?</li>
+                    <li>Use of <a target="_blank" href="http://www.php.net/manual/en/function.filter-var.php"><code>filter_var()</code></a> for FILTER_VALIDATE_EMAIL and FILTER_VALIDATE_URL.</li>
+                </ul>
+            </li>
+            <li><x-summary>Can you make a regular expression for passwords in TRUQA? Passwords should be</x-summary>
+                <ul is="ul-square" style="list-style-type: square; display: none;">
+                    <li>The password must have between six and fifteen word characters.</li>
+                    <li>It must include at least one special character.</li>
+                    <li>It must include at least one digit.</li>                    
+                    <li>It must include at least one uppercase characters.</li>
+                    <li><x-summary><b class="xemp">Assertions</b> are very useful tools, especially password like patterns.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li>Positive look-ahead: <code>(?=PATTERN_HERE)</code> should be in the next following pattern.</li>
+                            <li>Negative look-ahead: <code>(?!PATTERN_HERE)</code> should not be in the next following pattern.</li>
+                            <li><x-summary>Here is an example for strong passwords.</x-summary>
+<pre style="display: none;">$password_pattern = '/^(?=<b>.*</b>[!@#$%^&amp;*()-_+=])(?=<b>.*</b>[0-9]) ...$/' &nbsp;&nbsp;&nbsp;Be careful with .* in the assertions.
+if (preg_match($password_pattern, $password))
+    ...
+else
+    ...
+</pre>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><x-summary><b style="color:red">Trial 4</b>: Let's try to use a regular expression to check if a given password follows the rules.
+                        Rules: minimum 6, at least one special character, at least one letter.
+                        </x-summary>
+                        <div style="display: none;">
+                            <textarea id="try4-textarea" rows="12" cols="100">&lt;?php
+    $pswd1 = 'Abc1*';
+    $pswd2 = 'Abc123';
+    $pswd3 = 'Topsecrete&amp;9';
+    $reg = ???; // regular expression
+    if (???(???, ???)) echo $pswd1 ??? ' -&gt; Match';
+    else echo ??? ' -&gt; Not match';
+    if (???(???, ???)) echo $pswd2 ??? ' -&gt; Match';;
+    else echo ??? ' -&gt; Not match';
+    if (???(???, ???)) echo $pswd3 ??? ' -&gt; Match';;
+    else echo ??? ' -&gt; Not match';
+?&gt;
+                            </textarea>
+                            <button style="margin-top:11px" id="try4-button">Submit the code to the server to execute PHP code</button>
+                            <div id="try4-div" style="border:1px solid black;"><br><br></div>
+                            <script>
+                                $('#try4-button').click(function() {
+                                    $.post('//cs.tru.ca/~mlee/comp3540/Software/run_mixed_html_php.php',
+                                        { code: $('#try4-textarea').val() },
+                                        function(data) { $('#try4-div').html(data); }
+                                    );
+                                });
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            <li><x-summary class="xemp">Regular expression with JavaScript</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: none;">
+                    <li><x-summary>How to get the client timezone in PHP code?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li>Get the client timezone using JavaScript. <x-summary>How?</x-summary>
+<pre style="display: none;">var d = new Date();
+var n = d.toTimeString();  // n includes the timezone. E.g., 11:22:54 GMT-0800 (Pacific Standard Time)
+var regExp = <b>/\(.*\)/</b>;  // It is NOT a string. Is it a sort of object?
+var matches = regExp.<b>exec(n)</b>;
+document.write(matches[0].substr(1, matches[0].length - 2));  // matches[0] includes this string "(...)".
+</pre>
+                            </li>
+                            <li>Send the timezone to the server using Ajax.</li>
+                        </ul>
+                    </li>
+                    <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/js/js_regexp.asp">JavaScript Regular Expressions</a>,
+                        <a target="_blank" href="http://www.w3schools.com/jsref/jsref_match.asp">JavaScript String match() Method</a>,
+                        and
+                        <a target="_blank" href="http://www.w3schools.com/jsref/jsref_obj_regexp.asp">JavaScript RegExp Reference</a>.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li><x-summary>Is it possible to use the metacharacters, such as \d and \s, in PHP?</x-summary> <span style="display: none;">&nbsp;&nbsp;&nbsp;Yes</span></li>
+                            <li><x-summary><b>Trial 5</b>: Let's try to display all the numbers in a text.
+                                </x-summary>
+                                <div style="display: none;">
+                                    <textarea id="try5-textarea" rows="12" cols="100">&lt;script&gt;
+    var text = "10 year and 100,000 Km warranty";
+    var reg = ???; // regular expression; 
+                   // You SHOULD include the /g modifier. Otherwise the first match will be returned again and again.
+    var f;
+    while ((f = reg.???(text)) != null)
+        alert(f);
+    
+    f = text.???(reg);
+    alert(f);
+&lt;/script&gt;
+                                    </textarea>
+                                    <button id="try5-button">Submit</button>
+                                    <div id="try5-div" style="border:1px solid black;"><br><br></div>
+                                    <script>
+                                        $('#try5-button').click(function() {
+                                            $('#try5-div').html($('#try5-textarea').val());
+                                        });
+                                    </script>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><x-summary>Can you check usernames, passwords, and email addresses in your client-side code? Any good idea?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: none;">
+                            <li>First of all, you need to capture the click event on the submit button.</li>
+                            <li>If you use <code>&lt;input type='submit' ...&gt;</code>, the form will submit inputs to the action URL.
+                                You'd better use <code>&lt;input type='button' ...&gt;</code> instead, 
+                                so that even when the user clicks the button, the form does not submit inputs automatically.</li>
+                            <li><x-summary>How to submit the form in JavaScript code then?</x-summary>
+<pre style="display: none;">&lt;script&gt;
+    ???.???('test_form_button').???('click', function() {
+        ???.???('???').<b>submit()</b>;  // submit() method in the form object
+    });
+&lt;/script&gt;
+&lt;form id='test_form' action='controller.php'&gt;
+    Username: &lt;input id='username' type='text' name='username'&gt;&lt;br&gt;
+    Password: &lt;input id='password' type='???' name='password'&gt;&lt;br&gt;
+    &lt;input id='test_form_button' type='???' value='Submit'&gt;  // Just button, not submit
+&lt;/form&gt;
+</pre>
+                            </li>
+                            <li><x-summary>How to use regular expressions in JavaScript code then?</x-summary>
+<pre style="display: none;">// Example of username
+    ???.???('test_form_button').???('click', function() {
+        if (???.???('username').value.???(/^[_a-z][_a-z0-9]{3,}$/i) == null) {  // Wrong
+            ...
+        }
+        else
+            ???.???('???').<b>submit()</b>;  // submit() method in the form object
+        // or
+        var pattern = /^[_a-z][_a-z0-9]{3,}$/i;
+        if (pattern.???(???.???('username').value))
+            ...
+    }
+</pre>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><x-summary>How to force users to enter inputs always?</x-summary>
+                        <span style="display: none;">&nbsp;&nbsp;&nbsp;The <b>required</b> attribute</span>
+                    </li>
+                    <li><x-summary>Can you include a regular expression into an input element?</x-summary>
+                        <span style="display: none;">&nbsp;&nbsp;&nbsp;The <b>pattern</b> attribute.
+                            Read <a target="_blank" href="http://www.w3schools.com/TAgs/att_input_pattern.asp">HTML &lt;input&gt; pattern Attribute</a> for further information/examples.
+                            It is interesting and can be used in SPA.
+                        </span>
+                    </li>
+                </ul>
+            </li>
+            
+            <br>
+            <li><x-summary>Learning outcomes</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: none;">
+                    <li>Use of controller for different user inputs.</li>
+                    <li>How to display any error message with the original input forms.</li>
+                    <li>Use of regular expressions to validate the syntax of user inputs such as password, email, phone numbers, and usernames.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+
+
+</body></html>

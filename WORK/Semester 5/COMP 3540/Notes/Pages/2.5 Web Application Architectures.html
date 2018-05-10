@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)http://cs.tru.ca/~mlee/comp3540/Winter2018/2.%20web_environment/5.%20mvc_appl_arch.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>2.5 Web Application Architectures</title>
+    <link type="text/css" rel="stylesheet" href="./2.5 Web Application Architectures_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./2.5 Web Application Architectures_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./2.5 Web Application Architectures_files/table.css">
+    <script src="./2.5 Web Application Architectures_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./2.5 Web Application Architectures_files/class.js.download"></script>
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="text-align: center">2.5 Web Application Architectures</h1>
+    </div>
+    
+    <div class="pane_lower2">
+        <ol class="nested_subsection" style="counter-reset: chapter 2 section 5">
+            <li><x-summary>Motivations</x-summary> 
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Let's consider this situation in the application TRUQA (TRU Question and Answer): 
+                        You need to handle 'SignIn', 'JoinIn', and 'ForgotPassword'.
+                        You can develop three different PHP programs for the three software modules.
+                        But they are very similar modules.
+                        Isn't it better to develop just one PHP program and handle all the three software modules together within the program?
+                    </li>
+                    <li>Then what kind of application/software architecture do you need to use?</li>
+                </ul>
+            </li>
+            
+            <li><x-summary><b class="xemp">Model View Control (MVC)</b> basic</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li><x-summary>Read all in <a target="_blank" href="http://www.tutorialspoint.com/struts_2/basic_mvc_architecture.htm">Basic MVC Architecture</a>.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>List the three components.</li>
+                        </ul>
+                    </li>
+                    <li>Read the first paragraph and 'Overview' in <a target="_blank" href="http://en.wikipedia.org/wiki/Model-view-controller/">Model-view-controller</a>.</li>
+                    <li>What is the controller responsible for?</li>
+                    <li>In TRUQA, we have three different types of user inputs - 'SignIn', 'JoinIn', and 'ForgotPassword'.
+                        A few more different types will be added later.
+                        The question is how to distinguish the three types of user inputs in the controller.</li>
+                    <li><x-summary>Any good idea?</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                            <li>Any good idea to send data without displaying to the user or obtaining from the user?</li>
+                            <li>There is one input type for this purpose. <x-summary>What is it?</x-summary> <span style="display: inline;">'hidden'</span></li>
+                            <li><x-summary class="xemp">Here is an important example.</x-summary>
+<pre style="display: block;">-- in view_start.html ----------------------------
+&lt;form action='controller.php'&gt;
+    &lt;input type='hidden' name='page' value='Start'&gt; &lt;br&gt;
+    &lt;input type='???' name='command' value='SignIn'&gt; &lt;br&gt;
+    Username: &lt;br&gt; &lt;input type='text' name='Username'&gt; &lt;br&gt;
+    Password:&lt;br&gt; &lt;input type='???' name='Password'&gt; &lt;br&gt;
+    &lt;input type='submit'&gt;
+&lt;/form&gt;
+-- in view_start.html ----------------------------
+&lt;form action='controller.php'&gt;
+    &lt;input type='???' name='page' value='Start'&gt; &lt;br&gt;
+    &lt;input type='???' name='command' value='ForgotPassword'&gt; &lt;br&gt;
+    Username: &lt;br&gt; &lt;input ???='???' ???='Username'&gt; &lt;br&gt;
+    &lt;input type='submit'&gt;
+&lt;/form&gt;
+-- in controller.php ----------------------------
+&lt;?php
+    $command = $_GET['command'];  // It is in the code, but hidden from the user.
+    switch($command) {
+        case 'SignIn':
+            ...
+            exit();  // or break when there is something more to do after switch
+        case 'Join':
+            ...
+            exit();
+        case 'ForgotPassword':
+            ...
+            exit();
+        default:
+            ...
+            exit();
+    }
+?&gt;
+</pre>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li><x-summary><b class="xemp">Single Page Application (SPA)</b> basic</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Whenever you click a link or you enter data, a new page comes from the server. Is it convenient?</li>
+                    <li>Is there anyway to make web applications more like desktop applications?</li>
+                    <li>In other words, can we move the logic to the client-side?
+                        The the server-side will become like a library used to access databases.
+                    </li>
+                    <li><x-summary>Read 'Introduction' and 'Technical approaches' in <a target="_blank" href="https://en.wikipedia.org/wiki/Single-page_application">Single-page application</a>.</x-summary>
+                        <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            
+            <li><x-summary class="xemp">How are MVC and SPA different?</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>In MVC, commands (user data) are sent to server-side scripts that 
+                        access data base, prepare web content, and send it to the client.</li>
+                    <li>In SPA, commands (user data) are processed in client-side scripts that 
+                        send some requests to server-side scripts to get information from a database.
+                        client-side scripts update web content with the information obtained from the server.</li>
+                </ul>
+            </li>
+            
+            <br>
+            <li><x-summary>Learning outcomes</x-summary>
+                <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                    <li>Understand what MVC is.</li>
+                    <li>Understand what SPA is.</li>
+                    <li>Explain briefly how MVC and SPA are different.</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+
+
+</body></html>

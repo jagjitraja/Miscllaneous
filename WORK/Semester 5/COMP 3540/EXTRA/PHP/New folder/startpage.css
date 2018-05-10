@@ -1,0 +1,193 @@
+/* BASIC SETUP */
+
+html {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+/* Get rid of white border */
+body {
+	margin: 0px;
+	height: 100%;
+}
+
+/* HEADER STYLES */
+
+/* Header size and colour */
+header {
+	height: 100px;
+	background-color: rgb(175, 225, 240);
+}
+
+/* Center the title and ensure it is at the top of the page */
+.title {
+	text-align: center;
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	
+	/* Make title slightly larger and bold */
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+
+/* MENU STYLES */
+
+/* Fix image to top-right corner */
+.menu-wrapper {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+}
+
+.menu-wrapper img {
+	position: absolute;
+	right: 0px;
+}
+
+.menu-list {
+	display: block;
+	position: fixed;
+	top: 23px;
+	right: 0px;
+	visibility: hidden;
+}
+
+.menu-list li {
+	margin: 0px;
+	list-style: none;
+	background: rgb(245, 245, 245);
+	border: 1px solid black;
+}
+
+.menu-list li:hover {
+	background: rgb(230, 230, 230);
+}
+
+.menu-list li a {
+	color: black;
+	text-decoration: none;
+	font-size: 1.2em;
+}
+
+
+/* CONTENT STYLES */
+
+/* Set size of main part of page */
+.content {
+	height: calc(100% - 150px);
+}
+
+/* Create table wrapper that fills main part of page */
+.table-box-outside {
+	display: table;
+	width: calc(100% - 2px);
+	height: 100%;
+	margin: auto;
+}
+
+/* Create table-cell to vertically align box */
+.table-box-inside {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/* Div for creating the border around the main content */
+.box {
+	display: table;
+	width: 25%;
+	height: 20%;
+	margin: auto;
+	border: 1px solid black;
+}
+
+/* Display text in center of box */
+.box p {
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+	text-align: center;
+	margin: auto;
+}
+
+/* Set colour of direction indicator to red */
+.box p span {
+	color: red;
+}
+
+/*Popup box style and position*/
+#box-signin, #box-join, #box-forgotpassword {
+	position: absolute;
+	top: 200px;
+	left: calc((100% - 400px)/2);
+	width: 400px;
+	height: 300px;
+	display: none;
+	border: 1px solid black;
+	background-color: white;
+	padding: 5px;
+	z-index: 2;
+}
+
+/* Put cancel button in bottom left */
+.cancelbutton {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	margin: 5px;
+}
+
+/* Put submit button in bottom right */
+.submitbutton {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	margin: 5px;
+}
+
+/* Remove border from text input boxes */
+.textbox {
+	border: none;
+}
+
+/* Make semi-transparent box to dim the entire screen when a form is opened */
+#dim {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: black;
+	opacity: 0.8;
+	display: none;
+}
+
+/* FOOTER STYLES */
+
+/* Footer size and colour */
+footer {
+	height: 50px;
+	background-color: rgb(175, 225, 240);
+}
+
+/* Center "About Us" link in footer */
+footer span {
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+	margin: auto;
+}
+
+/* Set color of link text to black, remove underline */
+footer span a {
+	color: black;
+	text-decoration: none;
+}
+
+/* Make "About Us" link blue on hover */
+footer span a:hover {
+	color: blue;
+}

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)http://cs.tru.ca/~mlee/comp3540/Winter2018/4.%20dynamic_web_applications/4.%20cookie_session.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Cookies, and session management</title>
+    <link type="text/css" rel="stylesheet" href="./Cookies, and session management_files/tab.css">
+    <link type="text/css" rel="stylesheet" href="./Cookies, and session management_files/class.css">
+    <link type="text/css" rel="stylesheet" href="./Cookies, and session management_files/table.css">
+    <script src="./Cookies, and session management_files/jquery-1.11.1.min.js.download"></script>
+    <script src="./Cookies, and session management_files/class.js.download"></script>
+    
+</head>
+
+<body>
+    <div class="pane_upper2">
+        <h1 style="display:inline; position:relative; top:20px; text-align: center">4.4 Cookies, and session management</h1>
+    </div>
+    <script>
+        $('.pane_upper2').click(function() {
+            $('x-summary').siblings().toggle();
+        });
+    </script>
+    
+    <!-- for examples -->
+    <div style="position: fixed; right: 0px; top: 0px">
+        <img src="./Cookies, and session management_files/cookie-ch.jpg">
+    </div>
+    
+    <div id="visitor" style="z-index:10; display:none; position:fixed; top: 100px; right: 100px; height: 50px; font-size: 300%; background: LightGreen;" onclick="rmCookie()">
+        <span id="welcome-message"></span>
+        <button id="clear-welcome-message">Clear the message</button>
+    </div>
+    <script>
+        function setCookie(cname, cvalue, exmins) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exmins*60*1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + "; " + expires;
+        }
+        
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        
+        function rmCookie() {
+            var d = new Date();
+            d.setTime(d.getTime() - 60);
+            var expires = "expires="+d.toUTCString();
+            document.cookie = 'visitor=Dave' + "; " + expires;
+            document.getElementById('visitor').style.display = 'none';
+        }
+        
+        if (getCookie('visitor') == '') {
+            setCookie('visitor', 'John', 1);
+        } else {
+            document.getElementById('visitor').style.display = 'block';
+            document.getElementById('welcome-message').innerHTML = 'Welcom back, ' + getCookie('visitor') + '!';
+            setTimeout(function() {
+                document.getElementById('visitor').style.display = 'none';
+            }, 2000 * 60);
+        }
+        
+        $('#clear-welcome-message').click(function() {
+            document.getElementById('visitor').style.display = 'none';
+        });
+    </script>
+    <!-- the end of example -->
+    
+    <div class="pane_lower2">
+    <ol class="nested_subsection" style="counter-reset: chapter 4 section 4">
+        <li><x-summary>Motivations</x-summary> 
+            <ol style="display: block;">
+                <li><x-summary>How to recognize a returning user?</x-summary>
+                    <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                        <li>Can you reload this page? What do you see?</li>
+                        <li>In TRUQA, when the user comes back later, 
+                            do you really have to ask the user to enter the username again?
+                            What if your application displays the username in 'SignIn' box, which was used right before?</li>
+                            Isn't more user friendly?
+                        <li>How to display a greeting message with a specific username, like 'Good morning, Dave!'?</li>
+                        <li>When the user leaves TRUQA without 'Sign Out' and he/she comes back,
+                            does your application have to ask him/her to sign in again?</li>
+                    </ul>
+                </li>
+                <li><x-summary>How to maintain a <span class="xemp">session</span>?</x-summary>
+                    <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                        <li>Once the user enters the valid username and password, 
+                            the TRUQA controller will display the MainPage.
+                            The user will send new inputs to the controller. 
+                            <b>How does the controller know who sent the inputs from the MainPage?</b>
+                            <b>What if someone else sends the similar inputs, that is used in the MainPage, without proper SignIn?</b>
+                            You should not forget that the server-side programs run only one time, not continually.</li>
+                        <li><img src="./Cookies, and session management_files/why_session.png"></li>
+                        <li>You may need to leave data in the client side and in the server side too.</li>
+                        <li>What do you have to do?</li>
+                    </ul>
+                </li>
+            </ol>
+        </li>
+
+        <li><x-summary>What is an <span class="xemp">HTTP cookie</span>?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read the three paragraphs in <a target="_blank" href="http://en.wikipedia.org/wiki/HTTP_cookie">HTTP cookie</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>What are cookies used for?</li>
+                        <li>Where are cookies stored?</li>
+                        <li>When are cookies sent? To whom?</li>
+                        <li>Is there any security issue?</li>
+                        <li>What are thirty-party cookies?</li>
+                        <li>Is there any privacy concern?</li>
+                        <li>What are authentication cookies?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Read the first paragraphs in <a target="_blank" href="http://www.w3schools.com/php/php_cookies.asp"><span class="xemp">PHP Cookies</span></a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Which side sets a cookie?</li>
+                        <li>Where is the cookie stored?</li>
+                        <li>Which side retrieves the cookie?</li>
+                        <li>Are cookies automatically sent?</li>
+                    </ul>
+                </li>
+                <li><x-summary>What if the browser is closed? Will the cookies be destroyed?</x-summary>
+                    <span style="display: inline;">&nbsp;&nbsp;&nbsp;In general, yes, but not all.</span></li>
+                <li>Browsers generally accept only 20 cookies from each site and 300 cookies total. 
+                    In addition, they can limit each cookie to 4 kilobytes.</li>
+            </ul>
+        </li>
+
+        <li><x-summary>How to create/destroy a cookie?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_cookies.asp"><span class="xemp">PHP Cookies</span></a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Which function is used to create a cookie?</li>
+                        <li>How to set the expiration time of the cookie? When are cookies destroyed? When the browser is closed?</li>
+                        <li><x-summary>What if the third argument 'expire' is zero? There are two types of cookies.</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li><b>Session cookies</b> with 'expire' of zero - These cookies are destroyed when the browser is closed.</li>
+                                <li><b>Persistent cookies</b> - Destroyed at the set date and time.</li>
+                            </ul>
+                        </li>
+                        <li><x-summary>How to restrict the accessibility to only my application, not to all in the same server?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Isn't this important for TRUQA?</li>
+                                <li><x-summary>How to obtain the url name in PHP?</x-summary>
+<pre style="display: block;">echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
+</pre>
+                                </li>
+                                <li><x-summary>How to obtain the current directory name in PHP?</x-summary>
+<pre style="display: block;">echo getcwd();
+</pre>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>Which super global array is used to retrieve cookies?</li>
+                        <li>How to modify a cookie value?</li>
+                        <li><b>How to display a welcome message when the user comes back?</b></li>
+                        <li>How to destroy a cookie?</li>
+                        <li>How to check if cookies are enabled?</li>
+                    </ul>
+                </li>
+                <li><x-summary><b>Trial 1</b>: Let's try to create a cookie.</x-summary>
+                    <div style="display: block;">
+                        <textarea id="try1-textarea" rows="16" cols="100">&lt;?php
+    $name = "user";
+    $value = "John Doe";
+    if(!isset(???[$name])) {
+        echo "Cookie named '" . $name . "' is not set!&lt;br&gt;";
+        echo "Let's set a cookie!&lt;br&gt;";
+        ???($name, $value, time() + ???, "/"); // Expiration after 1 day
+        echo "Submit the above code again to see if the cookie is set.";
+    } else {
+        echo "Cookie '" . $name . "' is set!&lt;br&gt;";
+        echo "Value is: " . ???[???] . '&lt;br&gt;';
+        echo "Let's delete the cookie!&lt;br&gt;";
+        ???($name, ???, ???() - ???, "/"); // past time
+        echo "Submit the above code again to see if the cookie is deleted.";
+    }
+?&gt;
+                        </textarea>
+                        <button style="margin-top:11px" id="try1-button2">Submit the code to the server to execute PHP code</button>
+                        <script>
+                            $('#try1-button2').click(function() {
+                                $.post('run_mixed_html_php.php',
+                                    { code: $('#try1-textarea').val() },
+                                    function(data) { document.getElementById('try1-iframe').contentWindow.document.body.innerHTML = data; }
+                                );
+                            });
+                        </script>
+                        <br><iframe style="margin-top:10px" id="try1-iframe" name="try1-iframe" width="99%" src="./Cookies, and session management_files/saved_resource.html"></iframe>
+                    </div>
+                </li>
+                <li>It is also possible to use <a target="_blank" href="http://www.w3schools.com/js/js_cookies.asp"><span class="xemp">JavaScript Cookies</span></a>.
+                    We will discuss it in the next chapter.
+                </li>
+            </ul>
+        </li>
+        
+        <li><x-summary>How to view cookies on Chrome?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>Settings -&gt; Privacy -&gt; Content settings... -&gt; All cookies and site data...</li>
+            </ul>
+        </li>
+
+        <li><x-summary>How to display a welcome message when the user comes back?</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>When the username and password are valid, set the username as a cookie for a certain period of time.</li>
+                <li><x-summary>In controller.php in TRUQA,</x-summary>
+<pre style="display: block;">&lt;?php
+
+/*
+*   When controller.php is accessed for the first time
+*/
+
+if (empty($_POST['page'])) {
+    $display_type = 'no-signin';
+    include ('view_startpage.php');
+    exit;
+}
+
+/*
+*   When commands come from StartPage or MainPage
+*/
+
+require ('module.php');  // connect to MySQL database
+require ('module_users.php');  // functions to use Users table
+require ('module_questions.php');  // functions to use Questions table
+require ('module_answers.php');  // functions to use Answers table
+
+$page = $_POST['page'];
+$command = $_POST['command'];
+
+if ($page == 'StartPage') 
+{
+    switch ($command) {
+    case 'SignIn':
+        $username = ???;
+        $password = ???;
+        // When the user is valid,
+        if (is_valid(???, ???) {  // it is in module_users.php
+            ???('username', $username, time() + 24 * 60 * 60);  // Set a cookie for a welcoming message
+            include('view_mainpage.php');
+        }
+        // When invalid
+        else {
+            $display_type = 'signin';
+            $error_msg_username = '* Wrong username, or';
+            $error_msg_password = '* Wrong password';
+            include('view_startpage.php');
+        }
+        break;
+    ...
+    }
+}
+
+else if ($page == 'MainPage') 
+{
+    ...
+}
+
+else {
+    ...
+}
+?&gt;
+</pre>
+                </li>
+                <li><x-summary>In view_startpage.php in TRUQA,</x-summary>
+<pre style="display: block;">&lt;div id='welcome-message' style='display:???'&gt;&lt;/div&gt;
+&lt;script&gt;
+    &lt;?php
+        if (!empty($_???['username'])) {  // COOKIE super global array
+            echo "document.getElementById('welcome-message').??? = 'Welcome back, " . 
+                $_???['username'] . "!';";
+            echo "document.getElementById('welcome-message').??? = 'block';";
+            
+            // destroy the cookie
+            ???('username', '', time() - 1000);
+        }
+    ?&gt;
+&lt;/script&gt;
+</pre>
+                </li>
+            </ul>
+        </li>
+
+        <li><x-summary>What is a <span class="xemp">session</span>?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read 'What is a PHP Session' in <a target="_blank" href="http://www.w3schools.com/php/php_sessions.asp">PHP Sessions</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Why is session tracking difficult with HTTP?</li>
+                        <li>Where does PHP store the session data? In the client, or in the server?</li>
+                        <li>How to distinguish different session data?</li>
+                        <li>Is the session id stored in the server or in the client?</li>
+                        <li>How to create/obtain the session id?</li>
+                        <li><x-summary>Idea 1: In the MainPage of TRUQA, do you have to keep sending the username whenever any user input is submitted?</x-summary>
+                            <span style="display: inline;">&nbsp;&nbsp;&nbsp;Yes, but inconvenient. Even a third party can send the same username and data.</span></li>
+                        <li><x-summary>Idea 2: Can you use cookies instead of session data?</x-summary>
+                            <span style="display: inline;">&nbsp;&nbsp;&nbsp;Maybe with some other additional information. But those cookies must be destroyed 
+                                when the user signs out, or when there is no user activity for a certain period of time.</span></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li><x-summary>How to use a session with PHP?</x-summary> 
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>Read all in <a target="_blank" href="http://www.w3schools.com/php/php_sessions.asp">PHP Sessions</a>.</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>How to start a session?</li>
+                        <li>What does <code>session_start()</code> do? The return value of this function is TRUE or FALSE.</li>
+                        <li>How to store/retrieve a session variable?</li>
+                        <li>How to destroy a session completely?</li>
+                    </ul>
+                </li>
+                <li><x-summary>When do you think the session in TRUQA should be destroyed?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li>Sign out - How does the controller know it?</li>
+                        <li>Timeout - How does the controller know it? 
+                            Is it possible that the controller can check any user activity such that mouse movement?
+                        </li>
+                        <li>When the window is closed - How to know the window is closed?</li>
+                    </ul>
+                </li>
+                <li><x-summary>Here is an example of controller.php for TRUQA.</x-summary>
+<pre style="display: block;">&lt;?php
+
+/*
+*   When controller.php is accessed for the first time
+*/
+
+if (empty($_POST['page'])) {
+    $display_type = 'no-signin';
+    include ('view_startpage.php');
+    exit;
+}
+
+/*
+*   When commands come from StartPage or MainPage
+*/
+
+require ('module.php');  // connect to MySQL database
+require ('module_users.php');  // functions to use Users table
+require ('module_questions.php');  // functions to use Questions table
+require ('module_answers.php');  // functions to use Answers table
+
+session_start();
+
+$page = $_POST['page'];
+$command = $_POST['command'];
+
+if ($page == 'StartPage') 
+{
+    switch ($command) {
+    case 'SignIn':
+        $username = ???;
+        $password = ???;
+        // When the user is valid,
+        if (is_valid(???, ???) {  // it is in module_users.php
+            setcookie('username', $username, time() + 24 * 60 * 60);  // Set a cookie for a welcoming message
+            $_SESSION['signedin'] = 'YES';  // session variable
+            $???['username'] = $username;  // session variable
+            //$???['password'] = $password;  // session variable
+            include('view_mainpage.php');
+        } 
+        // When invalid
+        else {
+            $display_type = 'signin';
+            $error_msg_username = '* Wrong username, or';
+            $error_msg_password = '* Wrong password';
+            include('view_startpage.php');
+        }
+        break;
+    ...
+    }
+}
+
+else if ($page == 'MainPage') 
+{
+    if (!isset($_SESSION['signedin'])) {
+        $display_type = 'no-signin';
+        include ('view_startpage.php');
+        exit;
+    }
+    
+    $username = $_SESSION['username'];
+    //$password = $_SESSION['password'];
+
+    switch ($command) {
+    case 'SignOut':  // 'SignOut' menu item, or timeout
+        session_unset();
+        session_destroy();  // It does not unset session variables. session_unset() is needed.
+        $display_type = 'no-signin';
+        include ('view_startpage.php');
+        break;
+    case 'SearchQestions':
+        ...;
+        break;
+    ...
+    }
+}
+
+else {
+    ...
+}
+?&gt;
+</pre>
+                </li>
+                <li><x-summary>In view_mainpage.php in TRUQA,</x-summary>
+<pre style="display: block;">&lt;?php
+
+???_start();
+
+if (empty($_SESSION['signedin'])) {
+    $display_type = 'no-signin';
+    include('view_startpage.php');
+    exit;
+}
+?&gt;
+...
+</pre>
+                </li>
+                
+                <li><x-summary><b>Trial 1.5</b>: Let's try to create session values.</x-summary>
+                    <div style="display: block;">
+                        <textarea id="try1-5-textarea" rows="17" cols="100">&lt;?php
+    ???;  // session start
+    $name = "username";  // a session variable name
+    if(!isset(???[$name])) {
+        echo "Session variable named '" . $name . "' is not set!&lt;br&gt;";
+        echo "Let's set the session variable!&lt;br&gt;";
+        ??? = ???; 
+        echo "Submit the above code again to see if the session variable is set.";
+    } else {
+        echo "Session variable '" . $name . "' is set!&lt;br&gt;";
+        echo "Value is: " . ???[???] . '&lt;br&gt;';
+        echo "Let's delete the session variable and destroy the session!&lt;br&gt;";
+        ???;
+        ???;
+        echo "Submit the above code again to see if the session variable is set.";
+    }
+?&gt;
+                        </textarea>
+                        <button style="margin-top:11px" id="try1-5-button2">Submit the code to the server to execute PHP code</button>
+                        <script>
+                            $('#try1-5-button2').click(function() {
+                                $.post('run_mixed_html_php.php',
+                                    { code: $('#try1-5-textarea').val() },
+                                    function(data) { document.getElementById('try1-5-iframe').contentWindow.document.body.innerHTML = data; }
+                                );
+                            });
+                        </script>
+                        <br><iframe style="margin-top:10px" id="try1-5-iframe" name="try1-5-iframe" width="99%" src="./Cookies, and session management_files/saved_resource(1).html"></iframe>
+                    </div>
+                </li>
+           </ul>
+        </li>
+
+        <li><x-summary>How to detect user inactivity? <b>Timeout</b>?
+            How to support automatic SingOut?
+            </x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li><x-summary>How to check the user inactivity?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Any good idea?</x-summary> <span style="display: inline;">No typing and no mouse movement for a certain time of period; or when the application window is closed</span></li>
+                        <li><x-summary>How to implement?</x-summary>
+                            <ul is="ul-square" style="list-style-type: square; display: block;">
+                                <li>Timers - <a target="_blank" href="http://www.w3schools.com/jsref/met_win_setinterval.asp">window.setInterval()</a>, <a target="_blank" href="http://www.w3schools.com/jsref/met_win_settimeout.asp">window.setTimeout()</a></li>
+                                <li>Events - 'mousemove', 'keydown', 'unload'</li>
+                                <li><x-summary>Here is an example of view_mainpage.php.</x-summary>
+<pre style="display: block;">&lt;script&gt;
+    ...
+    var timer = setTimeout(timeout, 10 * 60 * 1000);
+    window.addEventListener('mousemove', event_handler_mousemove);
+    window.addEventListener('???', function() {  // 
+        ???(???);
+        timer = ???(timeout, 10 * 60 * 1000);
+    });
+    window.addEventListener('???', function() {
+        ...
+    });
+    function event_handler_mousemove() {
+        clearTimeout(???);
+        timer = setTimeout(timeout, 10 * 60 * 1000);
+    }
+    function timeout() {
+        ???  // remove the event handler for 'mousemove'
+        ...  // send the 'SignOut' command to the controller
+    }
+    ...
+&lt;/script&gt;
+</pre>
+                                </li>
+                                <li><x-summary><b>Trial 2</b>: Let's try to capture the user inactivity.</x-summary>
+                                    <div style="display: block;">
+                                        <textarea id="try2-textarea" rows="11" cols="100">&lt;script&gt;
+    var timer = ???(timeout, 10 * 1000);
+    window.???(???, ???); // Register an event handler for 'mousemove'
+    function event_handler_mousemove() {
+        ???(???);  // Clear timeout
+        timer = ???(???, 10 * 1000);  // Reregister ...
+    }
+    function timeout() {
+        window.???('mousemove', ???);  // Remove the event listener
+        alert('Wake uuuuuuuuuuuuP');
+    }
+&lt;/script&gt;
+                                        </textarea>
+                                        <button style="margin-top:11px" id="try2-button2">Test the above code using <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/runcode.php">runcode</a>.</button>
+                                        <!--
+                                        <script>
+                                            $('#try2-button2').click(function() {
+                                                $.post('run_mixed_html_php.php',
+                                                    { code: $('#try2-textarea').val() },
+                                                    function(data) { document.getElementById('try2-iframe').contentWindow.document.body.innerHTML = data; }
+                                                );
+                                            });
+                                        </script>
+                                        <br><iframe style='margin-top:10px' id='try2-iframe' name='try2-iframe' width='99%'></iframe>
+                                        -->
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><x-summary>What to do when there is no user activity?</x-summary>
+                    <ul is="ul-circle" style="list-style-type: circle; display: block;">
+                        <li><x-summary>Send 'SignOut' to controller.php. In view_mainpage.php,</x-summary>
+<pre style="display: block;">&lt;form id='form-signout' method='POST' action='???' style='???:???'&gt;  <!-- initially not displayed -->
+    &lt;input type='hidden' name='page' value='???'&gt;
+    &lt;input type='hidden' name='???' value='SignOut'&gt;
+    &lt;input type='???'&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+    ...
+    function timeout() {
+        ...
+        document.getElementById('form-signout').???();  // submit the form with the 'SignOut' command
+    }
+    ...
+&lt;/script&gt;
+</pre>
+                        </li>
+                        <li><x-summary><b>Trial 3</b>: Let's try to send the 'TimeOut' command.</x-summary>
+                            <div style="display: block;">
+                                <textarea id="try3-textarea" rows="15" cols="100">&lt;form id='form-timeout' method='POST' action='//cs.tru.ca/~mlee/comp3540/Software/test_display_inputs.php' style='???:???'&gt;
+    &lt;input type='hidden' name='page' value='MainPage'&gt;
+    &lt;input type='hidden' ???='???' ???='TimeOut'&gt;
+&lt;/form&gt;
+&lt;script&gt;
+    var timer2 = setTimeout(timeout, 10 * 1000);
+    window.addEventListener('mousemove', event_handler_mousemove);  // Register an event handler for 'mousemove'
+    function event_handler_mousemove() {
+        clearTimeout(timer2);  // Clear timeout
+        timer = setTimeout(timeout, 10 * 1000);  // Reregister ...
+    }
+    function timeout() {
+        window.removeEventListener('mousemove', ???);  // Remove the event listener for 'mousemove'
+        document.getElementById(???).???();  // submit the form with the 'TimeOut' command
+    }
+&lt;/script&gt;
+                                </textarea>
+                                <button style="margin-top:11px" id="try3-button2">Test the above code using <a target="_blank" href="http://cs.tru.ca/~mlee/comp3540/Software/runcode.php">runcode</a>.</button>
+                                <!--
+                                <script>
+                                    $('#try3-button2').click(function() {
+                                        $.post('run_mixed_html_php.php',
+                                            { code: $('#try3-textarea').val() },
+                                            function(data) { document.getElementById('try3-iframe').contentWindow.document.body.innerHTML = data; }
+                                        );
+                                    });
+                                </script>
+                                <br><iframe style='margin-top:10px' id='try3-iframe' name='try3-iframe' width='99%'></iframe>
+                                -->
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <br>
+        <li><x-summary>Some review questions and learning outcomes</x-summary>
+            <ul is="ul-disc" style="list-style-type: disc; display: block;">
+                <li>How to create/read/destroy cookies.</li>
+                <li>How to use cookies to display a welcome message.</li>
+                <li>How to use session to share data, e.g., username, over multiple pages.</li>
+                <li>Write the JS code for timeout.</li>
+                <li>When a command comes from MainPage of TRUQA, how to use session to check whether a user signed in.</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <br>
+    </div>
+    
+
+
+</body></html>
